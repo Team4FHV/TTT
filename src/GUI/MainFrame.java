@@ -11,7 +11,7 @@ package GUI;
 public class MainFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form MainFrame ANNNNNNNNNNNNN
+     * Creates new form MainFrame ANNNNNNNNNNNNN*MMMMMM
      */
     public MainFrame() {
         initComponents();

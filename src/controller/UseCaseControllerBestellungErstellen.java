@@ -10,6 +10,7 @@ import Hibernate.objecte.Bestellung;
 import Hibernate.objecte.Karte;
 import Hibernate.objecte.Kategorie;
 import Hibernate.objecte.Kunde;
+import Hibernate.objecte.Veranstaltung;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,7 +27,7 @@ import org.hibernate.Query;
 public class UseCaseControllerBestellungErstellen {
 
     private DataManager dataManager;
-    public Set<Karte> bestellteKartenSet = new HashSet(0);
+   // public Set<Karte> bestellteKartenSet = new HashSet(0);
 
     public UseCaseControllerBestellungErstellen() {
     }
@@ -47,39 +48,33 @@ public class UseCaseControllerBestellungErstellen {
         return (ArrayList<Karte>) list;
     }
 
-    public void legeKartenInWarenkorb(Kategorie kategorie, int anzahl) {
-        int x = kategorie.getKategorieId();
-        int y = KonstantKartenStatus.FREI.getKartenstatusId();
-
-        String hql = "FROM Karte  WHERE KategorieID = '" + x + "'" + " AND KartenstatusID = '" + y + "'";
-        Query query = DAOFabrik.getInstance().getCurrentSession().createQuery(hql).setMaxResults(anzahl);
-        List list = query.list();
-        if (list != null || list.size() != 0) {
-
-
-            ArrayList<Karte> karten = (ArrayList<Karte>) query.list();
-            for (Karte k : karten) {
-                karteBlockieren(k);
-                bestellteKartenSet.add(k);
-            }
-        }
-    }
+//    public void legeKartenInWarenkorb(Kategorie kategorie, int anzahl) {
+//        int x = kategorie.getKategorieId();
+//        int y = KonstantKartenStatus.FREI.getKartenstatusId();
+//
+//        String hql = "FROM Karte  WHERE KategorieID = '" + x + "'" + " AND KartenstatusID = '" + y + "'";
+//        Query query = DAOFabrik.getInstance().getCurrentSession().createQuery(hql).setMaxResults(anzahl);
+//        List list = query.list();
+//        if (list != null || list.size() != 0) {
+//
+//
+//            ArrayList<Karte> karten = (ArrayList<Karte>) query.list();
+//            for (Karte k : karten) {
+//                karteBlockieren(k);
+//                bestellteKartenSet.add(k);
+//            }
+//        }
+//    }
 
     // nur bei kauf ohne reservierung, für reservierung nur karteKaufen
     // gui macht  karteKaufen für jede karte und dann hier speichern
-    public void verkaufSpeichern(Benutzer benutzer, Kunde kunde) throws Exception {
-        if (bestellteKartenSet.isEmpty()) {
+    public void verkaufSpeichern(Benutzer benutzer, Kunde kunde, Set<Karte> karten) throws Exception {
+        if (karten.isEmpty()) {
             throw new Exception("Keine Karten zum speichern");
         } else {
             Date datum = new Date();
-            Iterator<Karte> iterator = bestellteKartenSet.iterator();
-            while (iterator.hasNext()) {
-                Karte b = iterator.next();
-                this.karteKaufen(b, false);
-            }
-
-            Bestellung bestellung = new Bestellung(benutzer, kunde, datum, bestellteKartenSet);
-            //dataManager.bestellungSpeichern(benutzer, kunde, datum, bestellteKartenSet);
+            Bestellung bestellung = new Bestellung(benutzer, kunde, datum, karten);
+            
             DAOFabrik.getInstance().getBestellungDAO().saveORupdate(bestellung);
 
         }
@@ -90,17 +85,17 @@ public class UseCaseControllerBestellungErstellen {
     
     
     // Weitere Metoden für UseCase
-    public void reservierungSpeichern(Benutzer benutzer, Kunde kunde) throws Exception {
+    public void reservierungSpeichern(Benutzer benutzer, Kunde kunde, Set<Karte> karten) throws Exception {
         if (kunde == null) {
             throw new Exception("Kein kundenummer");
         }
-        if (bestellteKartenSet.isEmpty()) {
+        if (karten.isEmpty()) {
             throw new Exception("Keine Karten zum speichern");
         } else {
             Date datum = new Date();
             //dataManager.bestellungSpeichern(benutzer, kunde, datum, bestellteKartenSet);
             DAOFabrik.getInstance().getBestellungDAO().
-                    saveORupdate(new Bestellung(benutzer, kunde, datum, bestellteKartenSet));
+                    saveORupdate(new Bestellung(benutzer, kunde, datum, karten));
         }
     }
 
@@ -111,8 +106,9 @@ public class UseCaseControllerBestellungErstellen {
 
     public void karteKaufen(Karte karte, boolean istErmaessigt) {
 
-        karte.setKartenstatus(KonstantKartenStatus.VERKAUFT);// dodelat
+        karte.setKartenstatus(KonstantKartenStatus.VERKAUFT);
         karte.setErmaessigt(istErmaessigt);
+        
         if (istErmaessigt) {
             int i = (100 - karte.getKategorie().getVeranstaltung().getErmaessigung());
 
@@ -144,6 +140,26 @@ public class UseCaseControllerBestellungErstellen {
         //Bestellung bestellung = dataManager.getReservierungNachID(id);
         return DAOFabrik.getInstance().getBestellungDAO().findById(id, false);
     }
+    
+    public Kunde getKundeByID(int id) {
+        return DAOFabrik.getInstance().getKundeDAO().findById(id, false);
+    }
+    
+    public Veranstaltung getVeranstaltungByID(int id) {
+        return DAOFabrik.getInstance().getVeranstaltungDAO().findById(id, false);
+    }
+    
+    public Kategorie getKategorieByID(int id) {
+        return DAOFabrik.getInstance().getKategorieDAO().findById(id, true);
+    }
+    
+    public Karte getKarteByID(int id) {
+        return DAOFabrik.getInstance().getKarteDAO().findById(id, true);
+    }
+    
+    public Benutzer getBenutzerByID(int id) {
+        return DAOFabrik.getInstance().getBenutzerDAO().findById(id, true);
+    }
 
     //  public ArrayList<Bestellung> reservierungenSuchen(Kunde kunde) {
     //ArrayList<Bestellung> reservierungen = dataManager.getReservierungenVonKunde(kunde);
@@ -151,14 +167,13 @@ public class UseCaseControllerBestellungErstellen {
     //}
     public ArrayList<Kunde> kundeSuchen(String nachname) {
         ArrayList<Kunde> kunden = dataManager.getKundeNachNachname(nachname);
-
         return kunden;
     }
 
-    public void loeschenAusWarenkorb(Karte karte) {
-        karteFreigeben(karte);
-        bestellteKartenSet.remove(karte);
-    }
+//    public void loeschenAusWarenkorb(Karte karte) {
+//        karteFreigeben(karte);
+//        bestellteKartenSet.remove(karte);
+//    }
 
     // gibt eine Liste von Karten von Kunde, die status RESERVIERT haben ---- RABOTAET
     public ArrayList<Karte> getReservierteKartenVonKunde(Kunde kunde) {

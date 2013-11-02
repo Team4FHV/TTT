@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  *
- * Bürgi • Dietrich  • Federova  • Shabanova
+ * Bürgi • Dietrich  • Fedorova  • Shabanova
  */
 public class UseCaseControllerSearch {
 
@@ -24,7 +24,7 @@ public class UseCaseControllerSearch {
     
    
      
-   public List<Veranstaltung> searchFilter(Veranstaltungsort ort, Date data, Kuenstler kun) {
+   public List<Veranstaltung> searchFilter(String ort, Date data, Kuenstler kun) {
                
          
                 List<Veranstaltung> veranstal = ver;
@@ -44,12 +44,12 @@ public class UseCaseControllerSearch {
 		return veranstal;
 	}
    
-          public List<Veranstaltung> sucheVeranstaltungNachORT( List<Veranstaltung> Veranstaltungs, Veranstaltungsort Resultat) {
+          public List<Veranstaltung> sucheVeranstaltungNachORT( List<Veranstaltung> Veranstaltungs, String ort) {
 	 
             List<Veranstaltung> List = new ArrayList<Veranstaltung>();	
            
         for (Veranstaltung v : Veranstaltungs) {
-		if(v.getVeranstaltungsort().equals(Resultat))
+		if(v.getVeranstaltungsort().getAdresse().contains(ort))
             List.add(v);
                
             }

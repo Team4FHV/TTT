@@ -43,13 +43,7 @@ public class DataManager<T> {
         return (Bestellung) list.get(0);
     }
     
-    // gibt Karten Status RESERVIERT --- rabotaet
-    //public Kartenstatus getKartenStatus(KonstantKartenStatus kks){
-      //  String hql = "FROM Kartenstatus WHERE Name = " + status;
-        //Query query = session.createQuery(hql);
-        //List list = query.list();
-        //return (Kartenstatus) list.get(0);
-    //}
+   
     
     
     
@@ -81,6 +75,21 @@ public ArrayList<Karte> getFreieKartenNachKategorie(Kategorie kategorie) {
        
         return (ArrayList<Kunde>) list;
     }
+     // 
+    public Kuenstler getKuenstlerNachName(String nachname) {
+        
+        String hql = "FROM Kuenstler k WHERE k.nachname = '" + nachname + "'";
+        Query query = session.createQuery(hql);
+        List list = query.list();
+        if (list == null || list.size() == 0) {
+            return null;
+        }
+       
+        return (Kuenstler) list.get(0);
+    }
+    
+    
+    
 // gibt gewuenschte Anzahl von von Karten zum Verkauf, nach kategorie ------ RABOTAET
     public ArrayList<Karte> getKartenNachKategorieUndAnzahl(Kategorie kategorie, int anzahl) { //Eventuell Anzahl weglassen
         int x = kategorie.getKategorieId();

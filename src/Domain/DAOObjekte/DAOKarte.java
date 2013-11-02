@@ -10,7 +10,7 @@ import Hibernate.objecte.Karte;
 
 /**
  *
- * Bürgi • Dietrich  • Fedorova  • Shabanova
+ * Bürgi • Dietrich  • Federova  • Shabanova
  */
 public class DAOKarte extends DAOGeneric < Karte, Long >{
 

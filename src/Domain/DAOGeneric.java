@@ -7,7 +7,7 @@ package Domain;
 
 /**
  *
- * Bürgi • Dietrich  • Fedorova  • Shabanova
+ * Bürgi • Dietrich  • Federova  • Shabanova
  */
 import Hibernate.konfiguration.HibernateUtil;
 
@@ -78,7 +78,7 @@ public abstract class DAOGeneric<T, ID extends Serializable> {
 		Example example = Example.create(exampleInstance);
 		if (excludeProperty != null) {
 			for (String exclude : excludeProperty) {
-				example.excludeProperty(exclude);
+				example.excludeProperty(exclude);example.excludeProperty(exclude);example.excludeProperty(exclude);
 			}
 		}
 		crit.add(example);
@@ -93,6 +93,7 @@ public abstract class DAOGeneric<T, ID extends Serializable> {
 	
 	public T saveORupdate(T entity) {
 		try {
+			// getSession().flush();
 			HibernateUtil.currentSession().beginTransaction();
 			getSession().saveOrUpdate(entity);
 			HibernateUtil.currentSession().getTransaction().commit();
@@ -103,7 +104,40 @@ public abstract class DAOGeneric<T, ID extends Serializable> {
 		return entity;
 	}
 
-      	
+	
+        /*
+	public void makeTransient(T entity) {
+		try {
+			HibernateUtil.currentSession().beginTransaction();
+			getSession().delete(entity);
+			HibernateUtil.currentSession().getTransaction().commit();
+		} catch (HibernateException e) {
+			HibernateUtil.currentSession().getTransaction().rollback();
+			
+                }
+	}
+
+	
+	public void makeTransientWithoutCommit(T entity) {
+		try {
+			getSession().delete(entity);
+		} catch (HibernateException e) {
+			
+		}
+	}
+        */
+
+	
+	public void flush() {
+		getSession().flush();
+	}
+
+	
+	public void clear() {
+		getSession().clear();
+	}
+
+	
         
 	@SuppressWarnings("unchecked")
 	protected List<T> findByCriteria(Criterion... criterion) {

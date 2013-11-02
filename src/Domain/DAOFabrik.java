@@ -14,11 +14,9 @@ import Domain.DAOObjekte.DAOBestellung;
 import Domain.DAOObjekte.DAOKarte;
 import Domain.DAOObjekte.DAOKartenstatus;
 import Domain.DAOObjekte.DAOKategorie;
-import Domain.DAOObjekte.DAOKuenstler;
 import Domain.DAOObjekte.DAOKunde;
 import Domain.DAOObjekte.DAOVeranstaltung;
 import Domain.DAOObjekte.DAORolle;
-import Domain.DAOObjekte.DAOVeranstaltungsort;
 import Hibernate.konfiguration.HibernateUtil;
 
 import org.hibernate.Session;
@@ -28,8 +26,9 @@ public class DAOFabrik {
     	private static DAOFabrik _instance;
 
 	/**
+	 * Returns the globally useable {@link DAOFactory}.
 	 * 
-	 * @return instance.
+	 * @return the instance.
 	 */
 	public static DAOFabrik getInstance() {
 		if (_instance == null) {
@@ -51,20 +50,9 @@ public class DAOFabrik {
 		return (DAOKartenstatus) instantiateDAO(DAOKartenstatus.class);
 	}
         
-        public DAOKategorie getKategorieDAO() {
-		return (DAOKategorie) instantiateDAO(DAOKategorie.class);
-	}
         
         public DAOKarte getKarteDAO() {
 		return (DAOKarte) instantiateDAO(DAOKarte.class);
-	}
-        
-         public DAOKuenstler getKuenstlerDAO() {
-		return (DAOKuenstler) instantiateDAO(DAOKuenstler.class);
-	}
-         
-          public DAOVeranstaltungsort getVeranstaltungsDAO() {
-		return (DAOVeranstaltungsort) instantiateDAO(DAOVeranstaltungsort.class);
 	}
         
         public DAORolle getRolleDAO() {
@@ -79,10 +67,18 @@ public class DAOFabrik {
 		return (DAOBenutzer) instantiateDAO(DAOBenutzer.class);
 	}
         
+        public DAOKategorie getKategorieDAO() {
+		return (DAOKategorie) instantiateDAO(DAOKategorie.class);
+	}
+        
 	/**
-	 * Creates a new DAO
+	 * Creates a new DAO for the specified class.
+	 * 
+	 * @param daoClass
+	 *            the type of the dao to be created
+	 * @return the created an initialized dao.
 	 */
-	private DAOGeneric<?, ?> instantiateDAO(Class<?> daoClass) {
+	public DAOGeneric<?, ?> instantiateDAO(Class<?> daoClass) {
 		try {
 			DAOGeneric<?, ?> dao = (DAOGeneric<?, ?>) daoClass.newInstance();
 			dao.setSession(getCurrentSession());
@@ -94,9 +90,11 @@ public class DAOFabrik {
 	}
 
 	/**
-	* @return the current session.
+	 * Returns the current session to be assigned to all DAOs.
+	 * 
+	 * @return the current session.
 	 */
-	
+	// You could override this if you don't want HibernateUtil for lookup
 	public Session getCurrentSession() {
 		return HibernateUtil.currentSession();
 	}

@@ -17,7 +17,7 @@ import java.util.List;
 import org.hibernate.Session;
 /**
  *
- * Bürgi • Dietrich  • Federova  • Shabanova
+ * Bürgi • Dietrich  • Fedorova  • Shabanova
  */
 public class DAOVeranstaltung extends DAOGeneric < Veranstaltung, Long >{
 

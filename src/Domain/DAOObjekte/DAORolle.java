@@ -10,7 +10,7 @@ import Hibernate.objecte.Rolle;
 
 /**
  *
- * Bürgi • Dietrich  • Federova  • Shabanova
+ * Bürgi • Dietrich  • Fedorova  • Shabanova
  */
 public class DAORolle extends DAOGeneric < Rolle, Long >{
 

@@ -10,7 +10,7 @@ import Hibernate.objecte.Kartenstatus;
 
 /**
  *
- * Bürgi • Dietrich  • Federova  • Shabanova
+ * Bürgi • Dietrich  • Fedorova  • Shabanova
  */
 public class DAOKartenstatus extends DAOGeneric < Kartenstatus, Long >{
 

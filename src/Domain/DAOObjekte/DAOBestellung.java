@@ -10,7 +10,7 @@ import Hibernate.objecte.Bestellung;
 
 /**
  *
- * Bürgi • Dietrich  • Federova  • Shabanova
+ * Bürgi • Dietrich  • Fedorova  • Shabanova
  */
 public class DAOBestellung extends DAOGeneric < Bestellung, Long > {
 

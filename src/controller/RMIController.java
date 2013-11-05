@@ -37,7 +37,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
     private UseCaseControllerBestellungErstellen ucb;
     private UseCaseControllerSearch ucs;
     private DataManager<Object> dm;
-    private Benutzer benutzer = null; // TODO
+    private Benutzer benutzer; // TODO
 
      public RMIController() throws RemoteException {
         super();

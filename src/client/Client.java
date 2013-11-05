@@ -98,7 +98,7 @@ public class Client {
     public ArrayList<DTOVeranstaltungInformation> sucheVeranstaltungenNachKrieterien(Date d, String ort, String kuenstler) {
         ArrayList<DTOVeranstaltungInformation> x = null;
         try {
-            //x = stub.sucheVeranstaltungenNachKrieterien(d, ort, kuenstler);
+            x = stub.sucheVeranstaltungenNachKrieterien(d, ort, kuenstler);
         } catch (Exception exc) {
             System.out.println(exc.getMessage());
         }

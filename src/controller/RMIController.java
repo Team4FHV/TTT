@@ -50,15 +50,25 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
     @Override
     public ArrayList<DTOVeranstaltungInformation> sucheVeranstaltungenNachKrieterien(Date d, String ort, String kuenstler) throws RemoteException{
         ArrayList<DTOVeranstaltungInformation> veranstaltungDTOList = new ArrayList<DTOVeranstaltungInformation>();
-        Kuenstler k = dm.getKuenstlerNachName(kuenstler);
+        if( d == null){
+            d = new Date();
+        }
+         Kuenstler k;
+        if(kuenstler != null){
+             k = dm.getKuenstlerNachName(kuenstler); System.out.println(k);
+        } else {
+            k = null;
+        }
+
         List<Veranstaltung> veranstaltungList = ucs.searchFilter(ort, d, k);
         for ( Veranstaltung v: veranstaltungList){
-            String[] ku = (String[])v.getKuenstlers().toArray();
-            String  kuenstlerList = "";
-            for(int i = 0; i< ku.length; i++  ){
-              kuenstlerList+= ku[i] +" ";
-            }
+            Object[] ku = v.getKuenstlers().toArray();
             
+            String  kuenstlerList = "";
+//            for(int i = 0; i< ku.length; i++  ){
+//              kuenstlerList+= ((Kuenstler) ku[i]).getName() +" ";
+//            }
+//            
             veranstaltungDTOList.add(new DTOVeranstaltungInformation(v.getDatumUhrzeit(), v.getVeranstaltungsort().getAdresse(), kuenstlerList, v.getVeranstaltungId(),v.getName()));
         }
         

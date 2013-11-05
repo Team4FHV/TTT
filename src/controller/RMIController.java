@@ -11,6 +11,7 @@ import DTO.objecte.DTOKategorieInformation;
 import DTO.objecte.DTOKategorieKarte;
 import DTO.objecte.DTOKategorienAuswaehlen;
 import DTO.objecte.DTOKundenDaten;
+import DTO.objecte.DTOVeranstaltung;
 import DTO.objecte.DTOVeranstaltungAnzeigen;
 import DTO.objecte.DTOVeranstaltungInformation;
 import DTO.objecte.DTOVeranstaltungSuchen;
@@ -55,7 +56,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
         }
          Kuenstler k;
         if(kuenstler != null){
-             k = dm.getKuenstlerNachName(kuenstler); System.out.println(k);
+             k = dm.getKuenstlerNachName(kuenstler); 
         } else {
             k = null;
         }
@@ -65,10 +66,12 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
             Object[] ku = v.getKuenstlers().toArray();
             
             String  kuenstlerList = "";
-//            for(int i = 0; i< ku.length; i++  ){
-//              kuenstlerList+= ((Kuenstler) ku[i]).getName() +" ";
-//            }
-//            
+            
+            for(int i = 0; i< ku.length; i++  ){
+                Kuenstler kk =(Kuenstler) ku[i];
+                kuenstlerList+= kk.getName() +" "; 
+           }
+            
             veranstaltungDTOList.add(new DTOVeranstaltungInformation(v.getDatumUhrzeit(), v.getVeranstaltungsort().getAdresse(), kuenstlerList, v.getVeranstaltungId(),v.getName()));
         }
         
@@ -172,5 +175,19 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
     public void karteKaufen(DTOKarteBestellen karteDTO) throws RemoteException{
         Karte karte = ucb.getKarteByID(karteDTO.getKartenID());
         ucb.karteKaufen(karte, karteDTO.isErmaessigt());
+    }
+    @Override
+    public DTOVeranstaltung getVeranstaltungByID(int Vid) {
+        Veranstaltung v = ucb.getVeranstaltungByID(Vid);
+        String Vname = v.getName();
+        String VOrt = v.getVeranstaltungsort().getAdresse();
+        Date date = v.getDatumUhrzeit();
+       
+        boolean ermaessigt = (v.getErmaessigung()==0);
+        return DTOVeranstaltung(Vid, Vname, VOrt, date, ermaessigt);
+    }
+
+    private DTOVeranstaltung DTOVeranstaltung(int Vid, String Vname, String VOrt, Date date, boolean ermaessigt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

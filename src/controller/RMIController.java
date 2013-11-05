@@ -45,7 +45,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
         ucb = new UseCaseControllerBestellungErstellen();
         ucs = new UseCaseControllerSearch();
         dm = new DataManager<>();
-        benutzer = ucb.getBenutzerByID(1); // TODO
+        benutzer = ucb.getBenutzerByID(2); // TODO
     }
 
     @Override
@@ -176,6 +176,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
         Karte karte = ucb.getKarteByID(karteDTO.getKartenID());
         ucb.karteKaufen(karte, karteDTO.isErmaessigt());
     }
+    
     @Override
     public DTOVeranstaltung getVeranstaltungByID(int Vid) {
         Veranstaltung v = ucb.getVeranstaltungByID(Vid);
@@ -190,4 +191,5 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
     private DTOVeranstaltung DTOVeranstaltung(int Vid, String Vname, String VOrt, Date date, boolean ermaessigt) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 }

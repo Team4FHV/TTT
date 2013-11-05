@@ -58,7 +58,7 @@ public class Client {
         return x;
     }
 
-    public ArrayList<DTOKundenDaten> getKundenListNachNachname(String nachname){
+    public ArrayList<DTOKundenDaten> getKundenListNachNachname(String nachname) {
         ArrayList<DTOKundenDaten> x = null;
         try {
             x = stub.getKundenListNachNachname(nachname);
@@ -68,7 +68,7 @@ public class Client {
         return x;
     }
 
-    public DTOKundenDaten getKundendatenNachID(int id){
+    public DTOKundenDaten getKundendatenNachID(int id) {
         DTOKundenDaten x = null;
         try {
             x = stub.getKundendatenNachID(id);
@@ -87,7 +87,7 @@ public class Client {
 
     }
 
-    public void reservierungSpeichern(List<DTOKarteReservieren> karten){
+    public void reservierungSpeichern(List<DTOKarteReservieren> karten) {
         try {
             stub.reservierungSpeichern(karten);
         } catch (Exception exc) {
@@ -124,7 +124,13 @@ public class Client {
 
     }
 
-    public DTOVeranstaltung getVeranstaltungByID(int kategorieID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public DTOVeranstaltung getVeranstaltungByID(int id) {
+        DTOVeranstaltung x = null;
+        try {
+            x = stub.getVeranstaltungByID(id);
+        } catch (Exception exc) {
+            System.out.println(exc.getMessage());
+        }
+        return x;
     }
 }

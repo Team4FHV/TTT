@@ -124,7 +124,10 @@ public class Client {
 
     }
 
-    public DTOVeranstaltung getVeranstaltungByID(int kategorieID) {
+    public DTOVeranstaltung getVeranstaltungByID(int ID) {
+        
+        
+        
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

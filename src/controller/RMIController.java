@@ -11,6 +11,7 @@ import DTO.objecte.DTOKategorieInformation;
 import DTO.objecte.DTOKategorieKarte;
 import DTO.objecte.DTOKategorienAuswaehlen;
 import DTO.objecte.DTOKundenDaten;
+import DTO.objecte.DTOVeranstaltung;
 import DTO.objecte.DTOVeranstaltungAnzeigen;
 import DTO.objecte.DTOVeranstaltungInformation;
 import DTO.objecte.DTOVeranstaltungSuchen;
@@ -173,4 +174,13 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
         Karte karte = ucb.getKarteByID(karteDTO.getKartenID());
         ucb.karteKaufen(karte, karteDTO.isErmaessigt());
     }
+
+    @Override
+    public DTOVeranstaltung getVeranstaltungByID(int kategorieID) throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   
+    
+    
 }

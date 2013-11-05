@@ -10,6 +10,7 @@ import DTO.objecte.DTOKategorieInformation;
 import DTO.objecte.DTOKategorieKarte;
 import DTO.objecte.DTOKategorienAuswaehlen;
 import DTO.objecte.DTOKundenDaten;
+import DTO.objecte.DTOVeranstaltung;
 import DTO.objecte.DTOVeranstaltungAnzeigen;
 import DTO.objecte.DTOVeranstaltungInformation;
 import DTO.objecte.DTOVeranstaltungSuchen;
@@ -43,5 +44,8 @@ public interface RMIControllerInterface extends Remote {
 
     void verkaufSpeichern(List<DTOKarteBestellen> karten) throws  Exception, RemoteException;
 
-    public DTOKategorieInformation getKategorieInfo(int id)  throws RemoteException;;
+    public DTOKategorieInformation getKategorieInfo(int id)  throws RemoteException;
+    
+    public DTOVeranstaltung getVeranstaltungByID(int kategorieID)throws RemoteException;;
+    
 }

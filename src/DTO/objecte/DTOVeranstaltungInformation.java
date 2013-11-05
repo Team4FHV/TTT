@@ -2,27 +2,28 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package DTO.objecte;
 
 import java.util.Date;
 
 /**
  *
- * Bürgi • Dietrich  • Fedorova  • Shabanova
+ * Bürgi • Dietrich • Fedorova • Shabanova
  */
 public class DTOVeranstaltungInformation {
 
-   private Date d;
-   private String ort;
-   private String kuenstler;
-   private int id;
+    private Date d;
+    private String ort;
+    private String kuenstler;
+    private String name;
+    private int id;
 
-    public DTOVeranstaltungInformation(Date d, String ort, String kuenstler, int id) {
+    public DTOVeranstaltungInformation(Date d, String ort, String kuenstler, int id, String name) {
         this.d = d;
         this.ort = ort;
         this.kuenstler = kuenstler;
         this.id = id;
+        this.name = name;
     }
 
     public int getId() {
@@ -33,7 +34,6 @@ public class DTOVeranstaltungInformation {
         this.id = id;
     }
 
-    
     public Date getD() {
         return d;
     }
@@ -57,7 +57,12 @@ public class DTOVeranstaltungInformation {
     public void setKuenstler(String kuenstler) {
         this.kuenstler = kuenstler;
     }
-    
-    
-	
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

@@ -59,7 +59,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
               kuenstlerList+= ku[i] +" ";
             }
             
-            veranstaltungDTOList.add(new DTOVeranstaltungInformation(v.getDatumUhrzeit(), v.getVeranstaltungsort().getAdresse(), kuenstlerList, v.getVeranstaltungId()));
+            veranstaltungDTOList.add(new DTOVeranstaltungInformation(v.getDatumUhrzeit(), v.getVeranstaltungsort().getAdresse(), kuenstlerList, v.getVeranstaltungId(), v.getName()));
         }
         
         return veranstaltungDTOList;

@@ -27,21 +27,21 @@ import java.rmi.RemoteException;
  */
 public interface RMIControllerInterface extends Remote {
 
-    DTOKategorieKarte getAlleFreieKartenNachKategorie(DTOKategorienAuswaehlen kat);
+    DTOKategorieKarte getAlleFreieKartenNachKategorie(DTOKategorienAuswaehlen kat)  throws RemoteException;
 
-    ArrayList<DTOKategorieInformation> getKategorieInfoVonVeranstaltung(DTOVeranstaltungAnzeigen v);
+    ArrayList<DTOKategorieInformation> getKategorieInfoVonVeranstaltung(DTOVeranstaltungAnzeigen v)  throws RemoteException;
 
-    ArrayList<DTOKundenDaten> getKundenListNachNachname(String nachname) throws Exception;
+    ArrayList<DTOKundenDaten> getKundenListNachNachname(String nachname)  throws RemoteException, Exception;
 
-    DTOKundenDaten getKundendatenNachID(int id) throws Exception;
+    DTOKundenDaten getKundendatenNachID(int id)  throws  Exception, RemoteException;
 
-    void karteKaufen(DTOKarteBestellen karteDTO);
+    void karteKaufen(DTOKarteBestellen karteDTO)  throws RemoteException;
 
-    void reservierungSpeichern(List<DTOKarteReservieren> karten) throws Exception;
+    void reservierungSpeichern(List<DTOKarteReservieren> karten)  throws  Exception, RemoteException;;
 
-    ArrayList<DTOVeranstaltungInformation> sucheVeranstaltungenNachKrieterien(Date d, String ort, String kuenstler);
+    ArrayList<DTOVeranstaltungInformation> sucheVeranstaltungenNachKrieterien(Date d, String ort, String kuenstler)  throws RemoteException;
 
-    void verkaufSpeichern(List<DTOKarteBestellen> karten) throws Exception;
+    void verkaufSpeichern(List<DTOKarteBestellen> karten) throws  Exception, RemoteException;
 
-    public DTOKategorieInformation getKategorieInfo(int id);
+    public DTOKategorieInformation getKategorieInfo(int id)  throws RemoteException;;
 }

@@ -37,18 +37,18 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
     private UseCaseControllerBestellungErstellen ucb;
     private UseCaseControllerSearch ucs;
     private DataManager<Object> dm;
-    private Benutzer benutzer = ucb.getBenutzerByID(1); // TODO
+    private Benutzer benutzer = null; // TODO
 
     public RMIController() throws RemoteException {
         super();
         ucb = new UseCaseControllerBestellungErstellen();
         ucs = new UseCaseControllerSearch();
         dm = new DataManager<>();
-        benutzer = ucb.getBenutzerByID(1); // TODO
+        benutzer = null; // TODO
     }
 
     @Override
-    public ArrayList<DTOVeranstaltungInformation> sucheVeranstaltungenNachKrieterien(Date d, String ort, String kuenstler) {
+    public ArrayList<DTOVeranstaltungInformation> sucheVeranstaltungenNachKrieterien(Date d, String ort, String kuenstler) throws RemoteException{
         ArrayList<DTOVeranstaltungInformation> veranstaltungDTOList = new ArrayList<DTOVeranstaltungInformation>();
         Kuenstler k = dm.getKuenstlerNachName(kuenstler);
         List<Veranstaltung> veranstaltungList = ucs.searchFilter(ort, d, k);
@@ -59,14 +59,14 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
               kuenstlerList+= ku[i] +" ";
             }
             
-            veranstaltungDTOList.add(new DTOVeranstaltungInformation(v.getDatumUhrzeit(), v.getVeranstaltungsort().getAdresse(), kuenstlerList, v.getVeranstaltungId(), v.getName()));
+            veranstaltungDTOList.add(new DTOVeranstaltungInformation(v.getDatumUhrzeit(), v.getVeranstaltungsort().getAdresse(), kuenstlerList, v.getVeranstaltungId()));
         }
         
         return veranstaltungDTOList;
     }
 
     @Override
-    public ArrayList<DTOKategorieInformation> getKategorieInfoVonVeranstaltung(DTOVeranstaltungAnzeigen v) {
+    public ArrayList<DTOKategorieInformation> getKategorieInfoVonVeranstaltung(DTOVeranstaltungAnzeigen v) throws RemoteException {
         ArrayList<DTOKategorieInformation> kategorieDTOList = new ArrayList<>();
         Veranstaltung veranstaltung = ucb.getVeranstaltungByID(v.getId());
         Kategorie[] kat = (Kategorie[]) veranstaltung.getKategories().toArray();
@@ -81,7 +81,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
     }
 
     @Override
-    public DTOKategorieInformation getKategorieInfo(int id) {
+    public DTOKategorieInformation getKategorieInfo(int id) throws RemoteException {
         Kategorie kat = ucb.getKategorieByID(id);
         int ermaessigung = kat.getVeranstaltung().getErmaessigung();
         int frei = dm.anzahlFreiePlatzeNachKategorie(kat);
@@ -89,7 +89,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
     }
 
     @Override
-    public DTOKategorieKarte getAlleFreieKartenNachKategorie(DTOKategorienAuswaehlen kat) {
+    public DTOKategorieKarte getAlleFreieKartenNachKategorie(DTOKategorienAuswaehlen kat) throws RemoteException {
         Kategorie k = ucb.getKategorieByID(kat.getId());
         List<DTOKarte> kartenDTOList = new ArrayList<>();
         List<Karte> karten = ucb.getFreieKartenNachKategorie(k);
@@ -100,7 +100,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
     }
 
     @Override
-    public ArrayList<DTOKundenDaten> getKundenListNachNachname(String nachname) throws Exception {
+    public ArrayList<DTOKundenDaten> getKundenListNachNachname(String nachname) throws RemoteException, Exception {
         ArrayList<Kunde> kundenlist = ucb.kundeSuchen(nachname);
         ArrayList<DTOKundenDaten> kundenDTOlist = new ArrayList<>();
         if (kundenlist == null || kundenlist.size() == 0) {
@@ -114,7 +114,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
     }
 
     @Override
-    public DTOKundenDaten getKundendatenNachID(int id) throws Exception {
+    public DTOKundenDaten getKundendatenNachID(int id) throws Exception, RemoteException {
         Kunde k = ucb.getKundeByID(id);
         if (k == null) {
             throw new Exception("Kein Kunde gefunden");
@@ -124,7 +124,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
     }
 
     @Override
-    public void verkaufSpeichern(List<DTOKarteBestellen> karten) throws Exception {
+    public void verkaufSpeichern(List<DTOKarteBestellen> karten) throws Exception, RemoteException {
         Set<Karte> bestellteKartenSet = new HashSet<>();
         int kundenId = karten.get(0).getKundenID();
         Kunde kunde = null;
@@ -142,7 +142,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
     }
 
     @Override
-    public void reservierungSpeichern(List<DTOKarteReservieren> karten) throws Exception {
+    public void reservierungSpeichern(List<DTOKarteReservieren> karten) throws Exception, RemoteException {
         Set<Karte> bestellteKartenSet = new HashSet<>();
         int kundenId = karten.get(0).getKundenID();
         Kunde kunde = null;
@@ -159,7 +159,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
     }
 
     @Override
-    public void karteKaufen(DTOKarteBestellen karteDTO) {
+    public void karteKaufen(DTOKarteBestellen karteDTO) throws RemoteException{
         Karte karte = ucb.getKarteByID(karteDTO.getKartenID());
         ucb.karteKaufen(karte, karteDTO.isErmaessigt());
     }

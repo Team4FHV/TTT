@@ -5,11 +5,18 @@
 
 package DTO.objecte;
 
+import java.io.Serializable;
+
 /**
  *
  * Bürgi • Dietrich  • Fedorova  • Shabanova
  */
-public class DTOKategorienAuswaehlen {
+public class DTOKategorienAuswaehlen implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2617784423536491789L;
  private int id;
 
     public DTOKategorienAuswaehlen(int id) {

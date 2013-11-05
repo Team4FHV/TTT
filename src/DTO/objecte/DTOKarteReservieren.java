@@ -5,11 +5,15 @@
 
 package DTO.objecte;
 
+import java.io.Serializable;
+
 /**
  *
  * Bürgi • Dietrich  • Fedorova  • Shabanova
  */
-public class DTOKarteReservieren {
+public class DTOKarteReservieren implements Serializable{
+
+    private static final long serialVersionUID = 2617784423536491789L;
     private int kartenID;
     private int kundenID;
     private boolean ermaessigt;

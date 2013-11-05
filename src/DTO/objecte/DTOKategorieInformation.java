@@ -5,13 +5,19 @@
 
 package DTO.objecte;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
  *
  * Bürgi • Dietrich  • Fedorova  • Shabanova
  */
-public class DTOKategorieInformation {
+public class DTOKategorieInformation implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2617784423536491789L;
   private int id;
   private String name;
   private  BigDecimal preis;

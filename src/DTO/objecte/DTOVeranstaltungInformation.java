@@ -4,13 +4,19 @@
  */
 package DTO.objecte;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * Bürgi • Dietrich • Fedorova • Shabanova
  */
-public class DTOVeranstaltungInformation {
+public class DTOVeranstaltungInformation implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2617784423536491789L;
 
     private Date d;
     private String ort;

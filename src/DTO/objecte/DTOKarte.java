@@ -5,11 +5,17 @@
 
 package DTO.objecte;
 
+import java.io.Serializable;
+
 /**
  *
  * Bürgi • Dietrich  • Fedorova  • Shabanova
  */
-public class DTOKarte {
+
+ public class DTOKarte implements Serializable{
+
+	
+	private static final long serialVersionUID = 2617784423536491789L;
     private int ID;
     private String reihe;
     private int platz;

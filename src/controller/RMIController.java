@@ -39,12 +39,12 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
     private DataManager<Object> dm;
     private Benutzer benutzer = null; // TODO
 
-    public RMIController() throws RemoteException {
+     public RMIController() throws RemoteException {
         super();
         ucb = new UseCaseControllerBestellungErstellen();
         ucs = new UseCaseControllerSearch();
         dm = new DataManager<>();
-        benutzer = null; // TODO
+        benutzer = ucb.getBenutzerByID(1); // TODO
     }
 
     @Override
@@ -59,7 +59,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
               kuenstlerList+= ku[i] +" ";
             }
             
-            veranstaltungDTOList.add(new DTOVeranstaltungInformation(v.getDatumUhrzeit(), v.getVeranstaltungsort().getAdresse(), kuenstlerList, v.getVeranstaltungId()));
+            veranstaltungDTOList.add(new DTOVeranstaltungInformation(v.getDatumUhrzeit(), v.getVeranstaltungsort().getAdresse(), kuenstlerList, v.getVeranstaltungId(),v.getName()));
         }
         
         return veranstaltungDTOList;

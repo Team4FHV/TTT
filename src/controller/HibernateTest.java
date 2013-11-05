@@ -1,18 +1,26 @@
 package controller;
 
+import DTO.objecte.DTOVeranstaltungInformation;
 import Domain.DAOFabrik;
 import Domain.DAOGeneric;
 import Domain.DAOObjekte.DAOKarte;
 import Hibernate.objecte.Karte;
 import Hibernate.objecte.Kunde;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 
 public class HibernateTest {
 	
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws RemoteException {
             
-            //DataManager m = new DataManager();
+           // DataManager m = new DataManager();
+           // System.out.println( m.getKuenstlerNachName("JonnyRonny"));
+            RMIController k = new RMIController();
+            ArrayList<DTOVeranstaltungInformation> ll =  k.sucheVeranstaltungenNachKrieterien(null, null, "JonnyRonny");
+         //   System.out.println(ll.get(0).getKuenstler());
+            
             //Bestellung b = m.getReservierungNachID(1);
             //Kunde b = m.getKundeNachID(1);
             //System.out.println(b.getAnrede().toString() + b.getVorname());

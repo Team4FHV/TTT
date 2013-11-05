@@ -78,7 +78,7 @@ public ArrayList<Karte> getFreieKartenNachKategorie(Kategorie kategorie) {
      // 
     public Kuenstler getKuenstlerNachName(String nachname) {
         
-        String hql = "FROM Kuenstler k WHERE k.nachname = '" + nachname + "'";
+        String hql = "FROM Kuenstler k WHERE k.name = '" + nachname + "'";
         Query query = session.createQuery(hql);
         List list = query.list();
         if (list == null || list.size() == 0) {

@@ -13,7 +13,6 @@ import DTO.objecte.DTOKundenDaten;
 import DTO.objecte.DTOVeranstaltung;
 import DTO.objecte.DTOVeranstaltungAnzeigen;
 import DTO.objecte.DTOVeranstaltungInformation;
-import DTO.objecte.DTOVeranstaltungSuchen;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -46,5 +45,5 @@ public interface RMIControllerInterface extends Remote {
 
     public DTOKategorieInformation getKategorieInfo(int id)  throws RemoteException;
     
-    public DTOVeranstaltung getVeranstaltungByID(int kategorieID)throws RemoteException;
+    public DTOVeranstaltung getVeranstaltungById(int veranstaltungID) throws RemoteException;
 }

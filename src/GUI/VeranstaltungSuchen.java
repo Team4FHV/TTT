@@ -267,7 +267,7 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldArtistActionPerformed
 
     private void jButtonAnzeigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnzeigenActionPerformed
-        veranstaltungAnzeigen();
+        veranstaltungAnzeigen(); 
     }//GEN-LAST:event_jButtonAnzeigenActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnzeigen;
@@ -357,11 +357,12 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
      * Object[model.getColumnCount()]; for (int i = 0; i < changedRow.length;
      * i++) { changedRow[i] = model.getValueAt(row, i); } } }); }
      */
+    
     private void veranstaltungAnzeigen() {
-        int[] row = jTableVeranstaltungen.getSelectedRows();
-        if (row.length > 0) {
-            int vno = (int) jTableVeranstaltungen.getValueAt(row[0], 4);
-            ctrl.VeranstaltungAnzeigen(vno);
+        int row = jTableVeranstaltungen.getSelectedRow(); 
+        if (row != -1) {
+            int vno = (int) jTableVeranstaltungen.getValueAt(row, 4); 
+            ctrl.VeranstaltungAnzeigen(vno); 
         }
     }
 

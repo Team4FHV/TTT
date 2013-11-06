@@ -13,7 +13,6 @@ import DTO.objecte.DTOKundenDaten;
 import DTO.objecte.DTOVeranstaltung;
 import DTO.objecte.DTOVeranstaltungAnzeigen;
 import DTO.objecte.DTOVeranstaltungInformation;
-import DTO.objecte.DTOVeranstaltungSuchen;
 import controller.RMIControllerInterface;
 import java.rmi.Naming;
 import java.util.ArrayList;
@@ -124,12 +123,12 @@ public class Client {
 
     }
 
-    public DTOVeranstaltung getVeranstaltungByID(int id) {
-        DTOVeranstaltung x = null;
+    public DTOVeranstaltung getVeranstaltungById(int veranstaltungID) {
+        DTOVeranstaltung x = null; System.out.println("GET VERANT");
         try {
-            x = stub.getVeranstaltungByID(id);
+            x = stub.getVeranstaltungById(veranstaltungID);
         } catch (Exception exc) {
-            System.out.println(exc.getMessage());
+            System.out.println("DYBILNAJA "+exc.getMessage());
         }
        return x;
     }

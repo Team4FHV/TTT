@@ -27,7 +27,7 @@ public class VeranstaltungKategorieCtrl {
     public VeranstaltungKategorieCtrl(int veranstaltungID, Client client)
     {
         _client = client;
-        _veranstaltung = _client.getVeranstaltungByID(veranstaltungID);
+        _veranstaltung = _client.getVeranstaltungById(veranstaltungID);
         _kategorien = _client.getKategorieInfoVonVeranstaltung(new DTOVeranstaltungAnzeigen(_veranstaltung.getID()));
     }
     

@@ -321,10 +321,10 @@ public class VeranstaltungKategorie extends javax.swing.JFrame {
         _ctrl.cancelButton();
     }
 
-    private void btnKategorieWaehlenClicked() {
+    private void btnKategorieWaehlenClicked() { 
         int selectedRow[] = _tblKategorien.getSelectedRows();
         if (selectedRow.length != 0) {
-            int id = (int) _tblKategorien.getValueAt(selectedRow[0], 1);
+            int id = (int) _tblKategorien.getValueAt(selectedRow[0], 0); System.out.println("selected kategorie " + id);
             _ctrl.selectKategorie(id);
         }
     }

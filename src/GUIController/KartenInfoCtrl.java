@@ -25,7 +25,7 @@ public class KartenInfoCtrl {
 
     public KartenInfoCtrl(int veranstaltungID, int kategorieID, Client client) {
         _client = client;
-        _veranstaltung = client.getVeranstaltungByID(kategorieID);
+        _veranstaltung = client.getVeranstaltungById(veranstaltungID);
         _kategorie = client.getKategorieInfo(kategorieID);
         _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new DTOKategorienAuswaehlen(_kategorie.getId()));
     }
@@ -43,7 +43,7 @@ public class KartenInfoCtrl {
     }
 
     public boolean checkKundennummer(String text) {
-        if (text != null) {
+        if (text == null) {
             return false;
         } else {
             int id = 0;

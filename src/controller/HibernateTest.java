@@ -11,6 +11,8 @@ import DTO.objecte.DTOVeranstaltungInformation;
 import Domain.DAOFabrik;
 import Domain.DAOGeneric;
 import Domain.DAOObjekte.DAOKarte;
+import Hibernate.objecte.Benutzer;
+import Hibernate.objecte.Bestellung;
 import Hibernate.objecte.Karte;
 import Hibernate.objecte.Kategorie;
 import Hibernate.objecte.Kunde;
@@ -18,7 +20,10 @@ import java.rmi.RemoteException;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class HibernateTest {
@@ -26,26 +31,36 @@ public class HibernateTest {
 
 	public static void main(String[] args) throws RemoteException, Exception {
             
-           DataManager m = new DataManager();
-           Kategorie kkkk = DAOFabrik.getInstance().getKategorieDAO().findById(1, false);
-          DTOKategorienAuswaehlen ka = new DTOKategorienAuswaehlen(kkkk.getKategorieId());
-          System.out.println( m.anzahlFreiePlatzeNachKategorie(kkkk));
-           System.out.println("rmikkk");
-           // System.out.println( m.getKuenstlerNachName("JonnyRonny"));
-            RMIController k = new RMIController();
-          
+          //  Kunde kunde = DAOFabrik.getInstance().getKundeDAO().findById(1, true);
+            Benutzer benu = DAOFabrik.getInstance().getBenutzerDAO().findById(1, true);
+            Bestellung best = new Bestellung(benu, null, new Date());
+           
+             UseCaseControllerBestellungErstellen gj = new UseCaseControllerBestellungErstellen();
+              Karte k =  DAOFabrik.getInstance().getKarteDAO().findById(1, false);
+              Set<Karte> karten = new HashSet<>();
+              karten.add(k);
+             gj.verkaufSpeichern(benu, null, null);
             
-            System.out.println("RMI " + k.getAlleFreieKartenNachKategorie(ka).getDTOKarten().size());
-             for (DTOKarte ktsz : k.getAlleFreieKartenNachKategorie(ka).getDTOKarten()){
-                 System.out.println("karte"+ ktsz.getReihe() + "  " + ktsz.getPlatz());
-             }
-            
-             
-             System.out.println("Reservieren");
-             DTOKarteReservieren kr = new DTOKarteReservieren(13, 1, true);
-             List<DTOKarteReservieren> karten = new ArrayList<DTOKarteReservieren>();
-             karten.add(kr);
-             k.reservierungSpeichern(karten);
+//           DataManager m = new DataManager();
+//           Kategorie kkkk = DAOFabrik.getInstance().getKategorieDAO().findById(1, false);
+//          DTOKategorienAuswaehlen ka = new DTOKategorienAuswaehlen(kkkk.getKategorieId());
+//          System.out.println( m.anzahlFreiePlatzeNachKategorie(kkkk));
+//           System.out.println("rmikkk");
+//           // System.out.println( m.getKuenstlerNachName("JonnyRonny"));
+//            RMIController k = new RMIController();
+//          
+//            
+//            System.out.println("RMI " + k.getAlleFreieKartenNachKategorie(ka).getDTOKarten().size());
+//             for (DTOKarte ktsz : k.getAlleFreieKartenNachKategorie(ka).getDTOKarten()){
+//                 System.out.println("karte"+ ktsz.getReihe() + "  " + ktsz.getPlatz());
+//             }
+//            
+//             
+//             System.out.println("Reservieren");
+//             DTOKarteReservieren kr = new DTOKarteReservieren(13, 1, true);
+//             List<DTOKarteReservieren> karten = new ArrayList<DTOKarteReservieren>();
+//             karten.add(kr);
+//             k.reservierungSpeichern(karten);
 //           DTOKundenDaten kkkkkk = k.getKundendatenNachID(1);
 //           
 //            System.out.println(kkkkkk.getNachname());

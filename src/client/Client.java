@@ -15,6 +15,9 @@ import DTO.objecte.DTOVeranstaltungAnzeigen;
 import DTO.objecte.DTOVeranstaltungInformation;
 import controller.RMIControllerFactoryInterface;
 import controller.RMIControllerInterface;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.rmi.Naming;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,15 +27,27 @@ public class Client {
 
     RMIControllerFactoryInterface stub;
     RMIControllerInterface rmi;
+    String host;
 
     public Client() {
         startClient();
     }
 
     private void startClient() {
+        
+        System.out.println("Geben Sie Bitte HOST ein:");
+        
+       BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
+
+	try {
+		host = console.readLine();
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+	
 
         try {
-            stub = (RMIControllerFactoryInterface) Naming.lookup("rmi://localhost/RMIControllerFactoryObject");
+            stub = (RMIControllerFactoryInterface) Naming.lookup("rmi://"+host+"/RMIControllerFactoryObject");
             try {
                  rmi = stub.createRMIController();
 

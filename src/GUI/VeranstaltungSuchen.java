@@ -5,8 +5,10 @@
 package GUI;
 
 import GUIController.VeranstaltungsSuchenCtrl;
+import java.awt.Frame;
 import java.util.List;
 import java.util.LinkedList;
+import javax.swing.JFrame;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
@@ -97,26 +99,8 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
         jPanelEventSearch.add(jPanelSearchLabels);
 
         jPanelSearchInput.setLayout(new java.awt.GridLayout(1, 5));
-
-        jTextFieldDate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldDateActionPerformed(evt);
-            }
-        });
         jPanelSearchInput.add(jTextFieldDate);
-
-        jTextFieldPlace.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldPlaceActionPerformed(evt);
-            }
-        });
         jPanelSearchInput.add(jTextFieldPlace);
-
-        jTextFieldArtist.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldArtistActionPerformed(evt);
-            }
-        });
         jPanelSearchInput.add(jTextFieldArtist);
 
         jPanelDeleteSearchButton.setLayout(new java.awt.GridLayout(1, 1));
@@ -246,10 +230,6 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
         btnSearchDeleteClicked();
     }//GEN-LAST:event_jButtonSearchDeleteActionPerformed
 
-    private void jTextFieldDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldDateActionPerformed
-
     private void jButtonSearchStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchStartActionPerformed
         btnSearchStartClicked();
     }//GEN-LAST:event_jButtonSearchStartActionPerformed
@@ -258,16 +238,8 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
         btnBackClicked();
     }//GEN-LAST:event_jButtonBackActionPerformed
 
-    private void jTextFieldPlaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPlaceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldPlaceActionPerformed
-
-    private void jTextFieldArtistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldArtistActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldArtistActionPerformed
-
     private void jButtonAnzeigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnzeigenActionPerformed
-        veranstaltungAnzeigen(); 
+        veranstaltungAnzeigen();
     }//GEN-LAST:event_jButtonAnzeigenActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnzeigen;
@@ -299,6 +271,7 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
 
     private void loadComponents() {
         setTableModel();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     public void btnSearchStartClicked() {
@@ -345,24 +318,11 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
         });
     }
 
-    /**
-     * private void setModelByPlace() {
-     * jTableVeranstaltungen.setModel(ctrl.getVeranstInfoModelByPlace(jTextFieldPlace.getText()));
-     * jTableVeranstaltungen.getModel().addTableModelListener(new
-     * TableModelListener() {
-     *
-     * @Override public void tableChanged(TableModelEvent e) { int row =
-     * e.getFirstRow(); int column = e.getColumn(); TableModel model =
-     * (TableModel) e.getSource(); Object[] changedRow = new
-     * Object[model.getColumnCount()]; for (int i = 0; i < changedRow.length;
-     * i++) { changedRow[i] = model.getValueAt(row, i); } } }); }
-     */
-    
     private void veranstaltungAnzeigen() {
-        int row = jTableVeranstaltungen.getSelectedRow(); 
+        int row = jTableVeranstaltungen.getSelectedRow();
         if (row != -1) {
-            int vno = (int) jTableVeranstaltungen.getValueAt(row, 4); 
-            ctrl.VeranstaltungAnzeigen(vno); 
+            int vno = (int) jTableVeranstaltungen.getValueAt(row, 4);
+            ctrl.VeranstaltungAnzeigen(vno);
         }
     }
 

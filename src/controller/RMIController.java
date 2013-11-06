@@ -45,7 +45,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
         ucb = new UseCaseControllerBestellungErstellen();
         ucs = new UseCaseControllerSearch();
         dm = new DataManager<>();
-        benutzer = ucb.getBenutzerByID(1); // TODO
+        benutzer = ucb.getBenutzerByID(2); // TODO
     }
 
     @Override

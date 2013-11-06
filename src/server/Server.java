@@ -1,6 +1,7 @@
 package server;
 
 import controller.RMIController;
+import controller.RMIControllerFactory;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -27,10 +28,10 @@ public class Server {
              System.setProperty("java.rmi.server.codebase", Server.class
             .getProtectionDomain().getCodeSource().getLocation().toString());
     
-            RMIController rmiController = new RMIController();
+            RMIControllerFactory rmiControllerFactory = new RMIControllerFactory();
             // Bind this object instance to the name "SquareNumberObject"
             
-            Naming.rebind("rmi://localhost:1099/RMIControllerObject", rmiController);
+            Naming.rebind("rmi://localhost:1099/RMIControllerFactoryObject", rmiControllerFactory);
            
             System.out.println("Object bound in registry");
 

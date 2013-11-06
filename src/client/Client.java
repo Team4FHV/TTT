@@ -13,6 +13,7 @@ import DTO.objecte.DTOKundenDaten;
 import DTO.objecte.DTOVeranstaltung;
 import DTO.objecte.DTOVeranstaltungAnzeigen;
 import DTO.objecte.DTOVeranstaltungInformation;
+import controller.RMIControllerFactoryInterface;
 import controller.RMIControllerInterface;
 import java.rmi.Naming;
 import java.util.ArrayList;
@@ -21,7 +22,8 @@ import java.util.List;
 
 public class Client {
 
-    RMIControllerInterface stub;
+    RMIControllerFactoryInterface stub;
+    RMIControllerInterface rmi;
 
     public Client() {
         startClient();
@@ -30,8 +32,14 @@ public class Client {
     private void startClient() {
 
         try {
-            stub = (RMIControllerInterface) Naming.lookup("rmi://localhost/RMIControllerObject");
+            stub = (RMIControllerFactoryInterface) Naming.lookup("rmi://localhost/RMIControllerFactoryObject");
+            try {
+                 rmi = stub.createRMIController();
 
+            } catch (Exception e) {
+                 System.out.println("Exception create rmi : " + e.getMessage());
+
+            }
         } catch (Exception e) {
             System.out.println("Exception: " + e.getMessage());
         }
@@ -40,7 +48,7 @@ public class Client {
     public DTOKategorieKarte getAlleFreieKartenNachKategorie(DTOKategorienAuswaehlen kat) {
         DTOKategorieKarte x = null;
         try {
-            x = stub.getAlleFreieKartenNachKategorie(kat);
+            x = rmi.getAlleFreieKartenNachKategorie(kat);
         } catch (Exception exc) {
             System.out.println(exc.getMessage());
         }
@@ -50,7 +58,7 @@ public class Client {
     public ArrayList<DTOKategorieInformation> getKategorieInfoVonVeranstaltung(DTOVeranstaltungAnzeigen v) {
         ArrayList<DTOKategorieInformation> x = null;
         try {
-            x = stub.getKategorieInfoVonVeranstaltung(v);
+            x = rmi.getKategorieInfoVonVeranstaltung(v);
         } catch (Exception exc) {
             System.out.println(exc.getMessage());
         }
@@ -60,7 +68,7 @@ public class Client {
     public ArrayList<DTOKundenDaten> getKundenListNachNachname(String nachname) {
         ArrayList<DTOKundenDaten> x = null;
         try {
-            x = stub.getKundenListNachNachname(nachname);
+            x = rmi.getKundenListNachNachname(nachname);
         } catch (Exception exc) {
             System.out.println(exc.getMessage());
         }
@@ -70,7 +78,7 @@ public class Client {
     public DTOKundenDaten getKundendatenNachID(int id) {
         DTOKundenDaten x = null;
         try {
-            x = stub.getKundendatenNachID(id);
+            x = rmi.getKundendatenNachID(id);
         } catch (Exception exc) {
             System.out.println(exc.getMessage());
         }
@@ -79,7 +87,7 @@ public class Client {
 
     public void karteKaufen(DTOKarteBestellen karteDTO) {
         try {
-            stub.karteKaufen(karteDTO);
+            rmi.karteKaufen(karteDTO);
         } catch (Exception exc) {
             System.out.println(exc.getMessage());
         }
@@ -88,7 +96,7 @@ public class Client {
 
     public void reservierungSpeichern(List<DTOKarteReservieren> karten) {
         try {
-            stub.reservierungSpeichern(karten);
+            rmi.reservierungSpeichern(karten);
         } catch (Exception exc) {
             System.out.println(exc.getMessage());
         }
@@ -97,7 +105,7 @@ public class Client {
     public ArrayList<DTOVeranstaltungInformation> sucheVeranstaltungenNachKrieterien(Date d, String ort, String kuenstler) {
         ArrayList<DTOVeranstaltungInformation> x = null;
         try {
-            x = stub.sucheVeranstaltungenNachKrieterien(d, ort, kuenstler);
+            x = rmi.sucheVeranstaltungenNachKrieterien(d, ort, kuenstler);
         } catch (Exception exc) {
             System.out.println(exc.getMessage());
         }
@@ -106,7 +114,7 @@ public class Client {
 
     public void verkaufSpeichern(List<DTOKarteBestellen> karten) {
         try {
-            stub.verkaufSpeichern(karten);
+            rmi.verkaufSpeichern(karten);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -115,7 +123,7 @@ public class Client {
     public DTOKategorieInformation getKategorieInfo(int id) {
         DTOKategorieInformation x = null;
         try {
-            x = stub.getKategorieInfo(id);
+            x = rmi.getKategorieInfo(id);
         } catch (Exception exc) {
             System.out.println(exc.getMessage());
         }
@@ -124,11 +132,11 @@ public class Client {
     }
 
     public DTOVeranstaltung getVeranstaltungById(int veranstaltungID) {
-        DTOVeranstaltung x = null; System.out.println("GET VERANT");
+        DTOVeranstaltung x = null;
         try {
-            x = stub.getVeranstaltungById(veranstaltungID);
+            x = rmi.getVeranstaltungById(veranstaltungID);
         } catch (Exception exc) {
-            System.out.println("DYBILNAJA "+exc.getMessage());
+            System.out.println(exc.getMessage());
         }
        return x;
     }

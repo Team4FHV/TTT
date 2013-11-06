@@ -99,7 +99,7 @@ public abstract class DAOGeneric<T, ID extends Serializable> {
 			HibernateUtil.currentSession().getTransaction().commit();
 		} catch (HibernateException e) {
 			HibernateUtil.currentSession().getTransaction().rollback();
-			
+			                 System.out.println("goljak");
 		}
 		return entity;
 	}

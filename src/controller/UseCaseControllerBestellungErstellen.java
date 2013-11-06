@@ -151,15 +151,15 @@ public class UseCaseControllerBestellungErstellen {
     
     
     public Kategorie getKategorieByID(int id) {
-        return DAOFabrik.getInstance().getKategorieDAO().findById(id, true);
+        return DAOFabrik.getInstance().getKategorieDAO().findById(id, false);
     }
     
     public Karte getKarteByID(int id) {
-        return DAOFabrik.getInstance().getKarteDAO().findById(id, true);
+        return DAOFabrik.getInstance().getKarteDAO().findById(id, false);
     }
     
     public Benutzer getBenutzerByID(int id) {
-        return DAOFabrik.getInstance().getBenutzerDAO().findById(id, true);
+        return DAOFabrik.getInstance().getBenutzerDAO().findById(id, false);
     }
 
     //  public ArrayList<Bestellung> reservierungenSuchen(Kunde kunde) {

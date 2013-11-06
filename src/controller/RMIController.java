@@ -21,6 +21,7 @@ import Hibernate.objecte.Kategorie;
 import Hibernate.objecte.Kuenstler;
 import Hibernate.objecte.Kunde;
 import Hibernate.objecte.Veranstaltung;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -151,6 +152,9 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
         Kunde kunde = null;
         if (kundenId != -1) {
             kunde = ucb.getKundeByID(kundenId);
+        }
+        if (kundenId == -1) {
+            kunde = ucb.getKundeByID(1);
         }
         if (karten != null) {
             for (DTOKarteBestellen b : karten) {

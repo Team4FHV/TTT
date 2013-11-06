@@ -9,6 +9,7 @@ import DTO.objecte.*;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
@@ -631,6 +632,7 @@ public class KartenInfo extends javax.swing.JFrame {
         setTableModel();
         changePreis();
         showKundeninformation(false);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     private void setTableModel() {
@@ -747,12 +749,15 @@ public class KartenInfo extends javax.swing.JFrame {
     private void btnKundePruefenClicked() {
         if (_txtKundennummer.getText().length() < 1) {
             _lblKundennummerInformation.setText("Keine Kundennummer eingegeben. Bitte geben Sie eine Kundennummer ein");
+            _lblKundennummerInformation.setVisible(true);
         } else {
             boolean istKunde = _ctrl.checkKundennummer(_txtKundennummer.getText());
             if (istKunde) {
                 fillKundenInformation();
+                _lblKundennummerInformation.setVisible(false);
             } else {
                 _lblKundennummerInformation.setText("Kundennummer nicht im System vorhanden.");
+                _lblKundennummerInformation.setVisible(true);
             }
         }
     }

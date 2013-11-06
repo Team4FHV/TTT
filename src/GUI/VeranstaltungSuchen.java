@@ -5,8 +5,10 @@
 package GUI;
 
 import GUIController.VeranstaltungsSuchenCtrl;
+import java.awt.Frame;
 import java.util.List;
 import java.util.LinkedList;
+import javax.swing.JFrame;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
@@ -57,6 +59,7 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
         jButtonSearchStart = new javax.swing.JButton();
         jPanelSearchDelete = new javax.swing.JPanel();
         jButtonSearchDelete = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
         jPanelEventTable = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableVeranstaltungen = new javax.swing.JTable();
@@ -69,7 +72,7 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridLayout(1, 1));
 
-        jPanelScreen.setLayout(new java.awt.GridLayout(4, 1));
+        jPanelScreen.setLayout(new java.awt.GridLayout(5, 1));
 
         jPanelScreenTitle.setLayout(new java.awt.GridLayout(1, 1));
 
@@ -97,26 +100,8 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
         jPanelEventSearch.add(jPanelSearchLabels);
 
         jPanelSearchInput.setLayout(new java.awt.GridLayout(1, 5));
-
-        jTextFieldDate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldDateActionPerformed(evt);
-            }
-        });
         jPanelSearchInput.add(jTextFieldDate);
-
-        jTextFieldPlace.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldPlaceActionPerformed(evt);
-            }
-        });
         jPanelSearchInput.add(jTextFieldPlace);
-
-        jTextFieldArtist.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldArtistActionPerformed(evt);
-            }
-        });
         jPanelSearchInput.add(jTextFieldArtist);
 
         jPanelDeleteSearchButton.setLayout(new java.awt.GridLayout(1, 1));
@@ -146,6 +131,19 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
         jPanelEventSearch.add(jPanelSearchInput);
 
         jPanelScreen.add(jPanelEventSearch);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 920, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 109, Short.MAX_VALUE)
+        );
+
+        jPanelScreen.add(jPanel1);
 
         jPanelEventTable.setLayout(new java.awt.GridLayout(1, 1));
 
@@ -193,7 +191,7 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
         );
         jPaneSelectLayout.setVerticalGroup(
             jPaneSelectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 136, Short.MAX_VALUE)
+            .addGap(0, 109, Short.MAX_VALUE)
         );
 
         jPanelSelectBack.add(jPaneSelect);
@@ -230,7 +228,7 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
                 .addGroup(jPanelBackButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonAnzeigen, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         jPanelSelectBack.add(jPanelBackButton);
@@ -246,10 +244,6 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
         btnSearchDeleteClicked();
     }//GEN-LAST:event_jButtonSearchDeleteActionPerformed
 
-    private void jTextFieldDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldDateActionPerformed
-
     private void jButtonSearchStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchStartActionPerformed
         btnSearchStartClicked();
     }//GEN-LAST:event_jButtonSearchStartActionPerformed
@@ -258,16 +252,8 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
         btnBackClicked();
     }//GEN-LAST:event_jButtonBackActionPerformed
 
-    private void jTextFieldPlaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPlaceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldPlaceActionPerformed
-
-    private void jTextFieldArtistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldArtistActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldArtistActionPerformed
-
     private void jButtonAnzeigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnzeigenActionPerformed
-        veranstaltungAnzeigen(); 
+        veranstaltungAnzeigen();
     }//GEN-LAST:event_jButtonAnzeigenActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnzeigen;
@@ -279,6 +265,7 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelDate;
     private javax.swing.JLabel jLabelName;
     private javax.swing.JPanel jPaneSelect;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelBackButton;
     private javax.swing.JPanel jPanelDeleteSearchButton;
     private javax.swing.JPanel jPanelEventSearch;
@@ -299,6 +286,7 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
 
     private void loadComponents() {
         setTableModel();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     public void btnSearchStartClicked() {
@@ -345,24 +333,11 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
         });
     }
 
-    /**
-     * private void setModelByPlace() {
-     * jTableVeranstaltungen.setModel(ctrl.getVeranstInfoModelByPlace(jTextFieldPlace.getText()));
-     * jTableVeranstaltungen.getModel().addTableModelListener(new
-     * TableModelListener() {
-     *
-     * @Override public void tableChanged(TableModelEvent e) { int row =
-     * e.getFirstRow(); int column = e.getColumn(); TableModel model =
-     * (TableModel) e.getSource(); Object[] changedRow = new
-     * Object[model.getColumnCount()]; for (int i = 0; i < changedRow.length;
-     * i++) { changedRow[i] = model.getValueAt(row, i); } } }); }
-     */
-    
     private void veranstaltungAnzeigen() {
-        int row = jTableVeranstaltungen.getSelectedRow(); 
+        int row = jTableVeranstaltungen.getSelectedRow();
         if (row != -1) {
-            int vno = (int) jTableVeranstaltungen.getValueAt(row, 4); 
-            ctrl.VeranstaltungAnzeigen(vno); 
+            int vno = (int) jTableVeranstaltungen.getValueAt(row, 4);
+            ctrl.VeranstaltungAnzeigen(vno);
         }
     }
 

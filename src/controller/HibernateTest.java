@@ -1,6 +1,10 @@
 package controller;
 
+import DTO.objecte.DTOKarte;
+import DTO.objecte.DTOKarteReservieren;
 import DTO.objecte.DTOKategorieInformation;
+import DTO.objecte.DTOKategorieKarte;
+import DTO.objecte.DTOKategorienAuswaehlen;
 import DTO.objecte.DTOKundenDaten;
 import DTO.objecte.DTOVeranstaltungAnzeigen;
 import DTO.objecte.DTOVeranstaltungInformation;
@@ -11,7 +15,10 @@ import Hibernate.objecte.Karte;
 import Hibernate.objecte.Kategorie;
 import Hibernate.objecte.Kunde;
 import java.rmi.RemoteException;
+import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 
 public class HibernateTest {
@@ -21,12 +28,27 @@ public class HibernateTest {
             
            DataManager m = new DataManager();
            Kategorie kkkk = DAOFabrik.getInstance().getKategorieDAO().findById(1, false);
+          DTOKategorienAuswaehlen ka = new DTOKategorienAuswaehlen(kkkk.getKategorieId());
           System.out.println( m.anzahlFreiePlatzeNachKategorie(kkkk));
+           System.out.println("rmikkk");
            // System.out.println( m.getKuenstlerNachName("JonnyRonny"));
             RMIController k = new RMIController();
-           DTOKundenDaten kkkkkk = k.getKundendatenNachID(1);
-           
-            System.out.println(kkkkkk.getNachname());
+          
+            
+            System.out.println("RMI " + k.getAlleFreieKartenNachKategorie(ka).getDTOKarten().size());
+             for (DTOKarte ktsz : k.getAlleFreieKartenNachKategorie(ka).getDTOKarten()){
+                 System.out.println("karte"+ ktsz.getReihe() + "  " + ktsz.getPlatz());
+             }
+            
+             
+             System.out.println("Reservieren");
+             DTOKarteReservieren kr = new DTOKarteReservieren(13, 1, true);
+             List<DTOKarteReservieren> karten = new ArrayList<DTOKarteReservieren>();
+             karten.add(kr);
+             k.reservierungSpeichern(karten);
+//           DTOKundenDaten kkkkkk = k.getKundendatenNachID(1);
+//           
+//            System.out.println(kkkkkk.getNachname());
            // ArrayList<DTOVeranstaltungInformation> ll =  k.sucheVeranstaltungenNachKrieterien(null, null, "JonnyRonny");
          //   System.out.println(ll.get(0).getKuenstler());
             

@@ -45,7 +45,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
         ucb = new UseCaseControllerBestellungErstellen();
         ucs = new UseCaseControllerSearch();
         dm = new DataManager<>();
-        benutzer = ucb.getBenutzerByID(2); // TODO
+        benutzer = ucb.getBenutzerByID(3); // TODO
     }
 
     @Override
@@ -169,6 +169,8 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
         Kunde kunde = null;
         if (kundenId != -1) {
             kunde = ucb.getKundeByID(kundenId);
+        } else {
+            throw new Exception("Kein Kunde gefunden -- reservieren");
         }
         for (DTOKarteReservieren b : karten) {
             Karte k = ucb.getKarteByID(b.getKartenID());

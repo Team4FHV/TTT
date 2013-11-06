@@ -93,12 +93,13 @@ public abstract class DAOGeneric<T, ID extends Serializable> {
 	
 	public T saveORupdate(T entity) {
 		try {
-			// getSession().flush();
+			getSession().flush();
 			HibernateUtil.currentSession().beginTransaction();
 			getSession().saveOrUpdate(entity);
 			HibernateUtil.currentSession().getTransaction().commit();
 		} catch (HibernateException e) {
 			HibernateUtil.currentSession().getTransaction().rollback();
+                        
 			
 		}
 		return entity;

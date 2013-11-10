@@ -11,10 +11,13 @@ import DTO.objecte.DTOKategorieInformation;
 import DTO.objecte.DTOKategorieKarte;
 import DTO.objecte.DTOKategorienAuswaehlen;
 import DTO.objecte.DTOKundenDaten;
+import DTO.objecte.DTOLoginDaten;
 import DTO.objecte.DTOVeranstaltung;
 import DTO.objecte.DTOVeranstaltungAnzeigen;
 import DTO.objecte.DTOVeranstaltungInformation;
 import DTO.objecte.DTOVeranstaltungSuchen;
+import Exceptions.BenutzerNichtInDBException;
+import Exceptions.FalschesPasswordExeption;
 import Hibernate.objecte.Benutzer;
 import Hibernate.objecte.Karte;
 import Hibernate.objecte.Kategorie;
@@ -29,6 +32,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -36,18 +41,57 @@ import java.util.Set;
  */
 public class RMIController extends UnicastRemoteObject implements RMIControllerInterface {
 
+    
+    private UseCaseControllerLogin ucl;
     private UseCaseControllerBestellungErstellen ucb;
     private UseCaseControllerSearch ucs;
+    private UseCaseControllerKundenDaten uck;
     private DataManager<Object> dm;
-    private Benutzer benutzer; // TODO
+    private Benutzer benutzer; // TODO{
+    
 
     public RMIController() throws RemoteException {
         super();
+        ucl = new UseCaseControllerLogin();
         ucb = new UseCaseControllerBestellungErstellen();
         ucs = new UseCaseControllerSearch();
+        uck = new UseCaseControllerKundenDaten();
         dm = new DataManager<>();
-        benutzer = ucb.getBenutzerByID(2); // TODO
+        benutzer = null; // TODO
     }
+    
+    @Override
+     public void login( DTOLoginDaten l) throws RemoteException, BenutzerNichtInDBException, FalschesPasswordExeption{
+        try {       
+            ucl.login(l.getUsername(), l.getPasswort());
+        } catch (BenutzerNichtInDBException ex) {
+            Logger.getLogger(RMIController.class.getName()).log(Level.SEVERE, null, ex);
+            throw new BenutzerNichtInDBException();
+        } catch (FalschesPasswordExeption ex) {
+            Logger.getLogger(RMIController.class.getName()).log(Level.SEVERE, null, ex);
+            throw new FalschesPasswordExeption();
+        }
+        benutzer = ucl.getBenutzer();
+        
+     }
+    
+     @Override
+     public void neuenKundenSpeichern() throws RemoteException{
+        try {
+            uck.neuenKundenSpeichern(null, null, null, null, null, null, null, null, null, null, null, null);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(RMIController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(RMIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
+     
+     @Override
+     public void kundenDatenAendern() throws RemoteException{
+         
+     }
+             
+        
 
     @Override
     public ArrayList<DTOVeranstaltungInformation> sucheVeranstaltungenNachKrieterien(Date d, String ort, String kuenstler) throws RemoteException {

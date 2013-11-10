@@ -6,16 +6,22 @@ import DTO.objecte.DTOKategorieInformation;
 import DTO.objecte.DTOKategorieKarte;
 import DTO.objecte.DTOKategorienAuswaehlen;
 import DTO.objecte.DTOKundenDaten;
+import DTO.objecte.DTOLoginDaten;
 import DTO.objecte.DTOVeranstaltungAnzeigen;
 import DTO.objecte.DTOVeranstaltungInformation;
 import Domain.DAOFabrik;
 import Domain.DAOGeneric;
 import Domain.DAOObjekte.DAOKarte;
+import Exceptions.BenutzerNichtInDBException;
+import Exceptions.FalschesPasswordExeption;
 import Hibernate.objecte.Benutzer;
 import Hibernate.objecte.Bestellung;
 import Hibernate.objecte.Karte;
 import Hibernate.objecte.Kategorie;
 import Hibernate.objecte.Kunde;
+import java.awt.Button;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.util.AbstractList;
 import java.util.ArrayList;
@@ -24,24 +30,60 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 
 public class HibernateTest {
-	
+	 static JFrame f = new JFrame();
+         static RMIController rmi;
 
 	public static void main(String[] args) throws RemoteException, Exception {
-            
-          //  Kunde kunde = DAOFabrik.getInstance().getKundeDAO().findById(1, true);
-            Benutzer benu = DAOFabrik.getInstance().getBenutzerDAO().findById(1, true);
-            Bestellung best = new Bestellung(benu, null, new Date());
+         rmi = new RMIController();
+           f.setBounds(0, 0, 600, 600);
+           f.setVisible(true);
+           Button b = new Button("try");
+           f.add(b);
+           b.addActionListener(new ActionListener() {
+
+               @Override
+               public void actionPerformed(ActionEvent e) {
+                    // UseCaseControllerLogin ucl = new  UseCaseControllerLogin();
+                
+           try{
+              rmi.login(new DTOLoginDaten("ife7261", "eprdepan"));
+             } catch ( Exception ex) {
+           String message  = "";
+           if (ex instanceof FalschesPasswordExeption) message = "Falsches passwort";
+           if (ex instanceof RemoteException) message = "Server probleme";
+           if (ex instanceof BenutzerNichtInDBException) message = "Benutzer nicht in DB";
            
-             UseCaseControllerBestellungErstellen gj = new UseCaseControllerBestellungErstellen();
-              Karte k =  DAOFabrik.getInstance().getKarteDAO().findById(1, false);
-              Set<Karte> karten = new HashSet<>();
-              karten.add(k);
-             gj.verkaufSpeichern(benu, null, null);
+          JOptionPane.showMessageDialog(f,message,"Error", JOptionPane.ERROR_MESSAGE); 
+
+        }
+               }
+           });
+//            
+//            UseCaseControllerKundenDaten uck= new UseCaseControllerKundenDaten();
+//            uck.neuenKundenSpeichern("Anna", "Brick", new Date(), "Frau", "MMM", "Russland", "", "", "", "", "", "");
+//      
+
             
-//           DataManager m = new DataManager();
+            //  Kunde kunde = DAOFabrik.getInstance().getKundeDAO().findById(1, true);
+//            Benutzer benu = DAOFabrik.getInstance().getBenutzerDAO().findById(1, true);
+//            Bestellung best = new Bestellung(benu, null, new Date());
+//           
+//             UseCaseControllerBestellungErstellen gj = new UseCaseControllerBestellungErstellen();
+//              Karte k =  DAOFabrik.getInstance().getKarteDAO().findById(1, false);
+//              Set<Karte> karten = new HashSet<>();
+//              karten.add(k);
+//             gj.verkaufSpeichern(benu, null, null);
+            
+//          DataManager m = new DataManager();
+//            System.out.println("Iryna "+m.getBentzerNachName("ife7261").getNachname());
 //           Kategorie kkkk = DAOFabrik.getInstance().getKategorieDAO().findById(1, false);
 //          DTOKategorienAuswaehlen ka = new DTOKategorienAuswaehlen(kkkk.getKategorieId());
 //          System.out.println( m.anzahlFreiePlatzeNachKategorie(kkkk));
@@ -116,4 +158,5 @@ public class HibernateTest {
             
         }	 
 
+   
 }

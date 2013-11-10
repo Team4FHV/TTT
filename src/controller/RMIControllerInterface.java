@@ -10,9 +10,12 @@ import DTO.objecte.DTOKategorieInformation;
 import DTO.objecte.DTOKategorieKarte;
 import DTO.objecte.DTOKategorienAuswaehlen;
 import DTO.objecte.DTOKundenDaten;
+import DTO.objecte.DTOLoginDaten;
 import DTO.objecte.DTOVeranstaltung;
 import DTO.objecte.DTOVeranstaltungAnzeigen;
 import DTO.objecte.DTOVeranstaltungInformation;
+import Exceptions.BenutzerNichtInDBException;
+import Exceptions.FalschesPasswordExeption;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,6 +29,11 @@ import java.rmi.RemoteException;
  * @author Iryna
  */
 public interface RMIControllerInterface extends Remote {
+    void login( DTOLoginDaten l) throws RemoteException, BenutzerNichtInDBException, FalschesPasswordExeption;
+    
+    void neuenKundenSpeichern() throws RemoteException; 
+    
+    void kundenDatenAendern() throws RemoteException;
 
     DTOKategorieKarte getAlleFreieKartenNachKategorie(DTOKategorienAuswaehlen kat)  throws RemoteException;
 

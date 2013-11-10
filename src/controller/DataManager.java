@@ -5,6 +5,7 @@
 package controller;
 
 
+import ConstantContent.KonstantKartenStatus;
 import Domain.DAOFabrik;
 import java.util.ArrayList;
 import java.util.Date;

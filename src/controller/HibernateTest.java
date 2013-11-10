@@ -7,6 +7,7 @@ import DTO.objecte.DTOKategorieKarte;
 import DTO.objecte.DTOKategorienAuswaehlen;
 import DTO.objecte.DTOKundenDaten;
 import DTO.objecte.DTOLoginDaten;
+import DTO.objecte.DTORollenList;
 import DTO.objecte.DTOVeranstaltungAnzeigen;
 import DTO.objecte.DTOVeranstaltungInformation;
 import Domain.DAOFabrik;
@@ -19,7 +20,9 @@ import Hibernate.objecte.Bestellung;
 import Hibernate.objecte.Karte;
 import Hibernate.objecte.Kategorie;
 import Hibernate.objecte.Kunde;
+import java.awt.BorderLayout;
 import java.awt.Button;
+import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
@@ -40,13 +43,15 @@ import javax.swing.JOptionPane;
 public class HibernateTest {
 	 static JFrame f = new JFrame();
          static RMIController rmi;
+        static DTORollenList list;
 
 	public static void main(String[] args) throws RemoteException, Exception {
          rmi = new RMIController();
            f.setBounds(0, 0, 600, 600);
+           f.setLayout(new BorderLayout());
            f.setVisible(true);
            Button b = new Button("try");
-           f.add(b);
+           f.add(b, BorderLayout.CENTER);
            b.addActionListener(new ActionListener() {
 
                @Override
@@ -54,7 +59,16 @@ public class HibernateTest {
                     // UseCaseControllerLogin ucl = new  UseCaseControllerLogin();
                 
            try{
-              rmi.login(new DTOLoginDaten("ife7261", "eprdepan"));
+              list = rmi.login(new DTOLoginDaten("ife7261", "eprdlepan"));
+              
+             
+           for (int i = 0; i < list.getRollen().size(); i++){
+               String s = list.getRollen().get(i);
+                 System.out.println("ALLE ROLLEN  " + s);
+           }
+         
+              
+//            
              } catch ( Exception ex) {
            String message  = "";
            if (ex instanceof FalschesPasswordExeption) message = "Falsches passwort";
@@ -66,7 +80,7 @@ public class HibernateTest {
         }
                }
            });
-//            
+          
 //            UseCaseControllerKundenDaten uck= new UseCaseControllerKundenDaten();
 //            uck.neuenKundenSpeichern("Anna", "Brick", new Date(), "Frau", "MMM", "Russland", "", "", "", "", "", "");
 //      

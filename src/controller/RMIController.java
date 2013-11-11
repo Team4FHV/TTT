@@ -87,7 +87,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
 
     @Override
     public void neuenKundenSpeichern(DTOKundeNeuSpeichern k) throws RemoteException {
-        if (benutzer != null && benutzer.getRolles().contains(KontantRolle.DATENPFLEGE)) {
+//        if (benutzer != null && benutzer.getRolles().contains(KontantRolle.DATENPFLEGE)) {
 
             try {
                 uck.neuenKundenSpeichern(k.getVorname(), k.getNachname(), k.getGeburtsdatum(), k.getAnrede(),
@@ -98,7 +98,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
             } catch (IllegalAccessException ex) {
                 Logger.getLogger(RMIController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+//        }
     }
 
     @Override

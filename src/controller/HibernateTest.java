@@ -5,6 +5,7 @@ import DTO.objecte.DTOKarteReservieren;
 import DTO.objecte.DTOKategorieInformation;
 import DTO.objecte.DTOKategorieKarte;
 import DTO.objecte.DTOKategorienAuswaehlen;
+import DTO.objecte.DTOKundeNeuSpeichern;
 import DTO.objecte.DTOKundenDaten;
 import DTO.objecte.DTOLoginDaten;
 import DTO.objecte.DTORollenList;
@@ -15,11 +16,13 @@ import Domain.DAOGeneric;
 import Domain.DAOObjekte.DAOKarte;
 import Exceptions.BenutzerNichtInDBException;
 import Exceptions.FalschesPasswordExeption;
+import Exceptions.SaveFailedException;
 import Hibernate.objecte.Benutzer;
 import Hibernate.objecte.Bestellung;
 import Hibernate.objecte.Karte;
 import Hibernate.objecte.Kategorie;
 import Hibernate.objecte.Kunde;
+import client.Client;
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Label;
@@ -41,50 +44,22 @@ import javax.swing.JOptionPane;
 
 
 public class HibernateTest {
-	 static JFrame f = new JFrame();
-         static RMIController rmi;
-        static DTORollenList list;
-
+	
 	public static void main(String[] args) throws RemoteException, Exception {
-         rmi = new RMIController();
-           f.setBounds(0, 0, 600, 600);
-           f.setLayout(new BorderLayout());
-           f.setVisible(true);
-           Button b = new Button("try");
-           f.add(b, BorderLayout.CENTER);
-           b.addActionListener(new ActionListener() {
-
-               @Override
-               public void actionPerformed(ActionEvent e) {
-                    // UseCaseControllerLogin ucl = new  UseCaseControllerLogin();
-                
-           try{
-              list = rmi.login(new DTOLoginDaten("ife7261", "eprdlepan"));
-              
-             
-           for (int i = 0; i < list.getRollen().size(); i++){
-               String s = list.getRollen().get(i);
-                 System.out.println("ALLE ROLLEN  " + s);
-           }
-         
-              
-//            
-             } catch ( Exception ex) {
-           String message  = "";
-           if (ex instanceof FalschesPasswordExeption) message = "Falsches passwort";
-           if (ex instanceof RemoteException) message = "Server probleme";
-           if (ex instanceof BenutzerNichtInDBException) message = "Benutzer nicht in DB";
-           
-          JOptionPane.showMessageDialog(f,message,"Error", JOptionPane.ERROR_MESSAGE); 
-
-        }
-               }
-           });
+        
+   
+                    
           
-//            UseCaseControllerKundenDaten uck= new UseCaseControllerKundenDaten();
-//            uck.neuenKundenSpeichern("Anna", "Brick", new Date(), "Frau", "MMM", "Russland", "", "", "", "", "", "");
-//      
-
+          
+            UseCaseControllerKundenDaten uck= new UseCaseControllerKundenDaten();
+            Client c = new Client();
+                try {  
+             c.neuenKundeSpeichern
+                   (new DTOKundeNeuSpeichern (null, "Brick", new Date(), "Frau", "MMM", "Russland", "", "", "", "", "", ""));
+            
+                } catch (SaveFailedException ex){
+                    System.out.println(ex.toString());
+                }
             
             //  Kunde kunde = DAOFabrik.getInstance().getKundeDAO().findById(1, true);
 //            Benutzer benu = DAOFabrik.getInstance().getBenutzerDAO().findById(1, true);
@@ -170,7 +145,7 @@ public class HibernateTest {
                
 
             
-        }	 
+       }	 
 
    
 }

@@ -19,6 +19,7 @@ import DTO.objecte.DTOVeranstaltungAnzeigen;
 import DTO.objecte.DTOVeranstaltungInformation;
 import Exceptions.BenutzerNichtInDBException;
 import Exceptions.FalschesPasswordExeption;
+import Exceptions.SaveFailedException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,9 +35,9 @@ import java.rmi.RemoteException;
 public interface RMIControllerInterface extends Remote {
     DTORollenList login( DTOLoginDaten l) throws RemoteException, BenutzerNichtInDBException, FalschesPasswordExeption;
     
-    void neuenKundenSpeichern(DTOKundeNeuSpeichern k) throws RemoteException; 
+    void neuenKundenSpeichern(DTOKundeNeuSpeichern k) throws RemoteException, SaveFailedException; 
     
-    void kundenDatenAendern(DTOKundenDatenAendern k) throws RemoteException;
+    void kundenDatenAendern(DTOKundenDatenAendern k) throws RemoteException, SaveFailedException;
 
     DTOKategorieKarte getAlleFreieKartenNachKategorie(DTOKategorienAuswaehlen kat)  throws RemoteException;
 
@@ -46,13 +47,13 @@ public interface RMIControllerInterface extends Remote {
 
     DTOKundenDaten getKundendatenNachID(int id)  throws  Exception, RemoteException;
 
-    void karteKaufen(DTOKarteBestellen karteDTO)  throws RemoteException;
+    void karteKaufen(DTOKarteBestellen karteDTO)  throws RemoteException, SaveFailedException;
 
-    void reservierungSpeichern(List<DTOKarteReservieren> karten)  throws  Exception, RemoteException;;
+    void reservierungSpeichern(List<DTOKarteReservieren> karten)  throws  Exception, RemoteException, SaveFailedException;
 
     ArrayList<DTOVeranstaltungInformation> sucheVeranstaltungenNachKrieterien(Date d, String ort, String kuenstler)  throws RemoteException;
 
-    void verkaufSpeichern(List<DTOKarteBestellen> karten) throws  Exception, RemoteException;
+    void verkaufSpeichern(List<DTOKarteBestellen> karten) throws  Exception, RemoteException, SaveFailedException;
 
     public DTOKategorieInformation getKategorieInfo(int id)  throws RemoteException;
     

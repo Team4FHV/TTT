@@ -60,7 +60,7 @@ public class MainGuiCtrl {
 
     public static void main(String[] args) {
         _client = new Client();
-//        _veranstaltungSuchen = new VeranstaltungSuchen(getVeranstaltungSuchenCtrl());
+       // _veranstaltungSuchen = new VeranstaltungSuchen(getVeranstaltungSuchenCtrl());
         _kundeAnlegen = new KundeAnlegen(getKundeAnlegenCtrl());
     }
 

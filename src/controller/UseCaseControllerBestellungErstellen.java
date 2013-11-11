@@ -6,6 +6,7 @@ package controller;
 
 import ConstantContent.KonstantKartenStatus;
 import Domain.DAOFabrik;
+import Exceptions.SaveFailedException;
 import Hibernate.objecte.Benutzer;
 import Hibernate.objecte.Bestellung;
 import Hibernate.objecte.Karte;
@@ -69,7 +70,7 @@ public class UseCaseControllerBestellungErstellen {
 
     // nur bei kauf ohne reservierung, für reservierung nur karteKaufen
     // gui macht  karteKaufen für jede karte und dann hier speichern
-    public void verkaufSpeichern(Benutzer benutzer, Kunde kunde, Set<Karte> karten) throws Exception {
+    public void verkaufSpeichern(Benutzer benutzer, Kunde kunde, Set<Karte> karten) throws Exception, SaveFailedException {
         if (karten.isEmpty()) {
             throw new Exception("Keine Karten zum speichern");
         } else {
@@ -85,8 +86,7 @@ public class UseCaseControllerBestellungErstellen {
     
     
     
-    // Weitere Metoden für UseCase
-    public void reservierungSpeichern(Benutzer benutzer, Kunde kunde, Set<Karte> karten) throws Exception {
+    public void reservierungSpeichern(Benutzer benutzer, Kunde kunde, Set<Karte> karten) throws Exception, SaveFailedException {
         if (kunde == null) {
             throw new Exception("Kein kundenummer");
         }
@@ -94,7 +94,7 @@ public class UseCaseControllerBestellungErstellen {
             throw new Exception("Keine Karten zum speichern");
         } else {
             Date datum = new Date();
-            //dataManager.bestellungSpeichern(benutzer, kunde, datum, bestellteKartenSet);
+
             DAOFabrik.getInstance().getBestellungDAO().
                     saveORupdate(new Bestellung(benutzer, kunde, datum, karten));
         }
@@ -105,7 +105,7 @@ public class UseCaseControllerBestellungErstellen {
         return itemCost;
     }
 
-    public void karteKaufen(Karte karte, boolean istErmaessigt) {
+    public void karteKaufen(Karte karte, boolean istErmaessigt) throws SaveFailedException {
 
         karte.setKartenstatus(KonstantKartenStatus.VERKAUFT);
         karte.setErmaessigt(istErmaessigt);
@@ -120,6 +120,7 @@ public class UseCaseControllerBestellungErstellen {
         } else {
             karte.setPreis(karte.getKategorie().getPreis());
         }
+        
         DAOFabrik.getInstance().getKarteDAO().saveORupdate(karte);
     }
 
@@ -127,12 +128,12 @@ public class UseCaseControllerBestellungErstellen {
         karte.setKartenstatus(KonstantKartenStatus.RESERVIERT);
     }
 
-    public void karteBlockieren(Karte karte) {
+    public void karteBlockieren(Karte karte) throws SaveFailedException {
         karte.setKartenstatus(KonstantKartenStatus.BLOKIERT);
         DAOFabrik.getInstance().getKarteDAO().saveORupdate(karte);
     }
 
-    public void karteFreigeben(Karte karte) {
+    public void karteFreigeben(Karte karte) throws SaveFailedException {
         karte.setKartenstatus(KonstantKartenStatus.FREI);
         DAOFabrik.getInstance().getKarteDAO().saveORupdate(karte);
     }

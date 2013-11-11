@@ -5,6 +5,7 @@
 package controller;
 
 import Domain.DAOFabrik;
+import Exceptions.SaveFailedException;
 import Hibernate.objecte.Kunde;
 import java.util.Date;
 import java.util.HashSet;
@@ -24,7 +25,7 @@ public class UseCaseControllerKundenDaten {
     
     public void neuenKundenSpeichern(String vorname, String nachname, Date geburtsdatum,  String anrede,
       String firmenname, String land, String postleitzahl, String ort, String strasse, String hausnummer, 
-      String telefonnummer, String email) throws InstantiationException, IllegalAccessException{
+      String telefonnummer, String email) throws InstantiationException, IllegalAccessException, SaveFailedException{
         
        Set bestellungen= new HashSet(0);
        
@@ -51,7 +52,7 @@ public class UseCaseControllerKundenDaten {
     
      public void kundenDatenAendern(int id, String vorname, String nachname, Date geburtsdatum,  String anrede,
       String firmenname, String land, String postleitzahl, String ort, String strasse, String hausnummer, 
-      String telefonnummer, String email) throws InstantiationException, IllegalAccessException{
+      String telefonnummer, String email) throws InstantiationException, IllegalAccessException, SaveFailedException{
         
        
       Kunde kunde =  DAOFabrik.getInstance().getKundeDAO().findById(id, false);

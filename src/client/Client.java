@@ -11,9 +11,14 @@ import DTO.objecte.DTOKategorieKarte;
 import DTO.objecte.DTOKategorienAuswaehlen;
 import DTO.objecte.DTOKundeNeuSpeichern;
 import DTO.objecte.DTOKundenDaten;
+import DTO.objecte.DTOLoginDaten;
+import DTO.objecte.DTORollenList;
 import DTO.objecte.DTOVeranstaltung;
 import DTO.objecte.DTOVeranstaltungAnzeigen;
 import DTO.objecte.DTOVeranstaltungInformation;
+import Exceptions.BenutzerNichtInDBException;
+import Exceptions.FalschesPasswordExeption;
+import Exceptions.SaveFailedException;
 import controller.RMIControllerFactoryInterface;
 import controller.RMIControllerInterface;
 import java.io.BufferedReader;
@@ -24,6 +29,8 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Client {
 
@@ -158,8 +165,12 @@ public class Client {
        return x;
     }
     
-    public void neuenKundeSpeichern(DTOKundeNeuSpeichern kunde) throws RemoteException
-    {
-        rmi.neuenKundenSpeichern(kunde);
+    public void neuenKundeSpeichern(DTOKundeNeuSpeichern kunde) throws RemoteException, SaveFailedException {
+            rmi.neuenKundenSpeichern(kunde);
     }
+    
+        public DTORollenList login(DTOLoginDaten l) throws RemoteException, BenutzerNichtInDBException, FalschesPasswordExeption {      
+            return  rmi.login(l);
+        }
+
 }

@@ -4,9 +4,12 @@
  */
 package GUI;
 
+import Exceptions.SaveFailedException;
 import GUIController.KundeAnlegenCtrl;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -503,7 +506,12 @@ public class KundeAnlegen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void _btnKundeAnlegenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__btnKundeAnlegenActionPerformed
-        kundeAnlegenClicked();
+         try {
+             kundeAnlegenClicked();
+         } catch (SaveFailedException ex) {
+             Logger.getLogger(KundeAnlegen.class.getName()).log(Level.SEVERE, null, ex);
+              JOptionPane.showMessageDialog(this,ex.toString(),"Error", JOptionPane.ERROR_MESSAGE); 
+         }
     }//GEN-LAST:event__btnKundeAnlegenActionPerformed
 
     private void _btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__btnCancelActionPerformed
@@ -606,7 +614,7 @@ public class KundeAnlegen extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     // End of variables declaration//GEN-END:variables
 
-    private void kundeAnlegenClicked() {
+    private void kundeAnlegenClicked() throws SaveFailedException {
         if (checkFields()) {
             if(_ctrl.neuenKundeAnlegen(_txtVorname.getText(), _txtNachname.getText(), _txtGeburtsdatum.getText(), _txtAnrede.getText(), _txtFirmenname.getText(), _txtLand.getText(), _txtPostleitzahl.getText(), _txtOrt.getText(), _txtStrasse.getText(), _txtHausnummer.getText(), _txtTelefonnummer.getText(), _txtEMail.getText()))
             {

@@ -4,6 +4,7 @@
  */
 package controller;
 
+import Exceptions.BenutzerInaktivException;
 import Exceptions.BenutzerNichtInDBException;
 import Exceptions.FalschesPasswordExeption;
 import Hibernate.objecte.Benutzer;
@@ -26,12 +27,12 @@ public class UseCaseControllerLogin {
         
     }
     
-     public void login(String username, String passwort) throws BenutzerNichtInDBException, FalschesPasswordExeption {
+     public void login(String username, String passwort) throws BenutzerNichtInDBException, FalschesPasswordExeption, BenutzerInaktivException {
          benutzer = dm.getBentzerNachName(username);
          
         if (benutzer == null){
             throw new BenutzerNichtInDBException();
-        } else {
+        } else if(benutzer.isAktiv()) {
         try {
             Hashtable env = new Hashtable();
             env.put(Context.SECURITY_AUTHENTICATION, "simple");
@@ -46,6 +47,10 @@ public class UseCaseControllerLogin {
             System.out.println(ex.toString());
             throw new FalschesPasswordExeption();
         }
+        }
+        else
+        {
+            throw new BenutzerInaktivException();
         }
      }
      

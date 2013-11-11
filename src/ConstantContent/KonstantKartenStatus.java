@@ -3,11 +3,10 @@
  * and open the template in the editor.
  */
 
-package controller;
+package ConstantContent;
 
 import Domain.DAOFabrik;
 import Hibernate.objecte.Kartenstatus;
-import java.awt.Color;
 
 /**
  *

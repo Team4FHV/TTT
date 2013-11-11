@@ -142,7 +142,8 @@ public class Login extends javax.swing.JFrame {
 
     private void btnLoginClicked() {
         username = jTextFieldUsername.getText();
-        password = jpwfPassword.getSelectedText();
+        char[] pw = jpwfPassword.getPassword();
+        password = String.valueOf(pw);
         System.out.println(password);
         String message = "";
         if (!username.isEmpty() || !password.isEmpty()) {

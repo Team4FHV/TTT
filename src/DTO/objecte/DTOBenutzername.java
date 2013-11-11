@@ -4,11 +4,13 @@
  */
 package DTO.objecte;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Monika
  */
-public class DTOBenutzername {
+public class DTOBenutzername implements Serializable{
     
     private String benutzername;
 

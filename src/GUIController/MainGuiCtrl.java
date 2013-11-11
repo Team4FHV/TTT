@@ -16,9 +16,11 @@ public class MainGuiCtrl {
     private static VeranstaltungSuchen _veranstaltungSuchen;
     private static VeranstaltungKategorie _veranstaltungKategorie;
     private static KartenInfo _kartenInfo;
+    private static KundeAnlegen _kundeAnlegen;
     private static KartenInfoCtrl _kartenInfoCtrl;
     private static VeranstaltungKategorieCtrl _veranstaltungKategorieCtrl;
     private static VeranstaltungsSuchenCtrl _veranstaltungSuchenCtrl;
+    private static KundeAnlegenCtrl _kundeAnlegenCtrl;
     private static Client _client;
 
     public static void VeranstaltungAusgewaehlt(int veranstaltungID) {
@@ -58,7 +60,8 @@ public class MainGuiCtrl {
 
     public static void main(String[] args) {
         _client = new Client();
-        _veranstaltungSuchen = new VeranstaltungSuchen(getVeranstaltungSuchenCtrl());
+//        _veranstaltungSuchen = new VeranstaltungSuchen(getVeranstaltungSuchenCtrl());
+        _kundeAnlegen = new KundeAnlegen(getKundeAnlegenCtrl());
     }
 
     public static VeranstaltungsSuchenCtrl getVeranstaltungSuchenCtrl() {
@@ -89,5 +92,14 @@ public class MainGuiCtrl {
             _kartenInfoCtrl.setKategorieID(kategorieID);
         }
         return _kartenInfoCtrl;
+    }
+    
+    public static KundeAnlegenCtrl getKundeAnlegenCtrl()
+    {
+        if(_kundeAnlegenCtrl == null)
+        {
+            _kundeAnlegenCtrl = new KundeAnlegenCtrl(_client);
+        }
+        return _kundeAnlegenCtrl;
     }
 }

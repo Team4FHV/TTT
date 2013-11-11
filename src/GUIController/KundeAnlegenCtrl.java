@@ -18,6 +18,11 @@ import java.util.Date;
 public class KundeAnlegenCtrl {
 
     private Client _client;
+    
+    public KundeAnlegenCtrl(Client client)
+    {
+        _client = client;
+    }
 
     public boolean neuenKundeAnlegen(String vorname, String nachname, String geburtsdatum, String anrede, String firmenname, String land, String postleitzahl, String ort, String strasse, String hausnummer, String telefonnummer, String email) {
         SimpleDateFormat sdfToDate = new SimpleDateFormat("dd.MM.yyyy");
@@ -32,6 +37,7 @@ public class KundeAnlegenCtrl {
             _client.neuenKundeSpeichern(kunde);
             return true;
         } catch (RemoteException ex) {
+            System.out.println(ex.getMessage());
             return false;
         }
     }

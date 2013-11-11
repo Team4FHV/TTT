@@ -636,8 +636,8 @@ public class KundeAnlegen extends javax.swing.JFrame {
         boolean strasse = false;
         boolean hausnummer = false;
         boolean email = false;
-
-        if (_txtVorname.getText() != "") {
+        
+        if (!_txtVorname.getText().equals("")) {
             vorname = true;
             _lblVorname.setVisible(false);
         } else {
@@ -645,7 +645,7 @@ public class KundeAnlegen extends javax.swing.JFrame {
             _lblVorname.setText("Vorname fehlt");
             _lblVorname.setVisible(true);
         }
-        if (_txtNachname.getText() != "") {
+        if (!_txtNachname.getText().equals("")) {
             nachname = true;
             _lblNachname.setVisible(false);
         } else {
@@ -653,7 +653,7 @@ public class KundeAnlegen extends javax.swing.JFrame {
             _lblNachname.setText("Nachname fehlt");
             _lblNachname.setVisible(true);
         }
-        if (_txtGeburtsdatum.getText() != "") {
+        if (!_txtGeburtsdatum.getText().equals("")) {
             if (checkDate(_txtGeburtsdatum.getText())) {
                 geburtsdatum = true;
                 _lblGeburstdatum.setVisible(false);
@@ -667,7 +667,7 @@ public class KundeAnlegen extends javax.swing.JFrame {
             _lblGeburstdatum.setText("Geburtsdatum fehlt");
             _lblGeburstdatum.setVisible(true);
         }
-        if (_txtAnrede.getText() != "") {
+        if (!_txtAnrede.getText().equals("")) {
             anrede = true;
             _lblAnrede.setVisible(false);
         } else {
@@ -675,7 +675,7 @@ public class KundeAnlegen extends javax.swing.JFrame {
             _lblAnrede.setText("Anrede fehlt");
             _lblAnrede.setVisible(true);
         }
-        if (_txtLand.getText() != "") {
+        if (!_txtLand.getText().equals("")) {
             land = true;
             _lblLand.setVisible(false);
         } else {
@@ -683,7 +683,7 @@ public class KundeAnlegen extends javax.swing.JFrame {
             _lblLand.setText("Land fehlt");
             _lblLand.setVisible(true);
         }
-        if (_txtPostleitzahl.getText() != "") {
+        if (!_txtPostleitzahl.getText().equals("")) {
             postleitzahl = true;
             _lblPostleitzahl.setVisible(false);
         } else {
@@ -691,7 +691,7 @@ public class KundeAnlegen extends javax.swing.JFrame {
             _lblPostleitzahl.setText("Postleitzahl fehlt");
             _lblPostleitzahl.setVisible(true);
         }
-        if (_txtOrt.getText() != "") {
+        if (!_txtOrt.getText().equals("")) {
             ort = true;
             _lblOrt.setVisible(false);
         } else {
@@ -699,7 +699,7 @@ public class KundeAnlegen extends javax.swing.JFrame {
             _lblOrt.setText("Ort fehlt");
             _lblOrt.setVisible(true);
         }
-        if (_txtStrasse.getText() != "") {
+        if (!_txtStrasse.getText().equals("")) {
             strasse = true;
             _lblStrasse.setVisible(false);
         } else {
@@ -707,7 +707,7 @@ public class KundeAnlegen extends javax.swing.JFrame {
             _lblStrasse.setText("Straße fehlt");
             _lblStrasse.setVisible(true);
         }
-        if (_txtHausnummer.getText() != "") {
+        if (!_txtHausnummer.getText().equals("")) {
             hausnummer = true;
             _lblHausnummer.setVisible(false);
         } else {
@@ -715,7 +715,7 @@ public class KundeAnlegen extends javax.swing.JFrame {
             _lblHausnummer.setText("Hausnummer fehlt");
             _lblHausnummer.setVisible(true);
         }
-        if (_txtEMail.getText() != "") {
+        if (!_txtEMail.getText().equals("")) {
             email = true;
             _lblEmail.setVisible(false);
         } else {

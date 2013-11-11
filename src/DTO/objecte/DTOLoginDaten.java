@@ -4,11 +4,13 @@
  */
 package DTO.objecte;
 
+import java.io.Serializable;
+
 /**
  *
  * @author media
  */
-public class DTOLoginDaten {
+public class DTOLoginDaten implements Serializable{
     private String username;
     private String passwort;
     

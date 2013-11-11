@@ -4,6 +4,7 @@
  */
 package DTO.objecte;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +13,7 @@ import java.util.Set;
  *
  * @author media
  */
-public class DTOKundeNeuSpeichern {
+public class DTOKundeNeuSpeichern implements Serializable{
      private String vorname;
      private String nachname;
      private Date geburtsdatum;

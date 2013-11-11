@@ -4,13 +4,14 @@
  */
 package DTO.objecte;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author media
  */
-public class DTOKundenDatenAendern {
+public class DTOKundenDatenAendern implements Serializable{
 
     private int id;
     private String vorname;

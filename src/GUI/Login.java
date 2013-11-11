@@ -140,10 +140,9 @@ public class Login extends javax.swing.JFrame {
 
     private void btnLoginClicked() {
         username = jTextFieldUsername.getText();
-        password = jTextFieldPassword.getText();
-        
+        password = jTextFieldPassword.getText();       
         if (!username.isEmpty() || !password.isEmpty()) {
-            //ctrl;
+            ctrl.checkLogin(username, password);
         } else {
             jLabelLoginErrorMessage.setText("Bitte geben Sie Benutzername und Passwort ein.");
         }

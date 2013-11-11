@@ -10,7 +10,6 @@ import Exceptions.BenutzerNichtInDBException;
 import Exceptions.FalschesPasswordExeption;
 import client.Client;
 import java.rmi.RemoteException;
-import javax.swing.JOptionPane;
 
 
 /**
@@ -25,13 +24,13 @@ public class LoginCtrl {
         this._client = _client;
     }
     
-    public boolean checkLogin(String benName, String pw) {
+    public String checkLogin(String benName, String pw) {
          DTOLoginDaten logindat= new DTOLoginDaten(benName, pw);
+         String message = "";
         try {           
             DTORollenList rolList = _client.login(logindat);
             MainGuiCtrl.Login(rolList);
-        } catch (Exception ex) {
-            String message = "";
+        } catch (Exception ex) {            
             if (ex instanceof FalschesPasswordExeption) {
                 message = "Falsches passwort";
             }
@@ -40,10 +39,9 @@ public class LoginCtrl {
             }
             if (ex instanceof BenutzerNichtInDBException) {
                 message = "Benutzer nicht in DB";               
-            }           
-            JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
+            }                     
+            return message;
         }
-         return true;
+         return message;
     }
 }

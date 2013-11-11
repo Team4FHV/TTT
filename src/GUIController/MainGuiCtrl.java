@@ -68,6 +68,7 @@ public class MainGuiCtrl {
         _selectionCtrl = getSelectionCtrl();
         _selectionCtrl.setRollen(rolList);
         _selection = new Selection(_selectionCtrl);
+        _selection.setVisible(true);
         _login.Quit();
     }
 

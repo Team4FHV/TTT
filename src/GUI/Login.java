@@ -5,6 +5,7 @@
 package GUI;
 
 import GUIController.LoginCtrl;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -141,9 +142,13 @@ public class Login extends javax.swing.JFrame {
 
     private void btnLoginClicked() {
         username = jTextFieldUsername.getText();
-        password = jTextFieldPassword.getText();       
+        password = jTextFieldPassword.getText();
+        String message = "";
         if (!username.isEmpty() || !password.isEmpty()) {
-            ctrl.checkLogin(username, password);
+            message = ctrl.checkLogin(username, password);
+            if (!"".equals(message)) {
+                JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
+            } 
         } else {
             jLabelLoginErrorMessage.setText("Bitte geben Sie Benutzername und Passwort ein.");
         }

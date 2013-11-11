@@ -43,25 +43,25 @@ public class Client {
     }
 
     private void startClient() {
-        
-        System.out.println("Geben Sie Bitte HOST ein:");
-        
-       BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
 
-	try {
-		host = console.readLine();
-	} catch (IOException e) {
-		e.printStackTrace();
-	}
-	
+        System.out.println("Geben Sie Bitte HOST ein:");
+
+        BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
 
         try {
-            stub = (RMIControllerFactoryInterface) Naming.lookup("rmi://"+host+"/RMIControllerFactoryObject");
+            host = console.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            stub = (RMIControllerFactoryInterface) Naming.lookup("rmi://" + host + "/RMIControllerFactoryObject");
             try {
-                 rmi = stub.createRMIController();
+                rmi = stub.createRMIController();
 
             } catch (Exception e) {
-                 System.out.println("Exception create rmi : " + e.getMessage());
+                System.out.println("Exception create rmi : " + e.getMessage());
 
             }
         } catch (Exception e) {
@@ -109,21 +109,12 @@ public class Client {
         return x;
     }
 
-    public void karteKaufen(DTOKarteBestellen karteDTO) {
-        try {
-            rmi.karteKaufen(karteDTO);
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
-        }
-
+    public void karteKaufen(DTOKarteBestellen karteDTO) throws RemoteException, SaveFailedException {
+        rmi.karteKaufen(karteDTO);
     }
 
-    public void reservierungSpeichern(List<DTOKarteReservieren> karten) {
-        try {
-            rmi.reservierungSpeichern(karten);
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
-        }
+    public void reservierungSpeichern(List<DTOKarteReservieren> karten) throws RemoteException, SaveFailedException, Exception {
+        rmi.reservierungSpeichern(karten);
     }
 
     public ArrayList<DTOVeranstaltungInformation> sucheVeranstaltungenNachKrieterien(Date d, String ort, String kuenstler) {
@@ -136,12 +127,8 @@ public class Client {
         return x;
     }
 
-    public void verkaufSpeichern(List<DTOKarteBestellen> karten) {
-        try {
-            rmi.verkaufSpeichern(karten);
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
+    public void verkaufSpeichern(List<DTOKarteBestellen> karten) throws RemoteException, SaveFailedException, Exception {
+        rmi.verkaufSpeichern(karten);
     }
 
     public DTOKategorieInformation getKategorieInfo(int id) {
@@ -162,14 +149,15 @@ public class Client {
         } catch (Exception exc) {
             System.out.println(exc.getMessage());
         }
-       return x;
+        return x;
     }
-    
+
     public void neuenKundeSpeichern(DTOKundeNeuSpeichern kunde) throws RemoteException, SaveFailedException {
-            rmi.neuenKundenSpeichern(kunde);
+        rmi.neuenKundenSpeichern(kunde);
     }
-    public DTORollenList login(DTOLoginDaten l) throws RemoteException, 
-            BenutzerNichtInDBException, FalschesPasswordExeption {      
-            return  rmi.login(l);
-        }
+
+    public DTORollenList login(DTOLoginDaten l) throws RemoteException,
+            BenutzerNichtInDBException, FalschesPasswordExeption {
+        return rmi.login(l);
+    }
 }

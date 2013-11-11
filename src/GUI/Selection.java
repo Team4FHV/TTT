@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import GUIController.SelectionCtrl;
+import java.util.List;
 
 /**
  *
@@ -11,13 +13,15 @@ package GUI;
  */
 public class Selection extends javax.swing.JFrame {
     
-   
-    
+    private SelectionCtrl _ctrl;
+
     /**
      * Creates new form Selection
      */
-    public Selection() {
+    public Selection(SelectionCtrl ctrl) {
+        _ctrl = ctrl;
         initComponents();
+        loadComponents();
     }
 
     /**
@@ -55,15 +59,35 @@ public class Selection extends javax.swing.JFrame {
         jPanelSelection.setLayout(new java.awt.GridLayout(4, 2));
 
         jButtonVsuchen.setText("Veranstaltung suchen");
+        jButtonVsuchen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVsuchenActionPerformed(evt);
+            }
+        });
         jPanelSelection.add(jButtonVsuchen);
 
         jButtonKreservieren.setText("Karten reservieren");
+        jButtonKreservieren.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonKreservierenActionPerformed(evt);
+            }
+        });
         jPanelSelection.add(jButtonKreservieren);
 
         jButtonKverkaufen.setText("Karten verkaufen");
+        jButtonKverkaufen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonKverkaufenActionPerformed(evt);
+            }
+        });
         jPanelSelection.add(jButtonKverkaufen);
 
         jButtonKuVerwalten.setText("Kunden verwalten");
+        jButtonKuVerwalten.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonKuVerwaltenActionPerformed(evt);
+            }
+        });
         jPanelSelection.add(jButtonKuVerwalten);
 
         jPanelScreen.add(jPanelSelection);
@@ -75,8 +99,22 @@ public class Selection extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
- 
+
+    private void jButtonVsuchenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVsuchenActionPerformed
+        VeranstaltungSuchenClicked();
+    }//GEN-LAST:event_jButtonVsuchenActionPerformed
     
+    private void jButtonKreservierenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKreservierenActionPerformed
+        KarteReservierenClicked();
+    }//GEN-LAST:event_jButtonKreservierenActionPerformed
+    
+    private void jButtonKverkaufenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKverkaufenActionPerformed
+        KarteKaufenClicked();
+    }//GEN-LAST:event_jButtonKverkaufenActionPerformed
+    
+    private void jButtonKuVerwaltenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKuVerwaltenActionPerformed
+        KundenVerwaltenClicked();
+    }//GEN-LAST:event_jButtonKuVerwaltenActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonKreservieren;
     private javax.swing.JButton jButtonKuVerwalten;
@@ -88,4 +126,41 @@ public class Selection extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelScreenTitle;
     private javax.swing.JPanel jPanelSelection;
     // End of variables declaration//GEN-END:variables
+
+    private void VeranstaltungSuchenClicked() {
+        _ctrl.veranstaltungSuchen();
+    }
+    
+    private void KarteReservierenClicked() {
+        _ctrl.KarteReservieren();
+    }
+    
+    private void KundenVerwaltenClicked() {
+        _ctrl.KundenVerwalten();
+    }
+    
+    private void KarteKaufenClicked() {
+        _ctrl.KarteKaufen();
+    }
+    
+    public void Quit() {
+        this.dispose();
+    }
+    
+    private void loadComponents() {
+        List<String> roles = _ctrl.loadRoles();
+        jButtonKreservieren.setEnabled(false);
+        jButtonKuVerwalten.setEnabled(false);
+        jButtonKverkaufen.setEnabled(false);
+        jButtonVsuchen.setEnabled(false);
+        for (String s : roles) {
+            if (s.equals("Datenpflege")) {
+                jButtonKuVerwalten.setEnabled(true);
+            } else if (s.equals("Verkauf")) {
+                jButtonKreservieren.setEnabled(true);
+                jButtonKverkaufen.setEnabled(true);
+                jButtonVsuchen.setEnabled(true);
+            }
+        }
+    }
 }

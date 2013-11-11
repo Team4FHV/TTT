@@ -5,9 +5,13 @@
 package GUIController;
 
 import DTO.objecte.*;
+import Exceptions.SaveFailedException;
 import client.Client;
+import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -117,7 +121,15 @@ public class KartenInfoCtrl {
 
             karten.add(new DTOKarteBestellen((int) o[1], kundenID, (boolean) o[4]));
         }
-        _client.verkaufSpeichern(karten);
+        try {
+            _client.verkaufSpeichern(karten);
+        } catch (RemoteException ex) {
+            Logger.getLogger(KartenInfoCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SaveFailedException ex) {
+            Logger.getLogger(KartenInfoCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(KartenInfoCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         updateController();
     }
@@ -132,7 +144,17 @@ public class KartenInfoCtrl {
 
             karten.add(new DTOKarteReservieren((int) o[1], kundenID, (boolean) o[4]));
         }
-        _client.reservierungSpeichern(karten);
+        try {
+            _client.reservierungSpeichern(karten);
+            
+            //Exception-Handling
+        } catch (RemoteException ex) {
+            Logger.getLogger(KartenInfoCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SaveFailedException ex) {
+            Logger.getLogger(KartenInfoCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(KartenInfoCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         updateController();
     }

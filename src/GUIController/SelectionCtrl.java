@@ -7,7 +7,6 @@ package GUIController;
 import DTO.objecte.DTORollenList;
 import client.Client;
 import java.util.List;
-import sun.applet.Main;
 
 /**
  *
@@ -15,9 +14,10 @@ import sun.applet.Main;
  */
 public class SelectionCtrl {
     private DTORollenList _rollen;
+    private Client _client;
 
     SelectionCtrl(Client client) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       _client = client;
     }
 
     void setRollen(DTORollenList rolList) {

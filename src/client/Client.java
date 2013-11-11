@@ -168,9 +168,8 @@ public class Client {
     public void neuenKundeSpeichern(DTOKundeNeuSpeichern kunde) throws RemoteException, SaveFailedException {
             rmi.neuenKundenSpeichern(kunde);
     }
-    
-        public DTORollenList login(DTOLoginDaten l) throws RemoteException, BenutzerNichtInDBException, FalschesPasswordExeption {      
+    public DTORollenList login(DTOLoginDaten l) throws RemoteException, 
+            BenutzerNichtInDBException, FalschesPasswordExeption {      
             return  rmi.login(l);
         }
-
 }

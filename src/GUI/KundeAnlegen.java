@@ -630,7 +630,7 @@ public class KundeAnlegen extends javax.swing.JFrame {
     }
 
     private void cancelClicked() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       //TODO
     }
 
     private boolean checkFields() {

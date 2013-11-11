@@ -22,6 +22,7 @@ public class Selection extends javax.swing.JFrame {
         _ctrl = ctrl;
         initComponents();
         loadComponents();
+        this.setVisible(true);
     }
 
     /**

@@ -4,6 +4,7 @@
  */
 package GUIController;
 
+import DTO.objecte.DTORollenList;
 import GUI.*;
 import client.Client;
 
@@ -101,5 +102,9 @@ public class MainGuiCtrl {
             _kundeAnlegenCtrl = new KundeAnlegenCtrl(_client);
         }
         return _kundeAnlegenCtrl;
+    }
+
+    static void Login(DTORollenList rolList) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

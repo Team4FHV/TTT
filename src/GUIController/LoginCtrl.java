@@ -29,6 +29,7 @@ public class LoginCtrl {
          DTOLoginDaten logindat= new DTOLoginDaten(benName, pw);
         try {           
             DTORollenList rolList = _client.login(logindat);
+            MainGuiCtrl.Login(rolList);
         } catch (Exception ex) {
             String message = "";
             if (ex instanceof FalschesPasswordExeption) {

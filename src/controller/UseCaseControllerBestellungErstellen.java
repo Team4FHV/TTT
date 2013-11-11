@@ -4,6 +4,7 @@
  */
 package controller;
 
+import ConstantContent.KonstantKartenStatus;
 import Domain.DAOFabrik;
 import Hibernate.objecte.Benutzer;
 import Hibernate.objecte.Bestellung;

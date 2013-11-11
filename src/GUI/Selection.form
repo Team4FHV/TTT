@@ -59,21 +59,33 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Veranstaltung suchen"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonVsuchenActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonKreservieren">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Karten reservieren"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonKreservierenActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonKverkaufen">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Karten verkaufen"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonKverkaufenActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonKuVerwalten">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Kunden verwalten"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonKuVerwaltenActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

@@ -18,10 +18,14 @@ public class MainGuiCtrl {
     private static VeranstaltungKategorie _veranstaltungKategorie;
     private static KartenInfo _kartenInfo;
     private static KundeAnlegen _kundeAnlegen;
+    private static Login _login;
+    private static Selection _selection;
     private static KartenInfoCtrl _kartenInfoCtrl;
     private static VeranstaltungKategorieCtrl _veranstaltungKategorieCtrl;
     private static VeranstaltungsSuchenCtrl _veranstaltungSuchenCtrl;
     private static KundeAnlegenCtrl _kundeAnlegenCtrl;
+    private static LoginCtrl _loginCtrl;
+    private static SelectionCtrl _selectionCtrl;
     private static Client _client;
 
     public static void VeranstaltungAusgewaehlt(int veranstaltungID) {
@@ -56,13 +60,34 @@ public class MainGuiCtrl {
         _veranstaltungSuchen.setVisible(false);
         _veranstaltungSuchen.Quit();
         _veranstaltungSuchen = null;
-        System.exit(0);
+
+    }
+
+    static void Login(DTORollenList rolList) {
+        _login.setVisible(false);
+        _selectionCtrl = getSelectionCtrl();
+        _selectionCtrl.setRollen(rolList);
+        _selection = new Selection(_selectionCtrl);
+        _login.Quit();
+    }
+
+    static void VeranstaltungSuchen() {
+        _selection.setVisible(false);
+        _veranstaltungSuchen = new VeranstaltungSuchen(getVeranstaltungSuchenCtrl());
+        _selection.Quit();
+        _selection = null;
+    }
+
+    static void KundenVerwalten() {
+        _selection.setVisible(false);
+        _kundeAnlegen = new KundeAnlegen(getKundeAnlegenCtrl());
+        _selection.Quit();
+        _selection = null;
     }
 
     public static void main(String[] args) {
         _client = new Client();
-       // _veranstaltungSuchen = new VeranstaltungSuchen(getVeranstaltungSuchenCtrl());
-        _kundeAnlegen = new KundeAnlegen(getKundeAnlegenCtrl());
+        _login =  new Login(getLoginCtrl());
     }
 
     public static VeranstaltungsSuchenCtrl getVeranstaltungSuchenCtrl() {
@@ -75,9 +100,7 @@ public class MainGuiCtrl {
     public static VeranstaltungKategorieCtrl getVeranstaltungKategorieCtrl(int id) {
         if (_veranstaltungKategorieCtrl == null) {
             _veranstaltungKategorieCtrl = new VeranstaltungKategorieCtrl(id, _client);
-        }
-        else
-        {
+        } else {
             _veranstaltungKategorieCtrl.setVeranstaltungsID(id);
         }
         return _veranstaltungKategorieCtrl;
@@ -86,25 +109,32 @@ public class MainGuiCtrl {
     public static KartenInfoCtrl getKartenInfoCtrl(int veranstaltungID, int kategorieID) {
         if (_kartenInfoCtrl == null) {
             _kartenInfoCtrl = new KartenInfoCtrl(veranstaltungID, kategorieID, _client);
-        }
-        else
-        {
+        } else {
             _kartenInfoCtrl.setVeranstaltung(veranstaltungID);
             _kartenInfoCtrl.setKategorieID(kategorieID);
         }
         return _kartenInfoCtrl;
     }
-    
-    public static KundeAnlegenCtrl getKundeAnlegenCtrl()
-    {
-        if(_kundeAnlegenCtrl == null)
-        {
+
+    public static KundeAnlegenCtrl getKundeAnlegenCtrl() {
+        if (_kundeAnlegenCtrl == null) {
             _kundeAnlegenCtrl = new KundeAnlegenCtrl(_client);
         }
         return _kundeAnlegenCtrl;
     }
 
-    static void Login(DTORollenList rolList) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private static SelectionCtrl getSelectionCtrl() {
+        if (_selectionCtrl == null) {
+            _selectionCtrl = new SelectionCtrl(_client);
+        }
+        return _selectionCtrl;
+    }
+
+    private static LoginCtrl getLoginCtrl() {
+        if(_loginCtrl == null)
+        {
+            _loginCtrl = new LoginCtrl(_client);
+        }
+        return _loginCtrl;
     }
 }

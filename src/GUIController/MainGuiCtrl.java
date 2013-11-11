@@ -72,12 +72,21 @@ public class MainGuiCtrl {
         if (_veranstaltungKategorieCtrl == null) {
             _veranstaltungKategorieCtrl = new VeranstaltungKategorieCtrl(id, _client);
         }
+        else
+        {
+            _veranstaltungKategorieCtrl.setVeranstaltungsID(id);
+        }
         return _veranstaltungKategorieCtrl;
     }
 
     public static KartenInfoCtrl getKartenInfoCtrl(int veranstaltungID, int kategorieID) {
         if (_kartenInfoCtrl == null) {
             _kartenInfoCtrl = new KartenInfoCtrl(veranstaltungID, kategorieID, _client);
+        }
+        else
+        {
+            _kartenInfoCtrl.setVeranstaltung(veranstaltungID);
+            _kartenInfoCtrl.setKategorieID(kategorieID);
         }
         return _kartenInfoCtrl;
     }

@@ -147,7 +147,16 @@ public class KartenInfoCtrl {
     }
 
     public void cancelClicked() {
-       deleteKundenInfo();
-       MainGuiCtrl.KarteCancel(_veranstaltung.getID());
+        deleteKundenInfo();
+        MainGuiCtrl.KarteCancel(_veranstaltung.getID());
+    }
+
+    void setVeranstaltung(int veranstaltungID) {
+        _veranstaltung = _client.getVeranstaltungById(veranstaltungID);
+    }
+
+    void setKategorieID(int kategorieID) {
+        _kategorie = _client.getKategorieInfo(kategorieID);
+        _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new DTOKategorienAuswaehlen(_kategorie.getId()));
     }
 }

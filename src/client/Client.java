@@ -9,6 +9,7 @@ import DTO.objecte.DTOKarteReservieren;
 import DTO.objecte.DTOKategorieInformation;
 import DTO.objecte.DTOKategorieKarte;
 import DTO.objecte.DTOKategorienAuswaehlen;
+import DTO.objecte.DTOKundeNeuSpeichern;
 import DTO.objecte.DTOKundenDaten;
 import DTO.objecte.DTOVeranstaltung;
 import DTO.objecte.DTOVeranstaltungAnzeigen;
@@ -19,6 +20,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.rmi.Naming;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -154,5 +156,10 @@ public class Client {
             System.out.println(exc.getMessage());
         }
        return x;
+    }
+    
+    public void neuenKundeSpeichern(DTOKundeNeuSpeichern kunde) throws RemoteException
+    {
+        rmi.neuenKundenSpeichern(kunde);
     }
 }

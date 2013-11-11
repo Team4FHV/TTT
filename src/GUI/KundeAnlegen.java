@@ -7,6 +7,7 @@ package GUI;
 import GUIController.KundeAnlegenCtrl;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -607,8 +608,16 @@ public class KundeAnlegen extends javax.swing.JFrame {
 
     private void kundeAnlegenClicked() {
         if (checkFields()) {
-            _ctrl.neuenKundeAnlegen(_txtVorname.getText(), _txtNachname.getText(), _txtGeburtsdatum.getText(), _txtAnrede.getText(), _txtFirmenname.getText(), _txtLand.getText(), _txtPostleitzahl.getText(), _txtOrt.getText(), _txtStrasse.getText(), _txtHausnummer.getText(), _txtTelefonnummer.getText(), _txtEMail.getText());
+            if(_ctrl.neuenKundeAnlegen(_txtVorname.getText(), _txtNachname.getText(), _txtGeburtsdatum.getText(), _txtAnrede.getText(), _txtFirmenname.getText(), _txtLand.getText(), _txtPostleitzahl.getText(), _txtOrt.getText(), _txtStrasse.getText(), _txtHausnummer.getText(), _txtTelefonnummer.getText(), _txtEMail.getText()))
+            {
+                JOptionPane.showMessageDialog(null, "Kunde wurde angelegt", "", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Kunde konnte nicht angelegt werden", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } else {
+            JOptionPane.showMessageDialog(null, "Bitte füllen Sie alle benötigten Felder aus", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

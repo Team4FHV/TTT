@@ -77,5 +77,10 @@ public class VeranstaltungKategorieCtrl {
     public void cancelButton() {
         MainGuiCtrl.KategorieCancel();
     }
+
+    void setVeranstaltungsID(int id) {
+        _veranstaltung = _client.getVeranstaltungById(id);
+        _kategorien = _client.getKategorieInfoVonVeranstaltung(new DTOVeranstaltungAnzeigen(_veranstaltung.getID()));
+    }
        
 }

@@ -4,13 +4,14 @@
  */
 package DTO.objecte;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author media
  */
-public class DTORollenList {
+public class DTORollenList implements Serializable{
     ArrayList<String> rollen = new ArrayList();
 
     public DTORollenList(ArrayList<String> rollen) {

@@ -20,6 +20,7 @@ import DTO.objecte.DTOVeranstaltung;
 import DTO.objecte.DTOVeranstaltungAnzeigen;
 import DTO.objecte.DTOVeranstaltungInformation;
 import DTO.objecte.DTOVeranstaltungSuchen;
+import Exceptions.BenutzerInaktivException;
 import Exceptions.BenutzerNichtInDBException;
 import Exceptions.FalschesPasswordExeption;
 import Hibernate.objecte.Benutzer;
@@ -74,6 +75,8 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
         } catch (FalschesPasswordExeption ex) {
             Logger.getLogger(RMIController.class.getName()).log(Level.SEVERE, null, ex);
             throw new FalschesPasswordExeption();
+        } catch (BenutzerInaktivException ex) {
+            Logger.getLogger(RMIController.class.getName()).log(Level.SEVERE, null, ex);
         }
         benutzer = ucl.getBenutzer();
        

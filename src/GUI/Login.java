@@ -97,10 +97,10 @@ public class Login extends javax.swing.JFrame {
 
         jPanelInfoMessages.setLayout(new java.awt.GridLayout(1, 2));
 
-        jPanelMessage.setLayout(new java.awt.GridLayout());
+        jPanelMessage.setLayout(new java.awt.GridLayout(1, 0));
         jPanelInfoMessages.add(jPanelMessage);
 
-        jPanelLoginError.setLayout(new java.awt.GridLayout());
+        jPanelLoginError.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabelLoginErrorMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanelLoginError.add(jLabelLoginErrorMessage);

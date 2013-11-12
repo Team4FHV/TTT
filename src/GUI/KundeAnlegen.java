@@ -619,6 +619,7 @@ public class KundeAnlegen extends javax.swing.JFrame {
             if(_ctrl.neuenKundeAnlegen(_txtVorname.getText(), _txtNachname.getText(), _txtGeburtsdatum.getText(), _txtAnrede.getText(), _txtFirmenname.getText(), _txtLand.getText(), _txtPostleitzahl.getText(), _txtOrt.getText(), _txtStrasse.getText(), _txtHausnummer.getText(), _txtTelefonnummer.getText(), _txtEMail.getText()))
             {
                 JOptionPane.showMessageDialog(null, "Kunde wurde angelegt", "", JOptionPane.INFORMATION_MESSAGE);
+                clearFrame();
             }
             else
             {
@@ -752,5 +753,20 @@ public class KundeAnlegen extends javax.swing.JFrame {
     public void Quit()
     {
         this.dispose();
+    }
+
+    private void clearFrame() {
+        _txtAnrede.setText("");
+        _txtEMail.setText("");
+        _txtFirmenname.setText("");
+        _txtGeburtsdatum.setText("");
+        _txtHausnummer.setText("");
+        _txtLand.setText("");
+        _txtNachname.setText("");
+        _txtOrt.setText("");
+        _txtPostleitzahl.setText("");
+        _txtStrasse.setText("");
+        _txtTelefonnummer.setText("");
+        _txtVorname.setText("");
     }
 }

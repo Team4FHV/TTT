@@ -32,7 +32,6 @@ public class Login extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jPanelScreen = new javax.swing.JPanel();
         jPanelScreenTitle = new javax.swing.JPanel();
@@ -42,7 +41,7 @@ public class Login extends javax.swing.JFrame {
         jLabelUsername = new javax.swing.JLabel();
         jTextFieldUsername = new javax.swing.JTextField();
         jLabelPassword = new javax.swing.JLabel();
-        jTextFieldPassword = new javax.swing.JTextField();
+        jPasswordField1 = new javax.swing.JPasswordField();
         jLabelEmptyLogin = new javax.swing.JLabel();
         jButtonLogin = new javax.swing.JButton();
         jPanelInfoMessages = new javax.swing.JPanel();
@@ -77,12 +76,8 @@ public class Login extends javax.swing.JFrame {
         jLabelPassword.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelPassword.setText("Password");
         jLabelPassword.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTextFieldPassword, org.jdesktop.beansbinding.ObjectProperty.create(), jLabelPassword, org.jdesktop.beansbinding.BeanProperty.create("labelFor"));
-        bindingGroup.addBinding(binding);
-
         jPanelLoginData.add(jLabelPassword);
-        jPanelLoginData.add(jTextFieldPassword);
+        jPanelLoginData.add(jPasswordField1);
         jPanelLoginData.add(jLabelEmptyLogin);
 
         jButtonLogin.setText("Login");
@@ -97,10 +92,10 @@ public class Login extends javax.swing.JFrame {
 
         jPanelInfoMessages.setLayout(new java.awt.GridLayout(1, 2));
 
-        jPanelMessage.setLayout(new java.awt.GridLayout());
+        jPanelMessage.setLayout(new java.awt.GridLayout(1, 0));
         jPanelInfoMessages.add(jPanelMessage);
 
-        jPanelLoginError.setLayout(new java.awt.GridLayout());
+        jPanelLoginError.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabelLoginErrorMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanelLoginError.add(jLabelLoginErrorMessage);
@@ -110,8 +105,6 @@ public class Login extends javax.swing.JFrame {
         jPanelScreen.add(jPanelInfoMessages);
 
         getContentPane().add(jPanelScreen);
-
-        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -135,14 +128,13 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelMessage;
     private javax.swing.JPanel jPanelScreen;
     private javax.swing.JPanel jPanelScreenTitle;
-    private javax.swing.JTextField jTextFieldPassword;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextFieldUsername;
-    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
     private void btnLoginClicked() {
         username = jTextFieldUsername.getText();
-        password = jTextFieldPassword.getText();
+        password = jPasswordField1.getText();
         String message = "";
         if (!username.isEmpty() || !password.isEmpty()) {
             message = ctrl.checkLogin(username, password);

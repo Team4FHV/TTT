@@ -44,4 +44,8 @@ public class LoginCtrl {
         }
          return message;
     }
+
+    public void closeWindow() {
+        System.exit(0);
+    }
 }

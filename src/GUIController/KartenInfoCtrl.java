@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -29,9 +30,21 @@ public class KartenInfoCtrl {
 
     public KartenInfoCtrl(int veranstaltungID, int kategorieID, Client client) {
         _client = client;
-        _veranstaltung = client.getVeranstaltungById(veranstaltungID);
-        _kategorie = client.getKategorieInfo(kategorieID);
-        _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new DTOKategorienAuswaehlen(_kategorie.getId()));
+        try {
+            _veranstaltung = client.getVeranstaltungById(veranstaltungID);
+        } catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        try {
+            _kategorie = client.getKategorieInfo(kategorieID);
+        } catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        try {
+            _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new DTOKategorienAuswaehlen(_kategorie.getId()));
+        } catch (RemoteException ex) {
+           JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public TableModel getKartenInfo() {
@@ -164,8 +177,16 @@ public class KartenInfoCtrl {
     }
 
     private void updateController() {
-        _kategorie = _client.getKategorieInfo(_kategorie.getId());
-        _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new DTOKategorienAuswaehlen(_kategorie.getId()));
+        try {
+            _kategorie = _client.getKategorieInfo(_kategorie.getId());
+        } catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        try {
+            _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new DTOKategorienAuswaehlen(_kategorie.getId()));
+        } catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void cancelClicked() {
@@ -174,11 +195,23 @@ public class KartenInfoCtrl {
     }
 
     void setVeranstaltung(int veranstaltungID) {
-        _veranstaltung = _client.getVeranstaltungById(veranstaltungID);
+        try {
+            _veranstaltung = _client.getVeranstaltungById(veranstaltungID);
+        } catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     void setKategorieID(int kategorieID) {
-        _kategorie = _client.getKategorieInfo(kategorieID);
-        _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new DTOKategorienAuswaehlen(_kategorie.getId()));
+        try {
+            _kategorie = _client.getKategorieInfo(kategorieID);
+        } catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        try {
+            _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new DTOKategorienAuswaehlen(_kategorie.getId()));
+        } catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

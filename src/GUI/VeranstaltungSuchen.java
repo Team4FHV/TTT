@@ -69,7 +69,12 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
         jButtonBack = new javax.swing.JButton();
         jButtonAnzeigen = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(new java.awt.GridLayout(1, 1));
 
         jPanelScreen.setLayout(new java.awt.GridLayout(5, 1));
@@ -255,6 +260,11 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
     private void jButtonAnzeigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnzeigenActionPerformed
         veranstaltungAnzeigen();
     }//GEN-LAST:event_jButtonAnzeigenActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        btnBackClicked();
+    }//GEN-LAST:event_formWindowClosing
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnzeigen;
     private javax.swing.JButton jButtonBack;

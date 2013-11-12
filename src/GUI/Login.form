@@ -75,9 +75,6 @@
                 <Property name="text" type="java.lang.String" value="Password"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
-              <BindingProperties>
-                <BindingProperty name="labelFor" source="jTextFieldPassword" target="jLabelPassword" targetPath="labelFor" updateStrategy="0" immediately="false"/>
-              </BindingProperties>
             </Component>
             <Component class="javax.swing.JPasswordField" name="jpwfPassword">
             </Component>

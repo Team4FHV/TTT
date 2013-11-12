@@ -43,7 +43,7 @@ public class KartenInfoCtrl {
         try {
             _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new DTOKategorienAuswaehlen(_kategorie.getId()));
         } catch (RemoteException ex) {
-           JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -124,7 +124,7 @@ public class KartenInfoCtrl {
         });
     }
 
-    public void kartenBestellen(List<Object[]> bestellteKarten) {
+    public void kartenBestellen(List<Object[]> bestellteKarten) throws RemoteException, SaveFailedException, Exception {
         List<DTOKarteBestellen> karten = new LinkedList<>();
         int kundenID = -1;
         if (_kunde != null) {
@@ -134,20 +134,12 @@ public class KartenInfoCtrl {
 
             karten.add(new DTOKarteBestellen((int) o[1], kundenID, (boolean) o[4]));
         }
-        try {
-            _client.verkaufSpeichern(karten);
-        } catch (RemoteException ex) {
-            Logger.getLogger(KartenInfoCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SaveFailedException ex) {
-            Logger.getLogger(KartenInfoCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(KartenInfoCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        _client.verkaufSpeichern(karten);
 
         updateController();
     }
 
-    public void kartenReservieren(List<Object[]> reservierteKarten) {
+    public void kartenReservieren(List<Object[]> reservierteKarten) throws RemoteException, SaveFailedException, Exception {
         List<DTOKarteReservieren> karten = new LinkedList<>();
         int kundenID = -1;
         if (_kunde != null) {
@@ -157,18 +149,7 @@ public class KartenInfoCtrl {
 
             karten.add(new DTOKarteReservieren((int) o[1], kundenID, (boolean) o[4]));
         }
-        try {
-            _client.reservierungSpeichern(karten);
-            
-            //Exception-Handling
-        } catch (RemoteException ex) {
-            Logger.getLogger(KartenInfoCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SaveFailedException ex) {
-            Logger.getLogger(KartenInfoCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(KartenInfoCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        _client.reservierungSpeichern(karten);
         updateController();
     }
 

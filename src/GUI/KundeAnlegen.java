@@ -133,7 +133,12 @@ public class KundeAnlegen extends javax.swing.JFrame {
         _btnCancel = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(new java.awt.GridLayout(1, 1));
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
@@ -517,6 +522,11 @@ public class KundeAnlegen extends javax.swing.JFrame {
     private void _btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__btnCancelActionPerformed
         cancelClicked();
     }//GEN-LAST:event__btnCancelActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+       cancelClicked();
+    }//GEN-LAST:event_formWindowClosing
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton _btnCancel;
     private javax.swing.JButton _btnKundeAnlegen;

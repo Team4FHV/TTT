@@ -137,4 +137,8 @@ public class Client {
     {
         return _userRollen;
     }
+
+    public void clearRoles() {
+        _userRollen = null;
+    }
 }

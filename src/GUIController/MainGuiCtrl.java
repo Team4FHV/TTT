@@ -97,6 +97,12 @@ public class MainGuiCtrl {
         _kundeAnlegen.Quit();
         _kundeAnlegen = null;
     }
+     static void SelectionClose() {
+        _selection.setVisible(false);
+        _login = new Login(getLoginCtrl());
+        _selection.Quit();
+        _selection = null;
+    }
 
     public static void main(String[] args) {
         _client = new Client();
@@ -149,4 +155,6 @@ public class MainGuiCtrl {
         }
         return _loginCtrl;
     }
+
+   
 }

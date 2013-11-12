@@ -44,7 +44,12 @@ public class Selection extends javax.swing.JFrame {
         jButtonKuVerwalten = new javax.swing.JButton();
         jPanelInfoMessage = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(new java.awt.GridLayout(1, 1));
 
         jPanelScreen.setLayout(new java.awt.GridLayout(3, 1));
@@ -116,6 +121,11 @@ public class Selection extends javax.swing.JFrame {
     private void jButtonKuVerwaltenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKuVerwaltenActionPerformed
         KundenVerwaltenClicked();
     }//GEN-LAST:event_jButtonKuVerwaltenActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        CloseWindow();
+    }//GEN-LAST:event_formWindowClosing
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonKreservieren;
     private javax.swing.JButton jButtonKuVerwalten;
@@ -146,6 +156,11 @@ public class Selection extends javax.swing.JFrame {
     
     public void Quit() {
         this.dispose();
+    }
+    
+    public void CloseWindow()
+    {
+        _ctrl.closeWindow();
     }
     
     private void loadComponents() {

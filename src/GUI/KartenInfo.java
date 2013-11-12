@@ -125,7 +125,12 @@ public class KartenInfo extends javax.swing.JFrame {
         _btnCancel = new javax.swing.JButton();
         jPanel15 = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(new java.awt.GridLayout(3, 0));
 
         jPanel1.setLayout(new java.awt.GridLayout(1, 3));
@@ -143,14 +148,14 @@ public class KartenInfo extends javax.swing.JFrame {
 
         jPanel26.setLayout(new java.awt.GridLayout(1, 2));
 
-        jPanel29.setLayout(new java.awt.GridLayout());
+        jPanel29.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel10.setText("Veranstaltungsname:");
         jPanel29.add(jLabel10);
 
         jPanel26.add(jPanel29);
 
-        jPanel30.setLayout(new java.awt.GridLayout());
+        jPanel30.setLayout(new java.awt.GridLayout(1, 0));
 
         _lblVeranstaltungsname.setText("jLabel11");
         jPanel30.add(_lblVeranstaltungsname);
@@ -523,6 +528,11 @@ public class KartenInfo extends javax.swing.JFrame {
     private void _btnKundePruefenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__btnKundePruefenActionPerformed
         btnKundePruefenClicked();
     }//GEN-LAST:event__btnKundePruefenActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        btnCancelClicked();
+    }//GEN-LAST:event_formWindowClosing
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton _btnCancel;
     private javax.swing.JButton _btnKaufen;

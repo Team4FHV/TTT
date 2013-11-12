@@ -50,6 +50,11 @@ public class Login extends javax.swing.JFrame {
         jLabelLoginErrorMessage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(new java.awt.GridLayout(1, 1));
 
         jPanelScreen.setLayout(new java.awt.GridLayout(3, 1));
@@ -113,6 +118,10 @@ public class Login extends javax.swing.JFrame {
         btnLoginClicked();
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        CloseWindow();
+    }//GEN-LAST:event_formWindowClosing
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonLogin;
@@ -149,4 +158,9 @@ public class Login extends javax.swing.JFrame {
     public void Quit() {
         this.dispose();
     }    
+    
+    public void CloseWindow()
+    {
+        ctrl.closeWindow();
+    }
 }

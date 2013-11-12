@@ -29,8 +29,6 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Client {
 
@@ -69,43 +67,27 @@ public class Client {
         }
     }
 
-    public DTOKategorieKarte getAlleFreieKartenNachKategorie(DTOKategorienAuswaehlen kat) {
+    public DTOKategorieKarte getAlleFreieKartenNachKategorie(DTOKategorienAuswaehlen kat) throws RemoteException {
         DTOKategorieKarte x = null;
-        try {
-            x = rmi.getAlleFreieKartenNachKategorie(kat);
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
-        }
+        x = rmi.getAlleFreieKartenNachKategorie(kat);
         return x;
     }
 
-    public ArrayList<DTOKategorieInformation> getKategorieInfoVonVeranstaltung(DTOVeranstaltungAnzeigen v) {
+    public ArrayList<DTOKategorieInformation> getKategorieInfoVonVeranstaltung(DTOVeranstaltungAnzeigen v) throws RemoteException {
         ArrayList<DTOKategorieInformation> x = null;
-        try {
-            x = rmi.getKategorieInfoVonVeranstaltung(v);
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
-        }
+        x = rmi.getKategorieInfoVonVeranstaltung(v);
         return x;
     }
 
-    public ArrayList<DTOKundenDaten> getKundenListNachNachname(String nachname) {
+    public ArrayList<DTOKundenDaten> getKundenListNachNachname(String nachname) throws RemoteException, Exception {
         ArrayList<DTOKundenDaten> x = null;
-        try {
-            x = rmi.getKundenListNachNachname(nachname);
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
-        }
+        x = rmi.getKundenListNachNachname(nachname);
         return x;
     }
 
-    public DTOKundenDaten getKundendatenNachID(int id) {
+    public DTOKundenDaten getKundendatenNachID(int id) throws RemoteException, Exception {
         DTOKundenDaten x = null;
-        try {
-            x = rmi.getKundendatenNachID(id);
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
-        }
+        x = rmi.getKundendatenNachID(id);
         return x;
     }
 
@@ -117,13 +99,9 @@ public class Client {
         rmi.reservierungSpeichern(karten);
     }
 
-    public ArrayList<DTOVeranstaltungInformation> sucheVeranstaltungenNachKrieterien(Date d, String ort, String kuenstler) {
+    public ArrayList<DTOVeranstaltungInformation> sucheVeranstaltungenNachKrieterien(Date d, String ort, String kuenstler) throws RemoteException {
         ArrayList<DTOVeranstaltungInformation> x = null;
-        try {
-            x = rmi.sucheVeranstaltungenNachKrieterien(d, ort, kuenstler);
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
-        }
+        x = rmi.sucheVeranstaltungenNachKrieterien(d, ort, kuenstler);
         return x;
     }
 
@@ -131,24 +109,16 @@ public class Client {
         rmi.verkaufSpeichern(karten);
     }
 
-    public DTOKategorieInformation getKategorieInfo(int id) {
+    public DTOKategorieInformation getKategorieInfo(int id) throws RemoteException {
         DTOKategorieInformation x = null;
-        try {
-            x = rmi.getKategorieInfo(id);
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
-        }
+        x = rmi.getKategorieInfo(id);
         return x;
 
     }
 
-    public DTOVeranstaltung getVeranstaltungById(int veranstaltungID) {
+    public DTOVeranstaltung getVeranstaltungById(int veranstaltungID) throws RemoteException {
         DTOVeranstaltung x = null;
-        try {
-            x = rmi.getVeranstaltungById(veranstaltungID);
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
-        }
+        x = rmi.getVeranstaltungById(veranstaltungID);
         return x;
     }
 

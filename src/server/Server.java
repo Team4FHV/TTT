@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
 /**
  *
@@ -17,7 +18,7 @@ public class Server {
             System.out.println("Hallo");
             
             try { //special exception handler for registry creation
-            LocateRegistry.createRegistry(1099); 
+            LocateRegistry.createRegistry(Registry.REGISTRY_PORT); 
             System.out.println("java RMI registry created.");
         } catch (RemoteException e) {
             //do nothing, error means registry already exists
@@ -31,7 +32,7 @@ public class Server {
             RMIControllerFactory rmiControllerFactory = new RMIControllerFactory();
             // Bind this object instance to the name "SquareNumberObject"
             
-            Naming.rebind("rmi://localhost:1099/RMIControllerFactoryObject", rmiControllerFactory);
+            Naming.rebind("rmi://localhost/RMIControllerFactoryObject", rmiControllerFactory);
            
             System.out.println("Object bound in registry");
 

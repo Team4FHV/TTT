@@ -68,7 +68,12 @@ public class VeranstaltungKategorie extends javax.swing.JFrame {
         jPanel21 = new javax.swing.JPanel();
         _btnCancel = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(new java.awt.GridLayout(3, 1));
 
         jPanel1.setLayout(new java.awt.GridLayout(1, 2));
@@ -264,6 +269,10 @@ public class VeranstaltungKategorie extends javax.swing.JFrame {
     private void _btnKategorieAuswaehlenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__btnKategorieAuswaehlenActionPerformed
         btnKategorieWaehlenClicked();
     }//GEN-LAST:event__btnKategorieAuswaehlenActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        btnCancelClicked();
+    }//GEN-LAST:event_formWindowClosing
     /**
      * @param args the command line arguments
      */

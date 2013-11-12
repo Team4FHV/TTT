@@ -4,6 +4,7 @@
  */
 package GUIController;
 
+import DTO.objecte.DTORollenList;
 import GUI.*;
 import client.Client;
 
@@ -16,9 +17,15 @@ public class MainGuiCtrl {
     private static VeranstaltungSuchen _veranstaltungSuchen;
     private static VeranstaltungKategorie _veranstaltungKategorie;
     private static KartenInfo _kartenInfo;
+    private static KundeAnlegen _kundeAnlegen;
+    private static Login _login;
+    private static Selection _selection;
     private static KartenInfoCtrl _kartenInfoCtrl;
     private static VeranstaltungKategorieCtrl _veranstaltungKategorieCtrl;
     private static VeranstaltungsSuchenCtrl _veranstaltungSuchenCtrl;
+    private static KundeAnlegenCtrl _kundeAnlegenCtrl;
+    private static LoginCtrl _loginCtrl;
+    private static SelectionCtrl _selectionCtrl;
     private static Client _client;
 
     public static void VeranstaltungAusgewaehlt(int veranstaltungID) {
@@ -51,14 +58,55 @@ public class MainGuiCtrl {
 
     public static void VeranstaltungCancel() {
         _veranstaltungSuchen.setVisible(false);
+        _selectionCtrl = getSelectionCtrl();
+        _selectionCtrl.setRollen(_client.getUserRollen());
+        _selection = new Selection(_selectionCtrl);
         _veranstaltungSuchen.Quit();
         _veranstaltungSuchen = null;
-        System.exit(0);
+
+    }
+
+    static void Login(DTORollenList rolList) {
+        _login.setVisible(false);
+        _selectionCtrl = getSelectionCtrl();
+        _selectionCtrl.setRollen(rolList);
+        _selection = new Selection(_selectionCtrl);
+        _selection.setVisible(true);
+        _login.Quit();
+    }
+
+    static void VeranstaltungSuchen() {
+        _selection.setVisible(false);
+        _veranstaltungSuchen = new VeranstaltungSuchen(getVeranstaltungSuchenCtrl());
+        _selection.Quit();
+        _selection = null;
+    }
+
+    static void KundenVerwalten() {
+        _selection.setVisible(false);
+        _kundeAnlegen = new KundeAnlegen(getKundeAnlegenCtrl());
+        _selection.Quit();
+        _selection = null;
+    }
+
+    static void KundeAnlegenCancel() {
+        _kundeAnlegen.setVisible(false);
+        _selectionCtrl = getSelectionCtrl();
+        _selectionCtrl.setRollen(_client.getUserRollen());
+        _selection = new Selection(_selectionCtrl);
+        _kundeAnlegen.Quit();
+        _kundeAnlegen = null;
+    }
+     static void SelectionClose() {
+        _selection.setVisible(false);
+        _login = new Login(getLoginCtrl());
+        _selection.Quit();
+        _selection = null;
     }
 
     public static void main(String[] args) {
         _client = new Client();
-        _veranstaltungSuchen = new VeranstaltungSuchen(getVeranstaltungSuchenCtrl());
+        _login = new Login(getLoginCtrl());
     }
 
     public static VeranstaltungsSuchenCtrl getVeranstaltungSuchenCtrl() {
@@ -71,6 +119,8 @@ public class MainGuiCtrl {
     public static VeranstaltungKategorieCtrl getVeranstaltungKategorieCtrl(int id) {
         if (_veranstaltungKategorieCtrl == null) {
             _veranstaltungKategorieCtrl = new VeranstaltungKategorieCtrl(id, _client);
+        } else {
+            _veranstaltungKategorieCtrl.setVeranstaltungsID(id);
         }
         return _veranstaltungKategorieCtrl;
     }
@@ -78,7 +128,33 @@ public class MainGuiCtrl {
     public static KartenInfoCtrl getKartenInfoCtrl(int veranstaltungID, int kategorieID) {
         if (_kartenInfoCtrl == null) {
             _kartenInfoCtrl = new KartenInfoCtrl(veranstaltungID, kategorieID, _client);
+        } else {
+            _kartenInfoCtrl.setVeranstaltung(veranstaltungID);
+            _kartenInfoCtrl.setKategorieID(kategorieID);
         }
         return _kartenInfoCtrl;
     }
+
+    public static KundeAnlegenCtrl getKundeAnlegenCtrl() {
+        if (_kundeAnlegenCtrl == null) {
+            _kundeAnlegenCtrl = new KundeAnlegenCtrl(_client);
+        }
+        return _kundeAnlegenCtrl;
+    }
+
+    private static SelectionCtrl getSelectionCtrl() {
+        if (_selectionCtrl == null) {
+            _selectionCtrl = new SelectionCtrl(_client);
+        }
+        return _selectionCtrl;
+    }
+
+    private static LoginCtrl getLoginCtrl() {
+        if (_loginCtrl == null) {
+            _loginCtrl = new LoginCtrl(_client);
+        }
+        return _loginCtrl;
+    }
+
+   
 }

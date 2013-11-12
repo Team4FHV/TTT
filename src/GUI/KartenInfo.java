@@ -6,10 +6,15 @@ package GUI;
 
 import GUIController.KartenInfoCtrl;
 import DTO.objecte.*;
+import Exceptions.SaveFailedException;
 import java.math.BigDecimal;
+import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
@@ -125,7 +130,12 @@ public class KartenInfo extends javax.swing.JFrame {
         _btnCancel = new javax.swing.JButton();
         jPanel15 = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(new java.awt.GridLayout(3, 0));
 
         jPanel1.setLayout(new java.awt.GridLayout(1, 3));
@@ -143,14 +153,14 @@ public class KartenInfo extends javax.swing.JFrame {
 
         jPanel26.setLayout(new java.awt.GridLayout(1, 2));
 
-        jPanel29.setLayout(new java.awt.GridLayout());
+        jPanel29.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel10.setText("Veranstaltungsname:");
         jPanel29.add(jLabel10);
 
         jPanel26.add(jPanel29);
 
-        jPanel30.setLayout(new java.awt.GridLayout());
+        jPanel30.setLayout(new java.awt.GridLayout(1, 0));
 
         _lblVeranstaltungsname.setText("jLabel11");
         jPanel30.add(_lblVeranstaltungsname);
@@ -523,6 +533,10 @@ public class KartenInfo extends javax.swing.JFrame {
     private void _btnKundePruefenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__btnKundePruefenActionPerformed
         btnKundePruefenClicked();
     }//GEN-LAST:event__btnKundePruefenActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        btnCancelClicked();
+    }//GEN-LAST:event_formWindowClosing
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton _btnCancel;
     private javax.swing.JButton _btnKaufen;
@@ -722,28 +736,43 @@ public class KartenInfo extends javax.swing.JFrame {
     }
 
     private void btnReservierenClicked() {
-       if(!_kartenauswahl.isEmpty())
-       {
-           if(_ctrl.getKunde() != null)
-           {
-               _ctrl.kartenReservieren(_kartenauswahl);
-               _kartenauswahl = new LinkedList<>();
-               loadComponents();
-           }
-       }
+        if (!_kartenauswahl.isEmpty()) {
+            if (_ctrl.getKunde() != null) {
+                try {
+                    _ctrl.kartenReservieren(_kartenauswahl);
+                    JOptionPane.showMessageDialog(null, "Karten erfolgreich reserviert", "Success", JOptionPane.OK_OPTION);
+                } catch (RemoteException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (SaveFailedException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                _kartenauswahl = new LinkedList<>();
+                loadComponents();
+            }
+        }
     }
 
     private void btnKaufenClicked() {
-       if(!_kartenauswahl.isEmpty())
-       {
-           _ctrl.kartenBestellen(_kartenauswahl);
-           _kartenauswahl = new LinkedList<>();
-           loadComponents();
-       }
+        if (!_kartenauswahl.isEmpty()) {
+            try {
+                _ctrl.kartenBestellen(_kartenauswahl);
+                 JOptionPane.showMessageDialog(null, "Karten erfolgreich gekauft", "Success", JOptionPane.OK_OPTION);
+            } catch (RemoteException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (SaveFailedException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            _kartenauswahl = new LinkedList<>();
+            loadComponents();
+        }
     }
 
     private void btnCancelClicked() {
-       _ctrl.cancelClicked();
+        _ctrl.cancelClicked();
     }
 
     private void btnKundePruefenClicked() {
@@ -761,9 +790,8 @@ public class KartenInfo extends javax.swing.JFrame {
             }
         }
     }
-    
-    public void Quit()
-    {
+
+    public void Quit() {
         this.dispose();
     }
 }

@@ -4,22 +4,32 @@
  */
 package controller;
 
+import ConstantContent.*;
 import DTO.objecte.DTOKarte;
 import DTO.objecte.DTOKarteBestellen;
 import DTO.objecte.DTOKarteReservieren;
 import DTO.objecte.DTOKategorieInformation;
 import DTO.objecte.DTOKategorieKarte;
 import DTO.objecte.DTOKategorienAuswaehlen;
+import DTO.objecte.DTOKundeNeuSpeichern;
 import DTO.objecte.DTOKundenDaten;
+import DTO.objecte.DTOKundenDatenAendern;
+import DTO.objecte.DTOLoginDaten;
+import DTO.objecte.DTORollenList;
 import DTO.objecte.DTOVeranstaltung;
 import DTO.objecte.DTOVeranstaltungAnzeigen;
 import DTO.objecte.DTOVeranstaltungInformation;
 import DTO.objecte.DTOVeranstaltungSuchen;
+import Exceptions.BenutzerInaktivException;
+import Exceptions.BenutzerNichtInDBException;
+import Exceptions.FalschesPasswordExeption;
+import Exceptions.SaveFailedException;
 import Hibernate.objecte.Benutzer;
 import Hibernate.objecte.Karte;
 import Hibernate.objecte.Kategorie;
 import Hibernate.objecte.Kuenstler;
 import Hibernate.objecte.Kunde;
+import Hibernate.objecte.Rolle;
 import Hibernate.objecte.Veranstaltung;
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -27,8 +37,11 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -36,17 +49,83 @@ import java.util.Set;
  */
 public class RMIController extends UnicastRemoteObject implements RMIControllerInterface {
 
+    private UseCaseControllerLogin ucl;
     private UseCaseControllerBestellungErstellen ucb;
     private UseCaseControllerSearch ucs;
+    private UseCaseControllerKundenDaten uck;
     private DataManager<Object> dm;
-    private Benutzer benutzer; // TODO
+    private Benutzer benutzer; // TODO{
 
     public RMIController() throws RemoteException {
         super();
+        ucl = new UseCaseControllerLogin();
         ucb = new UseCaseControllerBestellungErstellen();
         ucs = new UseCaseControllerSearch();
+        uck = new UseCaseControllerKundenDaten();
         dm = new DataManager<>();
-        benutzer = ucb.getBenutzerByID(2); // TODO
+        benutzer = null; // TODO
+    }
+
+    @Override
+    public DTORollenList login(DTOLoginDaten l) throws RemoteException, BenutzerNichtInDBException, FalschesPasswordExeption {
+        try {
+            ucl.login(l.getUsername(), l.getPasswort());
+        } catch (BenutzerNichtInDBException ex) {
+            Logger.getLogger(RMIController.class.getName()).log(Level.SEVERE, null, ex);
+            throw new BenutzerNichtInDBException();
+        } catch (FalschesPasswordExeption ex) {
+            Logger.getLogger(RMIController.class.getName()).log(Level.SEVERE, null, ex);
+            throw new FalschesPasswordExeption();
+        } catch (BenutzerInaktivException ex) {
+            Logger.getLogger(RMIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        benutzer = ucl.getBenutzer();
+
+        ArrayList<String> list = new ArrayList();
+        Object[] rollen = benutzer.getRolles().toArray();
+        for (int i = 0; i < rollen.length; i++) {
+            list.add(((Rolle) rollen[i]).getName());
+            System.out.println("rolle ad in list" + list.get(i));
+        }
+        return new DTORollenList(list);
+    }
+
+    @Override
+    public void neuenKundenSpeichern(DTOKundeNeuSpeichern k) throws RemoteException, SaveFailedException {
+        if (benutzer != null && benutzer.getRolles().contains(KontantRolle.DATENPFLEGE)) {
+            try {
+                try {
+                    uck.neuenKundenSpeichern(k.getVorname(), k.getNachname(), k.getGeburtsdatum(), k.getAnrede(),
+                            k.getFirmenname(), k.getLand(), k.getPostleitzahl(), k.getOrt(), k.getStrasse(), k.getHausnummer(),
+                            k.getTelefonnummer(), k.getEmail());
+                } catch (SaveFailedException ex) {
+                    Logger.getLogger(RMIController.class.getName()).log(Level.SEVERE, null, ex);
+                    throw new SaveFailedException();
+                }
+
+            } catch (InstantiationException ex) {
+                Logger.getLogger(RMIController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(RMIController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    @Override
+    public void kundenDatenAendern(DTOKundenDatenAendern k) throws RemoteException, SaveFailedException {
+        if (benutzer != null && benutzer.getRolles().contains(KontantRolle.DATENPFLEGE)) {
+            try {
+
+                uck.kundenDatenAendern(k.getId(), k.getVorname(), k.getNachname(), k.getGeburtsdatum(), k.getAnrede(),
+                        k.getFirmenname(), k.getLand(), k.getPostleitzahl(), k.getOrt(), k.getStrasse(), k.getHausnummer(),
+                        k.getTelefonnummer(), k.getEmail());
+            } catch (InstantiationException ex) {
+                Logger.getLogger(RMIController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(RMIController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
     }
 
     @Override
@@ -105,16 +184,16 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
 
     @Override
     public DTOKategorieKarte getAlleFreieKartenNachKategorie(DTOKategorienAuswaehlen kat) throws RemoteException {
-             
+
         Kategorie k = ucb.getKategorieByID(kat.getId());
         List<DTOKarte> kartenDTOList = new ArrayList<>();
-            List<Karte> karten = ucb.getFreieKartenNachKategorie(k);
-            if (karten != null) {
-                for (Karte karte : karten) {
-                    kartenDTOList.add(new DTOKarte(karte.getKartenId(), karte.getReihe(), karte.getSitzplatz()));
-                       System.out.println("KARTEN gefunden id=" + karte.getKartenId());
-                }
+        List<Karte> karten = ucb.getFreieKartenNachKategorie(k);
+        if (karten != null) {
+            for (Karte karte : karten) {
+                kartenDTOList.add(new DTOKarte(karte.getKartenId(), karte.getReihe(), karte.getSitzplatz()));
+                System.out.println("KARTEN gefunden id=" + karte.getKartenId());
             }
+        }
         return new DTOKategorieKarte(kartenDTOList);
     }
 
@@ -143,7 +222,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
     }
 
     @Override
-    public void verkaufSpeichern(List<DTOKarteBestellen> karten) throws Exception, RemoteException {
+    public void verkaufSpeichern(List<DTOKarteBestellen> karten) throws Exception, RemoteException, SaveFailedException {
         Set<Karte> bestellteKartenSet = new HashSet<>();
         int kundenId = 0;
         if (karten != null) {
@@ -154,7 +233,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
             kunde = ucb.getKundeByID(kundenId);
         }
         if (kundenId == -1) {
-            kunde = ucb.getKundeByID(1);
+            kunde = KonstantKunde.ANONYMOUS;
         }
         if (karten != null) {
             for (DTOKarteBestellen b : karten) {
@@ -167,7 +246,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
     }
 
     @Override
-    public void reservierungSpeichern(List<DTOKarteReservieren> karten) throws Exception, RemoteException {
+    public void reservierungSpeichern(List<DTOKarteReservieren> karten) throws Exception, RemoteException, SaveFailedException {
         Set<Karte> bestellteKartenSet = new HashSet<>();
         int kundenId = karten.get(0).getKundenID();
         Kunde kunde = null;
@@ -186,9 +265,13 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
     }
 
     @Override
-    public void karteKaufen(DTOKarteBestellen karteDTO) throws RemoteException {
+    public void karteKaufen(DTOKarteBestellen karteDTO) throws RemoteException, SaveFailedException {
         Karte karte = ucb.getKarteByID(karteDTO.getKartenID());
-        ucb.karteKaufen(karte, karteDTO.isErmaessigt());
+        try {
+            ucb.karteKaufen(karte, karteDTO.isErmaessigt());
+        } catch (SaveFailedException ex) {
+            Logger.getLogger(RMIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override

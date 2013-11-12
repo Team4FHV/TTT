@@ -5,6 +5,7 @@
 package controller;
 
 
+import ConstantContent.KonstantKartenStatus;
 import Domain.DAOFabrik;
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,7 +45,15 @@ public class DataManager<T> {
     }
     
    
-    
+    public Benutzer getBentzerNachName(String username){
+         String hql = "FROM Benutzer b WHERE b.benutzername = '" + username + "'";
+        Query query = session.createQuery(hql);
+        List list = query.list();
+        if (list == null || list.size() == 0) {
+            return null;
+        }
+        return (Benutzer) list.get(0);
+    }
     
     
 public ArrayList<Karte> getFreieKartenNachKategorie(Kategorie kategorie) {

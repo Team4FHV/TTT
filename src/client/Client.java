@@ -35,6 +35,7 @@ public class Client {
     RMIControllerFactoryInterface stub;
     RMIControllerInterface rmi;
     String host;
+    DTORollenList _userRollen;
 
     public Client() {
         startClient();
@@ -128,6 +129,12 @@ public class Client {
 
     public DTORollenList login(DTOLoginDaten l) throws RemoteException,
             BenutzerNichtInDBException, FalschesPasswordExeption {
-        return rmi.login(l);
+        _userRollen = rmi.login(l);
+        return _userRollen;
+    }
+    
+    public DTORollenList getUserRollen()
+    {
+        return _userRollen;
     }
 }

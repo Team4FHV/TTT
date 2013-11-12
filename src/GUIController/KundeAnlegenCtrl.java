@@ -11,6 +11,7 @@ import java.rmi.RemoteException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -38,8 +39,12 @@ public class KundeAnlegenCtrl {
             _client.neuenKundeSpeichern(kunde);
             return true;
         } catch (RemoteException ex) {
-            System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
+    }
+
+    public void cancelClicked() {
+        MainGuiCtrl.KundeAnlegenCancel();
     }
 }

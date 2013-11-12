@@ -630,7 +630,7 @@ public class KundeAnlegen extends javax.swing.JFrame {
     }
 
     private void cancelClicked() {
-       //TODO
+       _ctrl.cancelClicked();
     }
 
     private boolean checkFields() {
@@ -747,5 +747,10 @@ public class KundeAnlegen extends javax.swing.JFrame {
         } catch (Exception e) {
             return false;
         }
+    }
+    
+    public void Quit()
+    {
+        this.dispose();
     }
 }

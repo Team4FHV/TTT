@@ -58,6 +58,9 @@ public class MainGuiCtrl {
 
     public static void VeranstaltungCancel() {
         _veranstaltungSuchen.setVisible(false);
+        _selectionCtrl = getSelectionCtrl();
+        _selectionCtrl.setRollen(_client.getUserRollen());
+        _selection = new Selection(_selectionCtrl);
         _veranstaltungSuchen.Quit();
         _veranstaltungSuchen = null;
 
@@ -86,9 +89,18 @@ public class MainGuiCtrl {
         _selection = null;
     }
 
+    static void KundeAnlegenCancel() {
+        _kundeAnlegen.setVisible(false);
+        _selectionCtrl = getSelectionCtrl();
+        _selectionCtrl.setRollen(_client.getUserRollen());
+        _selection = new Selection(_selectionCtrl);
+        _kundeAnlegen.Quit();
+        _kundeAnlegen = null;
+    }
+
     public static void main(String[] args) {
         _client = new Client();
-        _login =  new Login(getLoginCtrl());
+        _login = new Login(getLoginCtrl());
     }
 
     public static VeranstaltungsSuchenCtrl getVeranstaltungSuchenCtrl() {
@@ -132,8 +144,7 @@ public class MainGuiCtrl {
     }
 
     private static LoginCtrl getLoginCtrl() {
-        if(_loginCtrl == null)
-        {
+        if (_loginCtrl == null) {
             _loginCtrl = new LoginCtrl(_client);
         }
         return _loginCtrl;

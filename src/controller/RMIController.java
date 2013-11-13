@@ -245,8 +245,9 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
                 }
                 ucb.verkaufSpeichern(benutzer, kunde, bestellteKartenSet);
             } catch (KarteNichtVerfuegbarException ex) {
+                ucb.kartenFreiGeben(bestellteKartenSet);
                 throw new KarteNichtVerfuegbarException(ex.getKartenId());
-                
+
             }
         }
     }
@@ -274,7 +275,6 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
         }
     }
 
-   
     @Override
     public DTOVeranstaltung getVeranstaltungById(int veranstaltungID) throws RemoteException {
         Veranstaltung v = ucb.getVeranstaltungByID(veranstaltungID);

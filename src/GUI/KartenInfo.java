@@ -798,6 +798,7 @@ public class KartenInfo extends javax.swing.JFrame {
 
     private void btnKundePruefenClicked() {
         if (_txtKundennummer.getText().length() < 1) {
+            _ctrl.checkKundennummer(_txtKundennummer.getText());
             _lblKundennummerInformation.setText("Keine Kundennummer eingegeben. Bitte geben Sie eine Kundennummer ein");
             _lblKundennummerInformation.setVisible(true);
         } else {

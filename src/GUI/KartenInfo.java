@@ -754,8 +754,7 @@ public class KartenInfo extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 _ctrl.deleteKundenInfo();
-                _kartenauswahl = new LinkedList<>();
-                loadComponents();
+                refreshWindow();
             } else {
                 JOptionPane.showMessageDialog(null, "Keinen Kunde ausgewählt", "Error", JOptionPane.ERROR_MESSAGE);
             }

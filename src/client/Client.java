@@ -18,6 +18,7 @@ import DTO.objecte.DTOVeranstaltungAnzeigen;
 import DTO.objecte.DTOVeranstaltungInformation;
 import Exceptions.BenutzerNichtInDBException;
 import Exceptions.FalschesPasswordExeption;
+import Exceptions.KarteNichtVerfuegbarException;
 import Exceptions.SaveFailedException;
 import controller.RMIControllerFactoryInterface;
 import controller.RMIControllerInterface;
@@ -92,11 +93,11 @@ public class Client {
         return x;
     }
 
-    public void karteKaufen(DTOKarteBestellen karteDTO) throws RemoteException, SaveFailedException {
+    public void karteKaufen(DTOKarteBestellen karteDTO) throws RemoteException, SaveFailedException, KarteNichtVerfuegbarException {
         rmi.karteKaufen(karteDTO);
     }
 
-    public void reservierungSpeichern(List<DTOKarteReservieren> karten) throws RemoteException, SaveFailedException, Exception {
+    public void reservierungSpeichern(List<DTOKarteReservieren> karten) throws RemoteException, SaveFailedException, Exception, KarteNichtVerfuegbarException {
         rmi.reservierungSpeichern(karten);
     }
 
@@ -106,7 +107,7 @@ public class Client {
         return x;
     }
 
-    public void verkaufSpeichern(List<DTOKarteBestellen> karten) throws RemoteException, SaveFailedException, Exception {
+    public void verkaufSpeichern(List<DTOKarteBestellen> karten) throws RemoteException, SaveFailedException, Exception, KarteNichtVerfuegbarException {
         rmi.verkaufSpeichern(karten);
     }
 

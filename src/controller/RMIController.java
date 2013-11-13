@@ -273,18 +273,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
         }
     }
 
-    @Override
-    public void karteKaufen(DTOKarteBestellen karteDTO) throws RemoteException, SaveFailedException {
-        Karte karte = ucb.getKarteByID(karteDTO.getKartenID());
-        try {
-            ucb.karteKaufen(karte, karteDTO.isErmaessigt());
-        } catch (SaveFailedException ex) {
-            Logger.getLogger(RMIController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (KarteNichtVerfuegbarException ex) {
-            Logger.getLogger(RMIController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
+   
     @Override
     public DTOVeranstaltung getVeranstaltungById(int veranstaltungID) throws RemoteException {
         Veranstaltung v = ucb.getVeranstaltungByID(veranstaltungID);

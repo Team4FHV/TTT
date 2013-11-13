@@ -42,8 +42,7 @@ public class HibernateUtil {
     }
     
     public static SessionFactory getSessionFactory() {
-        return new Configuration().configure().buildSessionFactory();
-                //sessionFactory;
+        return sessionFactory;
     }
     
     public static Session currentSession() throws HibernateException

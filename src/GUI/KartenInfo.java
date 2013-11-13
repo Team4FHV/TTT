@@ -749,7 +749,6 @@ public class KartenInfo extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (KarteNichtVerfuegbarException ex) {
                     JOptionPane.showMessageDialog(null, "Karte mit der ID " + ex.getKartenId() + " ist bereits vergeben", "Error", JOptionPane.ERROR_MESSAGE);
-                    refreshWindow();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -761,7 +760,7 @@ public class KartenInfo extends javax.swing.JFrame {
         }
     }
 
-    private void btnKaufenClicked() {
+    private void btnKaufenClicked(){
         if (!_kartenauswahl.isEmpty()) {
             boolean kaufSpeichern = true;
             if (_ctrl.getKunde() == null) {
@@ -782,12 +781,13 @@ public class KartenInfo extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (SaveFailedException ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (KarteNichtVerfuegbarException ex) {
+                    JOptionPane.showMessageDialog(null, "Karte mit der ID " + ex.getKartenId() + " ist bereits vergeben", "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 _ctrl.deleteKundenInfo();
-                _kartenauswahl = new LinkedList<>();
-                loadComponents();
+                refreshWindow();
             }
         }
     }

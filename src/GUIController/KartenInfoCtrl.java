@@ -59,6 +59,7 @@ public class KartenInfoCtrl {
     }
 
     public boolean checkKundennummer(String text) {
+        System.out.println("Ausgabe der Karte: " + "89");
         if (text.equals("")) {
             _kunde = null;
             return false;

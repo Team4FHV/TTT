@@ -748,7 +748,7 @@ public class KartenInfo extends javax.swing.JFrame {
                 } catch (SaveFailedException ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (KarteNichtVerfuegbarException ex) {
-                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Karte mit der ID " + ex.getKartenId() + "ist bereits vergeben", "Error", JOptionPane.ERROR_MESSAGE);
                     refreshWindow();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

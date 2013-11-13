@@ -246,6 +246,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
                 ucb.verkaufSpeichern(benutzer, kunde, bestellteKartenSet);
             } catch (KarteNichtVerfuegbarException ex) {
                 throw new KarteNichtVerfuegbarException(ex.getKartenId());
+                
             }
         }
     }

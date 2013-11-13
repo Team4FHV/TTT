@@ -6,6 +6,7 @@ package GUI;
 
 import GUIController.KartenInfoCtrl;
 import DTO.objecte.*;
+import Exceptions.KarteNichtVerfuegbarException;
 import Exceptions.SaveFailedException;
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
@@ -26,7 +27,7 @@ import javax.swing.table.TableModel;
 public class KartenInfo extends javax.swing.JFrame {
 
     private KartenInfoCtrl _ctrl;
-    private List<Object[]> _kartenauswahl = new LinkedList<>();
+    private List<Object[]> _kartenauswahl;
 
     /**
      * Creates new form KartenInfo
@@ -641,6 +642,7 @@ public class KartenInfo extends javax.swing.JFrame {
     }
 
     private void loadComponents() {
+        _kartenauswahl = new LinkedList<>();
         fillVeranstaltungsInformation();
         fillKategorieInformation();
         setTableModel();
@@ -745,29 +747,49 @@ public class KartenInfo extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (SaveFailedException ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (KarteNichtVerfuegbarException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    refreshWindow();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
+                _ctrl.deleteKundenInfo();
                 _kartenauswahl = new LinkedList<>();
                 loadComponents();
+            } else {
+                JOptionPane.showMessageDialog(null, "Keinen Kunde ausgewählt", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
 
     private void btnKaufenClicked() {
         if (!_kartenauswahl.isEmpty()) {
-            try {
-                _ctrl.kartenBestellen(_kartenauswahl);
-                 JOptionPane.showMessageDialog(null, "Karten erfolgreich gekauft", "Success", JOptionPane.INFORMATION_MESSAGE);
-            } catch (RemoteException ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            } catch (SaveFailedException ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            boolean kaufSpeichern = true;
+            if (_ctrl.getKunde() == null) {
+                int isKunde = JOptionPane.showConfirmDialog(null, "Wollen Sie diesen Verkauf einem Kunden zuordnen?", "", JOptionPane.YES_NO_OPTION);
+                if (isKunde == 0) {
+                    kaufSpeichern = false;
+                } else if (isKunde == 1) {
+                    kaufSpeichern = true;
+                } else {
+                    kaufSpeichern = false;
+                }
             }
-            _kartenauswahl = new LinkedList<>();
-            loadComponents();
+            if (kaufSpeichern) {
+                try {
+                    _ctrl.kartenBestellen(_kartenauswahl);
+                    JOptionPane.showMessageDialog(null, "Karten erfolgreich gekauft", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } catch (RemoteException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (SaveFailedException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                _ctrl.deleteKundenInfo();
+                _kartenauswahl = new LinkedList<>();
+                loadComponents();
+            }
         }
     }
 
@@ -793,5 +815,14 @@ public class KartenInfo extends javax.swing.JFrame {
 
     public void Quit() {
         this.dispose();
+    }
+
+    private void refreshWindow() {
+        try {
+            _ctrl.loadKarten();
+            loadComponents();
+        } catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

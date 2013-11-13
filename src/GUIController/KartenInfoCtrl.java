@@ -5,13 +5,12 @@
 package GUIController;
 
 import DTO.objecte.*;
+import Exceptions.KarteNichtVerfuegbarException;
 import Exceptions.SaveFailedException;
 import client.Client;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -124,7 +123,7 @@ public class KartenInfoCtrl {
         });
     }
 
-    public void kartenBestellen(List<Object[]> bestellteKarten) throws RemoteException, SaveFailedException, Exception {
+    public void kartenBestellen(List<Object[]> bestellteKarten) throws RemoteException, SaveFailedException, KarteNichtVerfuegbarException, Exception {
         List<DTOKarteBestellen> karten = new LinkedList<>();
         int kundenID = -1;
         if (_kunde != null) {
@@ -139,7 +138,7 @@ public class KartenInfoCtrl {
         updateController();
     }
 
-    public void kartenReservieren(List<Object[]> reservierteKarten) throws RemoteException, SaveFailedException, Exception {
+    public void kartenReservieren(List<Object[]> reservierteKarten) throws RemoteException, SaveFailedException, KarteNichtVerfuegbarException, Exception {
         List<DTOKarteReservieren> karten = new LinkedList<>();
         int kundenID = -1;
         if (_kunde != null) {
@@ -153,7 +152,7 @@ public class KartenInfoCtrl {
         updateController();
     }
 
-    private void deleteKundenInfo() {
+    public void deleteKundenInfo() {
         _kunde = null;
     }
 
@@ -194,5 +193,9 @@ public class KartenInfoCtrl {
         } catch (RemoteException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    public void loadKarten() throws RemoteException {
+        _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new DTOKategorienAuswaehlen(_kategorie.getId()));
     }
 }

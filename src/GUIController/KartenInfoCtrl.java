@@ -59,7 +59,8 @@ public class KartenInfoCtrl {
     }
 
     public boolean checkKundennummer(String text) {
-        if (text == null) {
+        if (text.equals("")) {
+            _kunde = null;
             return false;
         } else {
             int id = 0;

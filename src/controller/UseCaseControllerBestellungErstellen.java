@@ -141,6 +141,26 @@ public class UseCaseControllerBestellungErstellen {
         }
     }
     
+    public void kartenFreiGeben(Set<Karte> karten) throws SaveFailedException{
+         Object[] k = karten.toArray();
+        for (int i = 0; i < k.length; i++) {
+            Karte karte = (Karte) k[i];
+            karteFreigeben(karte);
+            DAOFabrik.getInstance().getKarteDAO().saveORupdate(karte);
+        }
+        
+    }
+    
+     public void kartenReserviernen(Set<Karte> karten) throws SaveFailedException{
+         Object[] k = karten.toArray();
+        for (int i = 0; i < k.length; i++) {
+            Karte karte = (Karte) k[i];
+            karteReservieren(karte);
+            DAOFabrik.getInstance().getKarteDAO().saveORupdate(karte);
+        }
+        
+    }
+    
     public void karteReservieren(Karte karte) {
         karte.setKartenstatus(KonstantKartenStatus.RESERVIERT);
     }

@@ -48,8 +48,6 @@ public interface RMIControllerInterface extends Remote {
 
     DTOKundenDaten getKundendatenNachID(int id)  throws  Exception, RemoteException;
 
-    void karteKaufen(DTOKarteBestellen karteDTO)  throws RemoteException, SaveFailedException, KarteNichtVerfuegbarException;
-
     void reservierungSpeichern(List<DTOKarteReservieren> karten)  throws  Exception, RemoteException, SaveFailedException, KarteNichtVerfuegbarException;
 
     ArrayList<DTOVeranstaltungInformation> sucheVeranstaltungenNachKrieterien(Date d, String ort, String kuenstler)  throws RemoteException;

@@ -93,10 +93,7 @@ public class Client {
         return x;
     }
 
-    public void karteKaufen(DTOKarteBestellen karteDTO) throws RemoteException, SaveFailedException, KarteNichtVerfuegbarException {
-        rmi.karteKaufen(karteDTO);
-    }
-
+   
     public void reservierungSpeichern(List<DTOKarteReservieren> karten) throws RemoteException, SaveFailedException, Exception, KarteNichtVerfuegbarException {
         rmi.reservierungSpeichern(karten);
     }

@@ -740,7 +740,7 @@ public class KartenInfo extends javax.swing.JFrame {
             if (_ctrl.getKunde() != null) {
                 try {
                     _ctrl.kartenReservieren(_kartenauswahl);
-                    JOptionPane.showMessageDialog(null, "Karten erfolgreich reserviert", "Success", JOptionPane.OK_OPTION);
+                    JOptionPane.showMessageDialog(null, "Karten erfolgreich reserviert", "Success", JOptionPane.INFORMATION_MESSAGE);
                 } catch (RemoteException ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (SaveFailedException ex) {
@@ -758,7 +758,7 @@ public class KartenInfo extends javax.swing.JFrame {
         if (!_kartenauswahl.isEmpty()) {
             try {
                 _ctrl.kartenBestellen(_kartenauswahl);
-                 JOptionPane.showMessageDialog(null, "Karten erfolgreich gekauft", "Success", JOptionPane.OK_OPTION);
+                 JOptionPane.showMessageDialog(null, "Karten erfolgreich gekauft", "Success", JOptionPane.INFORMATION_MESSAGE);
             } catch (RemoteException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             } catch (SaveFailedException ex) {

@@ -23,6 +23,7 @@ import DTO.objecte.DTOVeranstaltungSuchen;
 import Exceptions.BenutzerInaktivException;
 import Exceptions.BenutzerNichtInDBException;
 import Exceptions.FalschesPasswordExeption;
+import Exceptions.KarteNichtVerfuegbarException;
 import Exceptions.SaveFailedException;
 import Hibernate.objecte.Benutzer;
 import Hibernate.objecte.Karte;
@@ -222,7 +223,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
     }
 
     @Override
-    public void verkaufSpeichern(List<DTOKarteBestellen> karten) throws Exception, RemoteException, SaveFailedException {
+    public void verkaufSpeichern(List<DTOKarteBestellen> karten) throws Exception, RemoteException, SaveFailedException, KarteNichtVerfuegbarException {
         Set<Karte> bestellteKartenSet = new HashSet<>();
         int kundenId = 0;
         if (karten != null) {
@@ -236,17 +237,21 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
             kunde = KonstantKunde.ANONYMOUS;
         }
         if (karten != null) {
-            for (DTOKarteBestellen b : karten) {
-                Karte k = ucb.getKarteByID(b.getKartenID());
-                ucb.karteKaufen(k, b.isErmaessigt());
-                bestellteKartenSet.add(k);
+            try {
+                for (DTOKarteBestellen b : karten) {
+                    Karte k = ucb.getKarteByID(b.getKartenID());
+                    ucb.karteKaufen(k, b.isErmaessigt());
+                    bestellteKartenSet.add(k);
+                }
+                ucb.verkaufSpeichern(benutzer, kunde, bestellteKartenSet);
+            } catch (KarteNichtVerfuegbarException ex) {
+                throw new KarteNichtVerfuegbarException(ex.getKartenId());
             }
         }
-        ucb.verkaufSpeichern(benutzer, kunde, bestellteKartenSet);
     }
 
     @Override
-    public void reservierungSpeichern(List<DTOKarteReservieren> karten) throws Exception, RemoteException, SaveFailedException {
+    public void reservierungSpeichern(List<DTOKarteReservieren> karten) throws Exception, RemoteException, SaveFailedException, KarteNichtVerfuegbarException {
         Set<Karte> bestellteKartenSet = new HashSet<>();
         int kundenId = karten.get(0).getKundenID();
         Kunde kunde = null;
@@ -255,13 +260,17 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
         } else {
             throw new Exception("Kein Kunde gefunden -- reservieren");
         }
-        for (DTOKarteReservieren b : karten) {
-            Karte k = ucb.getKarteByID(b.getKartenID());
-            ucb.karteReservieren(k);
-            bestellteKartenSet.add(k);
-        }
+        try {
+            for (DTOKarteReservieren b : karten) {
+                Karte k = ucb.getKarteByID(b.getKartenID());
+                ucb.karteReservieren(k);
+                bestellteKartenSet.add(k);
+            }
 
-        ucb.reservierungSpeichern(benutzer, kunde, bestellteKartenSet);
+            ucb.reservierungSpeichern(benutzer, kunde, bestellteKartenSet);
+        } catch (KarteNichtVerfuegbarException ex) {
+            throw new KarteNichtVerfuegbarException(ex.getKartenId());
+        }
     }
 
     @Override
@@ -270,6 +279,8 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
         try {
             ucb.karteKaufen(karte, karteDTO.isErmaessigt());
         } catch (SaveFailedException ex) {
+            Logger.getLogger(RMIController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (KarteNichtVerfuegbarException ex) {
             Logger.getLogger(RMIController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

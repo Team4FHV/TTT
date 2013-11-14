@@ -41,7 +41,7 @@ public class Login extends javax.swing.JFrame {
         jLabelUsername = new javax.swing.JLabel();
         jTextFieldUsername = new javax.swing.JTextField();
         jLabelPassword = new javax.swing.JLabel();
-        jpwfPassword = new javax.swing.JPasswordField();
+        jPasswordField1 = new javax.swing.JPasswordField();
         jLabelEmptyLogin = new javax.swing.JLabel();
         jButtonLogin = new javax.swing.JButton();
         jPanelInfoMessages = new javax.swing.JPanel();
@@ -82,11 +82,7 @@ public class Login extends javax.swing.JFrame {
         jLabelPassword.setText("Password");
         jLabelPassword.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanelLoginData.add(jLabelPassword);
-<<<<<<< HEAD
-        jPanelLoginData.add(jpwfPassword);
-=======
         jPanelLoginData.add(jPasswordField1);
->>>>>>> branch 'master' of https://github.com/Team4FHV/TTT.git
         jPanelLoginData.add(jLabelEmptyLogin);
 
         jButtonLogin.setText("Login");
@@ -141,26 +137,13 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelMessage;
     private javax.swing.JPanel jPanelScreen;
     private javax.swing.JPanel jPanelScreenTitle;
-<<<<<<< HEAD
-=======
     private javax.swing.JPasswordField jPasswordField1;
->>>>>>> branch 'master' of https://github.com/Team4FHV/TTT.git
     private javax.swing.JTextField jTextFieldUsername;
-<<<<<<< HEAD
-    private javax.swing.JPasswordField jpwfPassword;
-    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
-=======
->>>>>>> branch 'master' of https://github.com/Team4FHV/TTT.git
     // End of variables declaration//GEN-END:variables
 
     private void btnLoginClicked() {
         username = jTextFieldUsername.getText();
-<<<<<<< HEAD
-        char[] pw = jpwfPassword.getPassword();
-        password = String.valueOf(pw);
-=======
         password = jPasswordField1.getText();
->>>>>>> branch 'master' of https://github.com/Team4FHV/TTT.git
         String message = "";
         if (!username.isEmpty() || !password.isEmpty()) {
             message = ctrl.checkLogin(username, password);

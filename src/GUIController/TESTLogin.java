@@ -38,9 +38,7 @@ public class TESTLogin {
         f.add(b, BorderLayout.CENTER);
         b.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-               
-
+            public void actionPerformed(ActionEvent e) {               
                 try {
                     list = c.login(new DTOLoginDaten("ife7261", "eprdlepan"));
 

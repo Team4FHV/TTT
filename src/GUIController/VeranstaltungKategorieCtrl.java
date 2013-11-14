@@ -9,7 +9,11 @@ import DTO.objecte.DTOVeranstaltung;
 import DTO.objecte.DTOVeranstaltungAnzeigen;
 import client.Client;
 import controller.RMIControllerInterface;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -18,34 +22,36 @@ import javax.swing.table.TableModel;
  * @author Stefan Dietrich
  */
 public class VeranstaltungKategorieCtrl {
-    
+
     private DTOVeranstaltung _veranstaltung;
     private Client _client;
     private ArrayList<DTOKategorieInformation> _kategorien;
-    
-    
-    public VeranstaltungKategorieCtrl(int veranstaltungID, Client client)
-    {
+
+    public VeranstaltungKategorieCtrl(int veranstaltungID, Client client) {
         _client = client;
-        _veranstaltung = _client.getVeranstaltungById(veranstaltungID);
-        _kategorien = _client.getKategorieInfoVonVeranstaltung(new DTOVeranstaltungAnzeigen(_veranstaltung.getID()));
+        try {
+            _veranstaltung = _client.getVeranstaltungById(veranstaltungID);
+        } catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        try {
+            _kategorien = _client.getKategorieInfoVonVeranstaltung(new DTOVeranstaltungAnzeigen(_veranstaltung.getID()));
+        } catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
-    
-    
-    public DTOVeranstaltung getVeranstaltung()
-    {
+
+    public DTOVeranstaltung getVeranstaltung() {
         return _veranstaltung;
     }
-    
-    
 
     public TableModel getKategorieInfoModel() {
         Object[][] ob = new Object[_kategorien.size()][4];
         for (int i = 0; i < _kategorien.size(); i++) {
             ob[i][0] = _kategorien.get(i).getId();
             ob[i][1] = _kategorien.get(i).getName();
-            ob[i][2] = _kategorien.get(i).getPreis()+"€";
-            ob[i][3] =_kategorien.get(i).getFreieplätze();
+            ob[i][2] = _kategorien.get(i).getPreis() + "€";
+            ob[i][3] = _kategorien.get(i).getFreieplätze();
         }
         return (new DefaultTableModel(
                 ob,
@@ -70,8 +76,15 @@ public class VeranstaltungKategorieCtrl {
     }
 
     public void selectKategorie(int id) {
-       DTOKategorieInformation selectedKategorie =  _client.getKategorieInfo(id);
-       MainGuiCtrl.KategorieAusgewählt(_veranstaltung.getID(), selectedKategorie.getId());
+        DTOKategorieInformation selectedKategorie = null;
+        try {
+            selectedKategorie = _client.getKategorieInfo(id);
+        } catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        if (selectedKategorie != null) {
+            MainGuiCtrl.KategorieAusgewählt(_veranstaltung.getID(), selectedKategorie.getId());
+        }
     }
 
     public void cancelButton() {
@@ -79,8 +92,15 @@ public class VeranstaltungKategorieCtrl {
     }
 
     void setVeranstaltungsID(int id) {
-        _veranstaltung = _client.getVeranstaltungById(id);
-        _kategorien = _client.getKategorieInfoVonVeranstaltung(new DTOVeranstaltungAnzeigen(_veranstaltung.getID()));
+        try {
+            _veranstaltung = _client.getVeranstaltungById(id);
+        } catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        try {
+            _kategorien = _client.getKategorieInfoVonVeranstaltung(new DTOVeranstaltungAnzeigen(_veranstaltung.getID()));
+        } catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
-       
 }

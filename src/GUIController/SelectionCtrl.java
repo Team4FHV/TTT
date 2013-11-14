@@ -43,5 +43,10 @@ public class SelectionCtrl {
     public List<String> loadRoles() {
         return _rollen.getRollen();
     }
+
+    public void closeWindow() {
+        _client.clearRoles();
+        MainGuiCtrl.SelectionClose();
+    }
     
 }

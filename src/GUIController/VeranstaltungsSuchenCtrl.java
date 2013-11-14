@@ -8,9 +8,13 @@ package GUIController;
 import DTO.objecte.*;
 import client.Client;
 import controller.RMIControllerInterface;
+import java.rmi.RemoteException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -32,7 +36,11 @@ public class VeranstaltungsSuchenCtrl {
 
     public VeranstaltungsSuchenCtrl(Client client) {
          _client = client;
-        _veranstaltungen = _client.sucheVeranstaltungenNachKrieterien(null, null, null);
+        try {
+            _veranstaltungen = _client.sucheVeranstaltungenNachKrieterien(null, null, null);
+        } catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void searchingForEvents(String date, String place, String artist) {
@@ -43,7 +51,11 @@ public class VeranstaltungsSuchenCtrl {
         } catch (Exception e) {
         }
         System.out.println(d);
-        _veranstaltungen = _client.sucheVeranstaltungenNachKrieterien(d, place, artist);
+        try {
+            _veranstaltungen = _client.sucheVeranstaltungenNachKrieterien(d, place, artist);
+        } catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void VeranstaltungAnzeigen(int vId) {

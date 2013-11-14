@@ -9,7 +9,6 @@ package Domain;
  *
  * Bürgi • Dietrich  • Federova  • Shabanova
  */
-import Exceptions.SaveFailedException;
 import Hibernate.konfiguration.HibernateUtil;
 
 import java.io.Serializable;
@@ -92,17 +91,16 @@ public abstract class DAOGeneric<T, ID extends Serializable> {
 	}
 
 	
-	public T saveORupdate(T entity) throws SaveFailedException {
+	public T saveORupdate(T entity) {
 		try {
-			// getSession().flush();
+			getSession().flush();
 			HibernateUtil.currentSession().beginTransaction();
 			getSession().saveOrUpdate(entity);
 			HibernateUtil.currentSession().getTransaction().commit();
 		} catch (HibernateException e) {
 			HibernateUtil.currentSession().getTransaction().rollback();
-			System.out.println("goljak - kann nicht speichen " + entity.getClass());
-                        throw new SaveFailedException();
-                       
+                        
+			
 		}
 		return entity;
 	}

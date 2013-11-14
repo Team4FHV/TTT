@@ -5,13 +5,13 @@
 package GUIController;
 
 import DTO.objecte.*;
+import Exceptions.KarteNichtVerfuegbarException;
 import Exceptions.SaveFailedException;
 import client.Client;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -29,9 +29,21 @@ public class KartenInfoCtrl {
 
     public KartenInfoCtrl(int veranstaltungID, int kategorieID, Client client) {
         _client = client;
-        _veranstaltung = client.getVeranstaltungById(veranstaltungID);
-        _kategorie = client.getKategorieInfo(kategorieID);
-        _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new DTOKategorienAuswaehlen(_kategorie.getId()));
+        try {
+            _veranstaltung = client.getVeranstaltungById(veranstaltungID);
+        } catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        try {
+            _kategorie = client.getKategorieInfo(kategorieID);
+        } catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        try {
+            _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new DTOKategorienAuswaehlen(_kategorie.getId()));
+        } catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public TableModel getKartenInfo() {
@@ -47,7 +59,9 @@ public class KartenInfoCtrl {
     }
 
     public boolean checkKundennummer(String text) {
-        if (text == null) {
+        System.out.println("Ausgabe der Karte: " + "89");
+        if (text.equals("")) {
+            _kunde = null;
             return false;
         } else {
             int id = 0;
@@ -111,7 +125,7 @@ public class KartenInfoCtrl {
         });
     }
 
-    public void kartenBestellen(List<Object[]> bestellteKarten) {
+    public void kartenBestellen(List<Object[]> bestellteKarten) throws RemoteException, SaveFailedException, KarteNichtVerfuegbarException, Exception {
         List<DTOKarteBestellen> karten = new LinkedList<>();
         int kundenID = -1;
         if (_kunde != null) {
@@ -121,20 +135,12 @@ public class KartenInfoCtrl {
 
             karten.add(new DTOKarteBestellen((int) o[1], kundenID, (boolean) o[4]));
         }
-        try {
-            _client.verkaufSpeichern(karten);
-        } catch (RemoteException ex) {
-            Logger.getLogger(KartenInfoCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SaveFailedException ex) {
-            Logger.getLogger(KartenInfoCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(KartenInfoCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        _client.verkaufSpeichern(karten);
 
         updateController();
     }
 
-    public void kartenReservieren(List<Object[]> reservierteKarten) {
+    public void kartenReservieren(List<Object[]> reservierteKarten) throws RemoteException, SaveFailedException, KarteNichtVerfuegbarException, Exception {
         List<DTOKarteReservieren> karten = new LinkedList<>();
         int kundenID = -1;
         if (_kunde != null) {
@@ -144,28 +150,25 @@ public class KartenInfoCtrl {
 
             karten.add(new DTOKarteReservieren((int) o[1], kundenID, (boolean) o[4]));
         }
-        try {
-            _client.reservierungSpeichern(karten);
-            
-            //Exception-Handling
-        } catch (RemoteException ex) {
-            Logger.getLogger(KartenInfoCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SaveFailedException ex) {
-            Logger.getLogger(KartenInfoCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(KartenInfoCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        _client.reservierungSpeichern(karten);
         updateController();
     }
 
-    private void deleteKundenInfo() {
+    public void deleteKundenInfo() {
         _kunde = null;
     }
 
     private void updateController() {
-        _kategorie = _client.getKategorieInfo(_kategorie.getId());
-        _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new DTOKategorienAuswaehlen(_kategorie.getId()));
+        try {
+            _kategorie = _client.getKategorieInfo(_kategorie.getId());
+        } catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        try {
+            _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new DTOKategorienAuswaehlen(_kategorie.getId()));
+        } catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void cancelClicked() {
@@ -174,11 +177,27 @@ public class KartenInfoCtrl {
     }
 
     void setVeranstaltung(int veranstaltungID) {
-        _veranstaltung = _client.getVeranstaltungById(veranstaltungID);
+        try {
+            _veranstaltung = _client.getVeranstaltungById(veranstaltungID);
+        } catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     void setKategorieID(int kategorieID) {
-        _kategorie = _client.getKategorieInfo(kategorieID);
+        try {
+            _kategorie = _client.getKategorieInfo(kategorieID);
+        } catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        try {
+            _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new DTOKategorienAuswaehlen(_kategorie.getId()));
+        } catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void loadKarten() throws RemoteException {
         _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new DTOKategorienAuswaehlen(_kategorie.getId()));
     }
 }

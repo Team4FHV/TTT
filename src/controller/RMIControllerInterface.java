@@ -19,6 +19,7 @@ import DTO.objecte.DTOVeranstaltungAnzeigen;
 import DTO.objecte.DTOVeranstaltungInformation;
 import Exceptions.BenutzerNichtInDBException;
 import Exceptions.FalschesPasswordExeption;
+import Exceptions.KarteNichtVerfuegbarException;
 import Exceptions.SaveFailedException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,13 +48,11 @@ public interface RMIControllerInterface extends Remote {
 
     DTOKundenDaten getKundendatenNachID(int id)  throws  Exception, RemoteException;
 
-    void karteKaufen(DTOKarteBestellen karteDTO)  throws RemoteException, SaveFailedException;
-
-    void reservierungSpeichern(List<DTOKarteReservieren> karten)  throws  Exception, RemoteException, SaveFailedException;
+    void reservierungSpeichern(List<DTOKarteReservieren> karten)  throws  Exception, RemoteException, SaveFailedException, KarteNichtVerfuegbarException;
 
     ArrayList<DTOVeranstaltungInformation> sucheVeranstaltungenNachKrieterien(Date d, String ort, String kuenstler)  throws RemoteException;
 
-    void verkaufSpeichern(List<DTOKarteBestellen> karten) throws  Exception, RemoteException, SaveFailedException;
+    void verkaufSpeichern(List<DTOKarteBestellen> karten) throws  Exception, RemoteException, SaveFailedException, KarteNichtVerfuegbarException;
 
     public DTOKategorieInformation getKategorieInfo(int id)  throws RemoteException;
     

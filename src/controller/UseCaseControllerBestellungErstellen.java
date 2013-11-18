@@ -121,7 +121,7 @@ public class UseCaseControllerBestellungErstellen {
 
     public void karteKaufen(Karte karte, boolean istErmaessigt) throws SaveFailedException, KarteNichtVerfuegbarException {
 
-        if (karte.getKartenstatus().equals(KonstantKartenStatus.FREI)) {
+        if (karte.getKartenstatus().getKartenstatusId() == KonstantKartenStatus.FREI.getKartenstatusId()) {
             karte.setKartenstatus(KonstantKartenStatus.VERKAUFT);
             karte.setErmaessigt(istErmaessigt);
 

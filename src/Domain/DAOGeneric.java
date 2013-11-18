@@ -9,6 +9,7 @@ package Domain;
  *
  * Bürgi • Dietrich  • Federova  • Shabanova
  */
+import Exceptions.SaveFailedException;
 import Hibernate.konfiguration.HibernateUtil;
 
 import java.io.Serializable;
@@ -91,16 +92,15 @@ public abstract class DAOGeneric<T, ID extends Serializable> {
 	}
 
 	
-	public T saveORupdate(T entity) {
+	public T saveORupdate(T entity) throws SaveFailedException {
 		try {
-			getSession().flush();
+			
 			HibernateUtil.currentSession().beginTransaction();
 			getSession().saveOrUpdate(entity);
 			HibernateUtil.currentSession().getTransaction().commit();
 		} catch (HibernateException e) {
 			HibernateUtil.currentSession().getTransaction().rollback();
-                        
-			
+                        throw new SaveFailedException();		
 		}
 		return entity;
 	}

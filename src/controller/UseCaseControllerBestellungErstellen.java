@@ -17,7 +17,6 @@ import Hibernate.objecte.Veranstaltung;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -68,16 +67,18 @@ public class UseCaseControllerBestellungErstellen {
 //            }
 //        }
 //    }
-    
-    
-    
     public void bestellungsNummerBeiDerKarteSpeichern(Bestellung bestellung, Set<Karte> karten) throws SaveFailedException {
         Object[] k = karten.toArray();
         for (int i = 0; i < k.length; i++) {
             Karte karte = (Karte) k[i];
             karte.setBestellung(bestellung);
-            DAOFabrik.getInstance().getKarteDAO().saveORupdate(karte);
-            System.out.println("Karte hat bestellung nummer " + bestellung.getBestellungId());
+            try {
+                DAOFabrik.getInstance().getKarteDAO().saveORupdate(karte);
+                System.out.println("Karte hat bestellung nummer " + bestellung.getBestellungId());
+            } catch (SaveFailedException ex) {
+                System.out.println("Karte nicht update");
+                throw new SaveFailedException();
+            }
         }
 
     }
@@ -120,8 +121,10 @@ public class UseCaseControllerBestellungErstellen {
     }
 
     public void karteKaufen(Karte karte, boolean istErmaessigt) throws SaveFailedException, KarteNichtVerfuegbarException {
+        int status = karte.getKartenstatus().getKartenstatusId();
+        int statusFrei = KonstantKartenStatus.FREI.getKartenstatusId();
 
-        if (karte.getKartenstatus().getKartenstatusId() == KonstantKartenStatus.FREI.getKartenstatusId()) {
+        if (status == statusFrei) {
             karte.setKartenstatus(KonstantKartenStatus.VERKAUFT);
             karte.setErmaessigt(istErmaessigt);
 
@@ -137,6 +140,7 @@ public class UseCaseControllerBestellungErstellen {
             }
 
             DAOFabrik.getInstance().getKarteDAO().saveORupdate(karte);
+
         } else {
             throw new KarteNichtVerfuegbarException(karte.getKartenId());
         }

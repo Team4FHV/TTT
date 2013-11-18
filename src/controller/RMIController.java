@@ -55,7 +55,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
     private UseCaseControllerSearch ucs;
     private UseCaseControllerKundenDaten uck;
     private DataManager<Object> dm;
-    private Benutzer benutzer; // TODO{
+    private Benutzer benutzer; 
 
     public RMIController() throws RemoteException {
         super();
@@ -64,7 +64,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
         ucs = new UseCaseControllerSearch();
         uck = new UseCaseControllerKundenDaten();
         dm = new DataManager<>();
-        benutzer = null; // TODO
+        benutzer = null; 
     }
 
     @Override
@@ -244,7 +244,9 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
                     bestellteKartenSet.add(k);
                 }
                 ucb.verkaufSpeichern(benutzer, kunde, bestellteKartenSet);
+                
             } catch (KarteNichtVerfuegbarException ex) {
+                
                 ucb.kartenFreiGeben(bestellteKartenSet);
                 throw new KarteNichtVerfuegbarException(ex.getKartenId());
 
@@ -270,7 +272,9 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
             }
 
             ucb.reservierungSpeichern(benutzer, kunde, bestellteKartenSet);
+            
         } catch (KarteNichtVerfuegbarException ex) {
+            ucb.kartenFreiGeben(bestellteKartenSet);
             throw new KarteNichtVerfuegbarException(ex.getKartenId());
         }
     }

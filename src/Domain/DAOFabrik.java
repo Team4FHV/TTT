@@ -31,10 +31,11 @@ public class DAOFabrik {
 	 * @return the instance.
 	 */
 	public static DAOFabrik getInstance() {
-		if (_instance == null) {
-			_instance = new DAOFabrik();
-		}
-		return _instance;
+//		if (_instance == null) {
+//			_instance = new DAOFabrik();
+//		}
+		//return _instance;
+                return new DAOFabrik();
 	}
 
 	

@@ -31,7 +31,7 @@ public class CorbaVeranstaltungSuchen extends javax.swing.JFrame {
         initComponents();
         this.setVisible(true);
         ctrl = controller;
-        loadComponents();
+        loadComponents();  
     }
 
     /**

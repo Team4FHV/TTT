@@ -4,112 +4,105 @@
  */
 package client;
 
-import Exceptions.BenutzerNichtInDBException;
-import Exceptions.FalschesPasswordExeption;
-import Exceptions.KarteNichtVerfuegbarException;
-import Exceptions.SaveFailedException;
-import controller.RMIControllerFactoryInterface;
-import controller.RMIControllerInterface;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.rmi.Naming;
-import java.rmi.RemoteException;
+import CorbaGUICtrl.CorbaMainGuiCtrl;
+import corba.CorbaConterollerInterface;
+import corba.CorbaConterollerInterfaceHelper;
+import corba.StructKarteBestellen;
+import corba.StructKategorieInformation;
+import corba.StructVeranstaltung;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.Properties;
+import org.omg.CORBA.ORB;
+import org.omg.CosNaming.NamingContextExt;
+import org.omg.CosNaming.NamingContextExtHelper;
 
-public class CorbaClient {
+/**
+ *
+ * @author media
+ */
+public class CorbaClient{
 
-    String host;
+   CorbaConterollerInterface Stub;
+   String[] args;
 
-    public CorbaClient() {
+    public CorbaClient(String[] args) {
+        this.args = args;
         startClient();
     }
 
+   
+     
     private void startClient() {
-
-        System.out.println("Geben Sie Bitte HOST ein:");
-
-        BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
-
         try {
-            host = console.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // create and initialize the ORB
-        ORB orb = ORB.init(args, null);
-        // get the root naming context
-        org.omg.CORBA.Object objRef;
-        objRef = orb.resolve_initial_references("NameService");
-        // Use NamingContextExt instead of NamingContext. This is
-        // part of the Interoperable naming Service
-        NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
-        _cookieserverStub stub = (_cookieserverStub) cookieserverHelper
-                .narrow(ncRef.resolve_str("TicTakTicketObject"));
-        System.out.println("CORBA Client: stub erstellt");
-        /*
-        try {
-            stub = (RMIControllerFactoryInterface) Naming.lookup("rmi://" + host + "/RMIControllerFactoryObject");
-            try {
-                rmi = stub.createRMIController();
 
-            } catch (Exception e) {
-                System.out.println("Exception create rmi : " + e.getMessage());
+             System.out.println("Bitte geben Sie eine Port ein");
+//               Scanner sc = new Scanner (System.in);
+//               String host = sc.next ();//TODO
+            Properties props = new Properties();
+            props.put("org.omg.CORBA.ORBInitialPort", "2050");
+            props.put("org.omg.CORBA.ORBInitialHost", "localhost");
+            ORB orb = ORB.init(args, props);
 
-            }
-        } catch (Exception e) {
-            System.out.println("Exception: " + e.getMessage());
+            //            ORB orb = ORB.init(args, null);
+            org.omg.CORBA.Object objRef;
+            objRef = orb.resolve_initial_references("NameService");
+            NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
+            Stub = CorbaConterollerInterfaceHelper.narrow(ncRef.resolve_str("ControllerObject"));
+            System.out.println("Obtained a handle on server object: ControllerObject ");
+              
+
+        } catch (Exception exc) {
+            System.out.println(exc.getMessage());
         }
-        */
-    }
+
     
-    public ArrayList<StructVeranstaltung> sucheVeranstaltungNachKriterien(String datum, string ort, string kuenstler) {
-        varray[] = stub.sucheVeranstaltungNachKriterien(datum,ort,kuenstler);
-        ArrayList<StructVeranstaltung> veranstaltungen = new ArrayList<StructVeranstaltung>(Arrays.asList(varray));
-        return veranstaltungen;
-    } 
-    /*
-    public DTOKategorieKarte getAlleFreieKartenNachKategorie(DTOKategorienAuswaehlen kat) throws RemoteException {
-        DTOKategorieKarte x = null;
-        x = rmi.getAlleFreieKartenNachKategorie(kat);
-        return x;
-    }*/
-    public ArrayList<StructKategorieKarte> getAlleFreieKartenNachKategorie(StructKategorieAuswaehlen katausw) {
-        kkarray[] = stub.getAlleFreieKartenNachKategorie(katausw);
-        ArrayList<StructKategorieKarte> katKarten = new ArrayList<StructKategorieKarte>(Arrays.asList(kkarray));
-        return katKarte;
-    }
-    /*
-    public ArrayList<DTOKategorieInformation> getKategorieInfoVonVeranstaltung(DTOVeranstaltungAnzeigen v) throws RemoteException {
-        ArrayList<DTOKategorieInformation> x = null;
-        x = rmi.getKategorieInfoVonVeranstaltung(v);
-        return x;
-    }*/
-    public ArrayList<StructKategorieInformation> getKategorieInfoVonVeranstaltung(int vid) {
-        katinfarray[] = stub.StructKategorieInformation(void);
-        ArrayList<StructKategorieKarte> katInfos = new ArrayList<StructKategorieKarte>(Arrays.asList(katinfarray));
-        return katInfos;
+}
+
+    public corba.StructKategorieKarte getAlleFreieKartenNachKategorie(int id) {
+       
+        return Stub.getAlleFreieKartenNachKategorie( new corba.StructKategorieAuswaehlen(id));
     }
 
-    public void verkaufSpeichern(List<DTOKarteBestellen> karten) throws RemoteException, SaveFailedException, Exception, KarteNichtVerfuegbarException {
-        rmi.verkaufSpeichern(karten);
+    public ArrayList<StructKategorieInformation> getKategorieInfoVonVeranstaltung(corba.StructVeranstaltungAnzeigen veranstaltung){
+       ArrayList<StructKategorieInformation> result = new ArrayList<>();
+       
+       StructKategorieInformation[] list = Stub.getKategorieInfoVonVeranstaltung(veranstaltung);
+        for (int i = 0; i <list.length; i++){
+             result.add(list[i]);
+         }
+       return result;
+       
     }
-    public void verkaufSpeichern() {
+
+    public  ArrayList<StructVeranstaltung> sucheVeranstaltungNachKriterien(String datum, String ort, String kuenstler){
+         ArrayList<StructVeranstaltung> result = new ArrayList<>();
+         corba.StructVeranstaltung[] list = Stub.sucheVeranstaltungNachKriterien(datum, ort, kuenstler);
+         for (int i = 0; i <list.length; i++){
+             result.add(list[i]);
+         }
+        return result;
         
     }
 
-    public DTOKategorieInformation getKategorieInfo(int id) throws RemoteException {
-        DTOKategorieInformation x = null;
-        x = rmi.getKategorieInfo(id);
-        return x;
-
+    public void verkaufSpeichern(List<StructKarteBestellen> list){
+        corba.StructKarteBestellen[] karten = new StructKarteBestellen[list.size()];
+        for (int i = 0; i < list.size(); i++){
+            
+            karten[i] = list.get(i);
+        }
+        Stub.verkaufSpeichern(karten);
     }
 
-    public DTOVeranstaltung getVeranstaltungById(int veranstaltungID) throws RemoteException {
-        DTOVeranstaltung x = null;
-        x = rmi.getVeranstaltungById(veranstaltungID);
-        return x;
+    public corba.StructKategorieInformation getKategorieInfo(int id){
+        return Stub.getKategorieInfo(id);
+        
+    }
+    
+    public StructVeranstaltung getVeranstaltungById(int veranstaltungID){
+        
+        return new StructVeranstaltung(veranstaltungID, "", "", "", "", true);
+      
+        
     }
 }

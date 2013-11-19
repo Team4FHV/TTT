@@ -70,24 +70,34 @@ public class CorbaClient {
         ArrayList<StructVeranstaltung> veranstaltungen = new ArrayList<StructVeranstaltung>(Arrays.asList(varray));
         return veranstaltungen;
     } 
-    
+    /*
     public DTOKategorieKarte getAlleFreieKartenNachKategorie(DTOKategorienAuswaehlen kat) throws RemoteException {
         DTOKategorieKarte x = null;
         x = rmi.getAlleFreieKartenNachKategorie(kat);
         return x;
+    }*/
+    public ArrayList<StructKategorieKarte> getAlleFreieKartenNachKategorie(StructKategorieAuswaehlen katausw) {
+        kkarray[] = stub.getAlleFreieKartenNachKategorie(katausw);
+        ArrayList<StructKategorieKarte> katKarten = new ArrayList<StructKategorieKarte>(Arrays.asList(kkarray));
+        return katKarte;
     }
-    
-
+    /*
     public ArrayList<DTOKategorieInformation> getKategorieInfoVonVeranstaltung(DTOVeranstaltungAnzeigen v) throws RemoteException {
         ArrayList<DTOKategorieInformation> x = null;
         x = rmi.getKategorieInfoVonVeranstaltung(v);
         return x;
+    }*/
+    public ArrayList<StructKategorieInformation> getKategorieInfoVonVeranstaltung(int vid) {
+        katinfarray[] = stub.StructKategorieInformation(void);
+        ArrayList<StructKategorieKarte> katInfos = new ArrayList<StructKategorieKarte>(Arrays.asList(katinfarray));
+        return katInfos;
     }
-
-    
 
     public void verkaufSpeichern(List<DTOKarteBestellen> karten) throws RemoteException, SaveFailedException, Exception, KarteNichtVerfuegbarException {
         rmi.verkaufSpeichern(karten);
+    }
+    public void verkaufSpeichern() {
+        
     }
 
     public DTOKategorieInformation getKategorieInfo(int id) throws RemoteException {

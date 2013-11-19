@@ -5,7 +5,7 @@
  */
 package CorbaGUICtrl;
 
-import CorbaClient.CorbaClient;
+import client.CorbaClient;
 import DTO.objecte.*;
 import client.Client;
 import java.rmi.RemoteException;

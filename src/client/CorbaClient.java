@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package CorbaClient;
+package client;
 
 import Exceptions.BenutzerNichtInDBException;
 import Exceptions.FalschesPasswordExeption;

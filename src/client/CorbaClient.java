@@ -64,20 +64,19 @@ public class CorbaClient {
         }
         */
     }
-    public ArrayList<DTOVeranstaltungInformation> sucheVeranstaltungenNachKrieterien(Date d, String ort, String kuenstler) throws RemoteException {
-        ArrayList<DTOVeranstaltungInformation> x = null;
-        x = rmi.sucheVeranstaltungenNachKrieterien(d, ort, kuenstler);
-        return x;
-    }
-    public sucheVeranstaltungNachKriterien(String datum, string ort, string kuenstler) {
-        
-    }
+    
+    public ArrayList<StructVeranstaltung> sucheVeranstaltungNachKriterien(String datum, string ort, string kuenstler) {
+        varray[] = stub.sucheVeranstaltungNachKriterien(datum,ort,kuenstler);
+        ArrayList<StructVeranstaltung> veranstaltungen = new ArrayList<StructVeranstaltung>(Arrays.asList(varray));
+        return veranstaltungen;
+    } 
     
     public DTOKategorieKarte getAlleFreieKartenNachKategorie(DTOKategorienAuswaehlen kat) throws RemoteException {
         DTOKategorieKarte x = null;
         x = rmi.getAlleFreieKartenNachKategorie(kat);
         return x;
     }
+    
 
     public ArrayList<DTOKategorieInformation> getKategorieInfoVonVeranstaltung(DTOVeranstaltungAnzeigen v) throws RemoteException {
         ArrayList<DTOKategorieInformation> x = null;

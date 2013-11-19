@@ -1,6 +1,7 @@
 package controller;
 
 import DTO.objecte.DTOKarte;
+import DTO.objecte.DTOKarteBestellen;
 import DTO.objecte.DTOKarteReservieren;
 import DTO.objecte.DTOKategorieInformation;
 import DTO.objecte.DTOKategorieKarte;
@@ -46,21 +47,39 @@ import javax.swing.JOptionPane;
 public class HibernateTest {
 	
 	public static void main(String[] args) throws RemoteException, Exception {
+            
+            DataManager dm = new DataManager();
+            System.out.println(dm.getKartenStatusId(161));
         
-   
+      //  Karte karte = DAOFabrik.getInstance().getKarteDAO().findById(161, false);
+        
+        UseCaseControllerBestellungErstellen b = new UseCaseControllerBestellungErstellen();
+    //     System.out.println(b.istKartenStatusFrei(161));
+       
+        
+        //    System.out.println("Karte id " + karte.getKartenId());
+           //  Karte karte1 = DAOFabrik.getInstance().getKarteDAO().findById(23, false);
                     
+         //  System.out.println("Karte1 id " + karte1.getKartenId());
+           
+//          RMIController con = new RMIController();
+//          List<DTOKarteBestellen> list = new ArrayList<DTOKarteBestellen>();
+//                 list.add(new DTOKarteBestellen(38, 2, true));
+//         // con.verkaufSpeichern(list);
+//                    con.verkaufSpeichern(list);
+
           
           
-            UseCaseControllerKundenDaten uck= new UseCaseControllerKundenDaten();
-            Client c = new Client();
-                try {  
-             c.neuenKundeSpeichern
-                   (new DTOKundeNeuSpeichern (null, "Brick", new Date(), "Frau", "MMM", "Russland", "", "", "", "", "", ""));
-            
-                } catch (SaveFailedException ex){
-                    System.out.println(ex.toString());
-                }
-            
+        //    UseCaseControllerKundenDaten uck= new UseCaseControllerKundenDaten();
+//            Client c = new Client();
+//                try {  
+//             c.neuenKundeSpeichern
+//                   (new DTOKundeNeuSpeichern (null, "Brick", new Date(), "Frau", "MMM", "Russland", "", "", "", "", "", ""));
+//            
+//                } catch (SaveFailedException ex){
+//                    System.out.println(ex.toString());
+//                }
+//            
             //  Kunde kunde = DAOFabrik.getInstance().getKundeDAO().findById(1, true);
 //            Benutzer benu = DAOFabrik.getInstance().getBenutzerDAO().findById(1, true);
 //            Bestellung best = new Bestellung(benu, null, new Date());

@@ -35,6 +35,7 @@ public class DAOFabrik {
 			_instance = new DAOFabrik();
 		}
 		return _instance;
+               
 	}
 
 	

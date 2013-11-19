@@ -38,7 +38,7 @@ public class CorbaServer {
             CorbaConterollerInterface href = CorbaConterollerInterfaceHelper.narrow(ref);
             org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
             NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
-            NameComponent cosName[] = ncRef.to_name("CookieObject");
+            NameComponent cosName[] = ncRef.to_name("ControllerObject");
             ncRef.rebind(cosName, href);
             System.out.println("CorbaServer ready and waiting ...");
             orb.run();

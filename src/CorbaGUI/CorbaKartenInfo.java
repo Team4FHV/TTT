@@ -666,18 +666,18 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
 
     private void btnKaufenClicked() {
         if (!_kartenauswahl.isEmpty()) {
-            try {
+//            try {
                 _ctrl.kartenBestellen(_kartenauswahl);
                 JOptionPane.showMessageDialog(null, "Karten erfolgreich gekauft", "Success", JOptionPane.INFORMATION_MESSAGE);
-            } catch (RemoteException ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            } catch (SaveFailedException ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            } catch (KarteNichtVerfuegbarException ex) {
-                JOptionPane.showMessageDialog(null, "Karte mit der ID " + ex.getKartenId() + " ist bereits vergeben", "Error", JOptionPane.ERROR_MESSAGE);
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
+//            } catch (RemoteException ex) {
+//                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//            } catch (SaveFailedException ex) {
+//                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//            } catch (KarteNichtVerfuegbarException ex) {
+//                JOptionPane.showMessageDialog(null, "Karte mit der ID " + ex.getKartenId() + " ist bereits vergeben", "Error", JOptionPane.ERROR_MESSAGE);
+//            } catch (Exception ex) {
+//                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//            }
             refreshWindow();
         }
         refreshWindow();

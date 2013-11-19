@@ -5,14 +5,11 @@
  */
 package CorbaGUICtrl;
 
-import CorbaClient.CorbaClient;
-import DTO.objecte.*;
-import client.Client;
-import java.rmi.RemoteException;
+import client.CorbaClient;
+import corba.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -21,24 +18,19 @@ import javax.swing.table.TableModel;
  * @author Monika
  */
 public class CorbaVeranstaltungsSuchenCtrl {
-//    //ALT
-//    private DTOVeranstaltung veranstaltung;
-//    private DTOVeranstaltungInfoList veranstInfoList;
-//    private DTOVeranstaltungSuchen veranstaltungSuchen;   
-//    private RMIControllerInterface rmiCtrl;
-//    private DTOVeranstaltungAnzeigen veranstId;
+
 
     //Neu
-    private ArrayList<DTOVeranstaltungInformation> _veranstaltungen = new ArrayList<>();
+    private ArrayList<StructVeranstaltung> _veranstaltungen = new ArrayList<>();
     private CorbaClient _client;
 
     public CorbaVeranstaltungsSuchenCtrl(CorbaClient client) {
          _client = client;
-        try {
+//        try {
             _veranstaltungen = _client.sucheVeranstaltungenNachKrieterien(null, null, null);
-        } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+//        } catch (RemoteException ex) {
+//            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//        }
     }
 
     public void searchingForEvents(String date, String place, String artist) {
@@ -49,11 +41,11 @@ public class CorbaVeranstaltungsSuchenCtrl {
         } catch (Exception e) {
         }
         System.out.println(d);
-        try {
-            _veranstaltungen = _client.sucheVeranstaltungenNachKrieterien(d, place, artist);
-        } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+//        try {
+            _veranstaltungen = _client.sucheVeranstaltungenNachKrieterien(date, place, artist);
+//        } catch (RemoteException ex) {
+//            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//        }
     }
 
     public void VeranstaltungAnzeigen(int vId) {
@@ -63,12 +55,12 @@ public class CorbaVeranstaltungsSuchenCtrl {
     public TableModel getVeranstaltungInfoModel() {
         Object[][] ob = new Object[_veranstaltungen.size()][5];
         for (int i = 0; i < _veranstaltungen.size(); i++) {
-            DTOVeranstaltungInformation ev = _veranstaltungen.get(i);
-            ob[i][0] = ev.getD();
-            ob[i][1] = ev.getName();
-            ob[i][2] = ev.getOrt();
-            ob[i][3] = ev.getKuenstler();
-            ob[i][4] = ev.getId();
+            StructVeranstaltung ev = _veranstaltungen.get(i);
+            ob[i][0] = ev.vDatum;
+            ob[i][1] = ev.vName;
+            ob[i][2] = ev.vOrt;
+            ob[i][3] = ev.kuenstler;
+            ob[i][4] = ev.vid;
         }
         return (new DefaultTableModel(ob, new String[]{
             "Datum", "Name", "Ort", "Künstler", "Id"

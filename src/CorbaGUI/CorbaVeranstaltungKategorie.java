@@ -6,7 +6,7 @@ package CorbaGUI;
 
 
 import CorbaGUICtrl.CorbaVeranstaltungKategorieCtrl;
-import DTO.objecte.DTOVeranstaltung;
+import corba.StructVeranstaltung;
 import javax.swing.JFrame;
 
 /**
@@ -319,10 +319,10 @@ public class CorbaVeranstaltungKategorie extends javax.swing.JFrame {
     }
 
     private void fillVeranstaltungsInformation() {
-        DTOVeranstaltung veranstaltung = _ctrl.getVeranstaltung();
-        _lblVeranstaltungsname.setText(veranstaltung.getVname());
-        _lblVeranstaltungsdatum.setText(veranstaltung.getDate().toString());
-        _lblVeranstaltungsort.setText(veranstaltung.getVOrt());
+        StructVeranstaltung veranstaltung = _ctrl.getVeranstaltung();
+        _lblVeranstaltungsname.setText(veranstaltung.vName);
+        _lblVeranstaltungsdatum.setText(veranstaltung.vDatum);
+        _lblVeranstaltungsort.setText(veranstaltung.vOrt);
     }
 
     private void setTableModel() {

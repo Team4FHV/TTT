@@ -30,7 +30,7 @@ public class Server {
             .getProtectionDomain().getCodeSource().getLocation().toString());
     
             RMIControllerFactory rmiControllerFactory = new RMIControllerFactory();
-            // Bind this object instance to the name "SquareNumberObject"
+            // Bind this object instance to the name "RMIControllerFactoryObject"
             
             Naming.rebind("rmi://localhost/RMIControllerFactoryObject", rmiControllerFactory);
            

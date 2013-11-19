@@ -4,18 +4,6 @@
  */
 package CorbaClient;
 
-import DTO.objecte.DTOKarteBestellen;
-import DTO.objecte.DTOKarteReservieren;
-import DTO.objecte.DTOKategorieInformation;
-import DTO.objecte.DTOKategorieKarte;
-import DTO.objecte.DTOKategorienAuswaehlen;
-import DTO.objecte.DTOKundeNeuSpeichern;
-import DTO.objecte.DTOKundenDaten;
-import DTO.objecte.DTOLoginDaten;
-import DTO.objecte.DTORollenList;
-import DTO.objecte.DTOVeranstaltung;
-import DTO.objecte.DTOVeranstaltungAnzeigen;
-import DTO.objecte.DTOVeranstaltungInformation;
 import Exceptions.BenutzerNichtInDBException;
 import Exceptions.FalschesPasswordExeption;
 import Exceptions.KarteNichtVerfuegbarException;
@@ -33,10 +21,7 @@ import java.util.List;
 
 public class CorbaClient {
 
-    RMIControllerFactoryInterface stub;
-    RMIControllerInterface rmi;
     String host;
-    DTORollenList _userRollen;
 
     public CorbaClient() {
         startClient();
@@ -53,8 +38,18 @@ public class CorbaClient {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
+        // create and initialize the ORB
+        ORB orb = ORB.init(args, null);
+        // get the root naming context
+        org.omg.CORBA.Object objRef;
+        objRef = orb.resolve_initial_references("NameService");
+        // Use NamingContextExt instead of NamingContext. This is
+        // part of the Interoperable naming Service
+        NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
+        _cookieserverStub stub = (_cookieserverStub) cookieserverHelper
+                .narrow(ncRef.resolve_str("TicTakTicketObject"));
+        System.out.println("CORBA Client: stub erstellt");
+        /*
         try {
             stub = (RMIControllerFactoryInterface) Naming.lookup("rmi://" + host + "/RMIControllerFactoryObject");
             try {
@@ -67,8 +62,17 @@ public class CorbaClient {
         } catch (Exception e) {
             System.out.println("Exception: " + e.getMessage());
         }
+        */
     }
-
+    public ArrayList<DTOVeranstaltungInformation> sucheVeranstaltungenNachKrieterien(Date d, String ort, String kuenstler) throws RemoteException {
+        ArrayList<DTOVeranstaltungInformation> x = null;
+        x = rmi.sucheVeranstaltungenNachKrieterien(d, ort, kuenstler);
+        return x;
+    }
+    public sucheVeranstaltungNachKriterien(String datum, string ort, string kuenstler) {
+        
+    }
+    
     public DTOKategorieKarte getAlleFreieKartenNachKategorie(DTOKategorienAuswaehlen kat) throws RemoteException {
         DTOKategorieKarte x = null;
         x = rmi.getAlleFreieKartenNachKategorie(kat);
@@ -81,28 +85,7 @@ public class CorbaClient {
         return x;
     }
 
-    public ArrayList<DTOKundenDaten> getKundenListNachNachname(String nachname) throws RemoteException, Exception {
-        ArrayList<DTOKundenDaten> x = null;
-        x = rmi.getKundenListNachNachname(nachname);
-        return x;
-    }
-
-    public DTOKundenDaten getKundendatenNachID(int id) throws RemoteException, Exception {
-        DTOKundenDaten x = null;
-        x = rmi.getKundendatenNachID(id);
-        return x;
-    }
-
-   
-    public void reservierungSpeichern(List<DTOKarteReservieren> karten) throws RemoteException, SaveFailedException, Exception, KarteNichtVerfuegbarException {
-        rmi.reservierungSpeichern(karten);
-    }
-
-    public ArrayList<DTOVeranstaltungInformation> sucheVeranstaltungenNachKrieterien(Date d, String ort, String kuenstler) throws RemoteException {
-        ArrayList<DTOVeranstaltungInformation> x = null;
-        x = rmi.sucheVeranstaltungenNachKrieterien(d, ort, kuenstler);
-        return x;
-    }
+    
 
     public void verkaufSpeichern(List<DTOKarteBestellen> karten) throws RemoteException, SaveFailedException, Exception, KarteNichtVerfuegbarException {
         rmi.verkaufSpeichern(karten);
@@ -119,24 +102,5 @@ public class CorbaClient {
         DTOVeranstaltung x = null;
         x = rmi.getVeranstaltungById(veranstaltungID);
         return x;
-    }
-
-    public void neuenKundeSpeichern(DTOKundeNeuSpeichern kunde) throws RemoteException, SaveFailedException {
-        rmi.neuenKundenSpeichern(kunde);
-    }
-
-    public DTORollenList login(DTOLoginDaten l) throws RemoteException,
-            BenutzerNichtInDBException, FalschesPasswordExeption {
-        _userRollen = rmi.login(l);
-        return _userRollen;
-    }
-    
-    public DTORollenList getUserRollen()
-    {
-        return _userRollen;
-    }
-
-    public void clearRoles() {
-        _userRollen = null;
     }
 }

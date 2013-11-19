@@ -21,6 +21,7 @@ import corba.StructKategorieAuswaehlen;
 import corba.StructKategorieInformation;
 import corba.StructKategorieKarte;
 import corba.StructVeranstaltungAnzeigen;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -57,7 +58,13 @@ public class CorbaController extends CorbaConterollerInterfacePOA {
     public corba.StructVeranstaltung[] sucheVeranstaltungNachKriterien(String datum, String ort, String kuenstler) {
 
         Kuenstler k = dm.getKuenstlerNachName(kuenstler);
-        Date date = new Date();
+       
+         Date date = null;
+        try {
+            SimpleDateFormat sdfToDate = new SimpleDateFormat("dd.MM.yyyy");
+            date = sdfToDate.parse(datum);
+        } catch (Exception e) {
+        }
         List<Veranstaltung> list = ucs.searchFilter(ort, date, k);
         corba.StructVeranstaltung[] veranstaltungsList = new corba.StructVeranstaltung[list.size()];
         for (int i = 0; i < list.size(); i++) {
@@ -119,7 +126,7 @@ public class CorbaController extends CorbaConterollerInterfacePOA {
                         bestellteKartenSet.add(k);
                     } else {
                         ucb.kartenFreiGeben(bestellteKartenSet);
-//                        throw new KarteNichtVerfuegbarException(k.getKartenId());
+                        throw new KarteNichtVerfuegbarException(k.getKartenId());
                     }
             }
                 ucb.verkaufSpeichern(benutzer, kunde, bestellteKartenSet);

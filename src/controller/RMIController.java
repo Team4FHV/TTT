@@ -241,14 +241,14 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
 
             for (DTOKarteBestellen b : karten) {
                 Karte k = ucb.getKarteByID(b.getKartenID());
-                if (dm.getKartenStatusId(k.getKartenId()) == statusFREI) {
+                if (dm.getKartenStatusId(k.getKartenId())== statusFREI) {
                     ucb.karteKaufen(k, b.isErmaessigt());
                     bestellteKartenSet.add(k);
                 } else {
                     ucb.kartenFreiGeben(bestellteKartenSet);
                     throw new KarteNichtVerfuegbarException(k.getKartenId());
                 }
-            }
+            } 
             ucb.verkaufSpeichern(benutzer, kunde, bestellteKartenSet);
         }
     }

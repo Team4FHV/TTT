@@ -126,7 +126,7 @@ public class CorbaController extends CorbaConterollerInterfacePOA {
                         bestellteKartenSet.add(k);
                     } else {
                         ucb.kartenFreiGeben(bestellteKartenSet);
-//                        throw new KarteNichtVerfuegbarException(k.getKartenId());
+                        throw new KarteNichtVerfuegbarException(k.getKartenId());
                     }
             }
                 ucb.verkaufSpeichern(benutzer, kunde, bestellteKartenSet);

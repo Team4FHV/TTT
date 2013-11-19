@@ -28,7 +28,7 @@ public class TESTKartenEinfuegen {
         System.err.println("kategorie freie pl " + kkk.freiePlaetze + " preis " + kkk.katPreis + "name" + kkk.katName);
         
         StructKarteBestellen[] kk = new StructKarteBestellen[1];
-        kk[0] = new StructKarteBestellen(64, 1, true);
+        kk[0] = new StructKarteBestellen(66, 1, true);
         c.verkaufSpeichern(kk);
         
     }

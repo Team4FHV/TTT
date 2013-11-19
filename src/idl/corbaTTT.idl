@@ -1,0 +1,34 @@
+module TicTakTicketCORBA {
+	module corbaTTT {
+		struct StructKarte {
+			long kartenId;
+			string reihe;
+			long platz;
+		};
+		struct StructKategorie {	
+			long kategId;
+			string katName;
+			double katPreis;
+			//typdef fixed<9,2> katPreis;  wird von idlj nicht unterstuetzt
+			long freiePlaetze;
+			long ermaessigung;
+		};		
+		struct StructVernastaltung{
+			long vid;
+			string vDatum;
+			string vName;
+			string vOrt;
+			string kuenstler;			
+		};
+		interface CorbaConterollerInterface {
+			typedef sequence<StructVernastaltung> veranstaltungList;
+			typedef sequence<StructKategorie> kategorieList;
+			typedef sequence<StructKarte> karteList;
+			//falls null nicht geht einzelne Methoden mit jedem Parameter machen
+			veranstaltungList sucheVeranstaltungNachKriterien(in string datum, in string ort, in string kuenstler);
+			kategorieList getKategorieVonVernastaltung(in long vid);
+			karteList getAlleFeieKartenNachKategorie(in long katid);
+			void verkaufSpeichern(in karteList listkarten);
+		};
+	};
+};

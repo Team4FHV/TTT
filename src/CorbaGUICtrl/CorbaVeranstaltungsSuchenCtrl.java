@@ -7,11 +7,9 @@ package CorbaGUICtrl;
 
 import client.CorbaClient;
 import corba.*;
-import java.rmi.RemoteException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -20,12 +18,7 @@ import javax.swing.table.TableModel;
  * @author Monika
  */
 public class CorbaVeranstaltungsSuchenCtrl {
-//    //ALT
-//    private DTOVeranstaltung veranstaltung;
-//    private DTOVeranstaltungInfoList veranstInfoList;
-//    private DTOVeranstaltungSuchen veranstaltungSuchen;   
-//    private RMIControllerInterface rmiCtrl;
-//    private DTOVeranstaltungAnzeigen veranstId;
+
 
     //Neu
     private ArrayList<StructVeranstaltung> _veranstaltungen = new ArrayList<>();
@@ -33,11 +26,11 @@ public class CorbaVeranstaltungsSuchenCtrl {
 
     public CorbaVeranstaltungsSuchenCtrl(CorbaClient client) {
          _client = client;
-        try {
+//        try {
             _veranstaltungen = _client.sucheVeranstaltungenNachKrieterien(null, null, null);
-        } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+//        } catch (RemoteException ex) {
+//            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//        }
     }
 
     public void searchingForEvents(String date, String place, String artist) {
@@ -48,11 +41,11 @@ public class CorbaVeranstaltungsSuchenCtrl {
         } catch (Exception e) {
         }
         System.out.println(d);
-        try {
+//        try {
             _veranstaltungen = _client.sucheVeranstaltungenNachKrieterien(date, place, artist);
-        } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+//        } catch (RemoteException ex) {
+//            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//        }
     }
 
     public void VeranstaltungAnzeigen(int vId) {

@@ -692,11 +692,11 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
     }
 
     private void refreshWindow() {
-        try {
+//        try {
             _ctrl.loadKarten();
             loadComponents();
-        } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+//        } catch (RemoteException ex) {
+//            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//        }
     }
 }

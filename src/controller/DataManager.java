@@ -18,6 +18,7 @@ import Hibernate.objecte.Karte;
 import Hibernate.objecte.Kategorie;
 import Hibernate.objecte.Kunde;
 import Hibernate.objecte.Benutzer;
+import Hibernate.objecte.Kartenstatus;
 import Hibernate.objecte.Kuenstler;
 import Hibernate.objecte.Veranstaltung;
 import Hibernate.objecte.Veranstaltungstyp;
@@ -30,9 +31,7 @@ import Hibernate.objecte.Veranstaltungsort;
 public class DataManager<T> {
     private Session session  = DAOFabrik.getInstance().getCurrentSession();
     
-    public void bestellungSpeichern(Benutzer benutzer, Kunde kunde, Date datum, Set<Karte> bestellteKartenSet) {
-        Bestellung bestellung = new Bestellung();
-    }
+   
 //sucht Reservierung nach ID, ID Kunde kriegt telefonisch mittgeteilt---rabotaet
     public Bestellung getReservierungNachID(int id) {
         String hql = "FROM Bestellung b WHERE b.bestellungId = '" + id + "'";
@@ -126,5 +125,17 @@ public ArrayList<Karte> getFreieKartenNachKategorie(Kategorie kategorie) {
             return 0;
         }
         return (int)list.size();
+    }
+    
+     public int getKartenStatusId(int kartenId) {
+       
+        String hql = "SELECT K.kartenstatus FROM Karte K  WHERE K.kartenId = " + kartenId;
+        Query query = session.createQuery(hql);
+        List list = query.list();
+        if (list == null || list.isEmpty()) {
+            return 0;
+        }
+        int x = ((Kartenstatus)list.get(0)).getKartenstatusId();
+        return x;
     }
 }

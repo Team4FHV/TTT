@@ -4,8 +4,8 @@
  */
 package CorbaGUICtrl;
 
-import CorbaClient.CorbaClient;
 import DTO.objecte.*;
+import CorbaClient.CorbaClient;
 import Exceptions.KarteNichtVerfuegbarException;
 import Exceptions.SaveFailedException;
 import java.rmi.RemoteException;
@@ -21,7 +21,7 @@ import javax.swing.table.TableModel;
  */
 public class CorbaKartenInfoCtrl {
 
-    private DTOVeranstaltung _veranstaltung;
+    private  DTOVeranstaltung _veranstaltung;
     private DTOKategorieInformation _kategorie;
     private DTOKategorieKarte _Kategoriekarten;
     private CorbaClient _client;

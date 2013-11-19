@@ -47,18 +47,26 @@ import javax.swing.JOptionPane;
 public class HibernateTest {
 	
 	public static void main(String[] args) throws RemoteException, Exception {
+            
+            DataManager dm = new DataManager();
+            System.out.println(dm.getKartenStatusId(161));
         
-        // Karte karte = DAOFabrik.getInstance().getKarteDAO().findById(23, false);
+        Karte karte = DAOFabrik.getInstance().getKarteDAO().findById(161, false);
+        
+        UseCaseControllerBestellungErstellen b = new UseCaseControllerBestellungErstellen();
+    //     System.out.println(b.istKartenStatusFrei(161));
+       
+        
         //    System.out.println("Karte id " + karte.getKartenId());
            //  Karte karte1 = DAOFabrik.getInstance().getKarteDAO().findById(23, false);
                     
          //  System.out.println("Karte1 id " + karte1.getKartenId());
            
-          RMIController con = new RMIController();
-          List<DTOKarteBestellen> list = new ArrayList<DTOKarteBestellen>();
-                 list.add(new DTOKarteBestellen(38, 2, true));
-         // con.verkaufSpeichern(list);
-                    con.verkaufSpeichern(list);
+//          RMIController con = new RMIController();
+//          List<DTOKarteBestellen> list = new ArrayList<DTOKarteBestellen>();
+//                 list.add(new DTOKarteBestellen(38, 2, true));
+//         // con.verkaufSpeichern(list);
+//                    con.verkaufSpeichern(list);
 
           
           

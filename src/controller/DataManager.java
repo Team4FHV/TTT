@@ -30,9 +30,7 @@ import Hibernate.objecte.Veranstaltungsort;
 public class DataManager<T> {
     private Session session  = DAOFabrik.getInstance().getCurrentSession();
     
-    public void bestellungSpeichern(Benutzer benutzer, Kunde kunde, Date datum, Set<Karte> bestellteKartenSet) {
-        Bestellung bestellung = new Bestellung();
-    }
+   
 //sucht Reservierung nach ID, ID Kunde kriegt telefonisch mittgeteilt---rabotaet
     public Bestellung getReservierungNachID(int id) {
         String hql = "FROM Bestellung b WHERE b.bestellungId = '" + id + "'";
@@ -126,5 +124,17 @@ public ArrayList<Karte> getFreieKartenNachKategorie(Kategorie kategorie) {
             return 0;
         }
         return (int)list.size();
+    }
+    
+     public int getKartenStatusId(int kartenId) {
+       
+        String hql = "FROM Karte  WHERE KartenID = " + kartenId;
+        Query query = session.createQuery(hql);
+        List list = query.list();
+        if (list == null || list.isEmpty()) {
+            return 0;
+        }
+        int x = ((Karte)list.get(0)).getKartenstatus().getKartenstatusId();
+        return x;
     }
 }

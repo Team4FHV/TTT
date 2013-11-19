@@ -6,6 +6,7 @@ package controller;
 
 import ConstantContent.KonstantKartenStatus;
 import Domain.DAOFabrik;
+import Domain.DAOObjekte.DAOKarte;
 import Exceptions.KarteNichtVerfuegbarException;
 import Exceptions.SaveFailedException;
 import Hibernate.objecte.Benutzer;
@@ -120,11 +121,8 @@ public class UseCaseControllerBestellungErstellen {
         return itemCost;
     }
 
-    public void karteKaufen(Karte karte, boolean istErmaessigt) throws SaveFailedException, KarteNichtVerfuegbarException {
-        int status = karte.getKartenstatus().getKartenstatusId();
-        int statusFrei = KonstantKartenStatus.FREI.getKartenstatusId();
-
-        if (status == statusFrei) {
+    public void karteKaufen(Karte karte, boolean istErmaessigt) throws SaveFailedException{
+    
             karte.setKartenstatus(KonstantKartenStatus.VERKAUFT);
             karte.setErmaessigt(istErmaessigt);
 
@@ -140,10 +138,8 @@ public class UseCaseControllerBestellungErstellen {
             }
 
             DAOFabrik.getInstance().getKarteDAO().saveORupdate(karte);
+             DAOFabrik.getInstance().getCurrentSession().merge(karte);
 
-        } else {
-            throw new KarteNichtVerfuegbarException(karte.getKartenId());
-        }
     }
 
     public void kartenFreiGeben(Set<Karte> karten) throws SaveFailedException {
@@ -244,4 +240,6 @@ public class UseCaseControllerBestellungErstellen {
 
         return reservierteKarten;
     }
+    
+   
 }

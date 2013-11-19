@@ -51,7 +51,7 @@ public class HibernateTest {
             DataManager dm = new DataManager();
             System.out.println(dm.getKartenStatusId(161));
         
-        Karte karte = DAOFabrik.getInstance().getKarteDAO().findById(161, false);
+      //  Karte karte = DAOFabrik.getInstance().getKarteDAO().findById(161, false);
         
         UseCaseControllerBestellungErstellen b = new UseCaseControllerBestellungErstellen();
     //     System.out.println(b.istKartenStatusFrei(161));

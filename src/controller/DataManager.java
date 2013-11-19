@@ -18,6 +18,7 @@ import Hibernate.objecte.Karte;
 import Hibernate.objecte.Kategorie;
 import Hibernate.objecte.Kunde;
 import Hibernate.objecte.Benutzer;
+import Hibernate.objecte.Kartenstatus;
 import Hibernate.objecte.Kuenstler;
 import Hibernate.objecte.Veranstaltung;
 import Hibernate.objecte.Veranstaltungstyp;
@@ -128,13 +129,13 @@ public ArrayList<Karte> getFreieKartenNachKategorie(Kategorie kategorie) {
     
      public int getKartenStatusId(int kartenId) {
        
-        String hql = "FROM Karte  WHERE KartenID = " + kartenId;
+        String hql = "SELECT K.kartenstatus FROM Karte K  WHERE K.kartenId = " + kartenId;
         Query query = session.createQuery(hql);
         List list = query.list();
         if (list == null || list.isEmpty()) {
             return 0;
         }
-        int x = ((Karte)list.get(0)).getKartenstatus().getKartenstatusId();
+        int x = ((Kartenstatus)list.get(0)).getKartenstatusId();
         return x;
     }
 }

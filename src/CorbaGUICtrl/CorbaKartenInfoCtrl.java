@@ -4,7 +4,7 @@
  */
 package CorbaGUICtrl;
 
-import DTO.objecte.*;
+import corba.*;
 import client.CorbaClient;
 import Exceptions.KarteNichtVerfuegbarException;
 import Exceptions.SaveFailedException;
@@ -21,9 +21,9 @@ import javax.swing.table.TableModel;
  */
 public class CorbaKartenInfoCtrl {
 
-    private  DTOVeranstaltung _veranstaltung;
-    private DTOKategorieInformation _kategorie;
-    private DTOKategorieKarte _Kategoriekarten;
+    private  StructVeranstaltung _veranstaltung;
+    private StructKategorieInformation _kategorie;
+    private StructKategorieKarte _Kategoriekarten;
     private CorbaClient _client;
 
     public CorbaKartenInfoCtrl(int veranstaltungID, int kategorieID, CorbaClient client) {
@@ -49,22 +49,22 @@ public class CorbaKartenInfoCtrl {
         return null;
     }
 
-    public DTOVeranstaltung getVeranstaltung() {
+    public StructVeranstaltung getVeranstaltung() {
         return _veranstaltung;
     }
 
-    public DTOKategorieInformation getKategorie() {
+    public StructKategorieInformation getKategorie() {
         return _kategorie;
     }
 
     public TableModel getKartenInfoModel() {
-        Object[][] ob = new Object[_Kategoriekarten.getDTOKarten().size()][5];
-        for (int i = 0; i < _Kategoriekarten.getDTOKarten().size(); i++) {
-            DTOKarte k = _Kategoriekarten.getDTOKarten().get(i);
+        Object[][] ob = new Object[_Kategoriekarten.kartenList.length][5];
+        for (int i = 0; i < _Kategoriekarten.kartenList.length; i++) {
+            StructKarte k = _Kategoriekarten.kartenList[i];
             ob[i][0] = false;
-            ob[i][1] = k.getID();
-            ob[i][2] = k.getReihe();
-            ob[i][3] = k.getPlatz();
+            ob[i][1] = k.kartenId;
+            ob[i][2] = k.reihe;
+            ob[i][3] = k.platz;
             ob[i][4] = false;
         }
         return (new DefaultTableModel(
@@ -90,32 +90,32 @@ public class CorbaKartenInfoCtrl {
     }
 
     public void kartenBestellen(List<Object[]> bestellteKarten) throws RemoteException, SaveFailedException, KarteNichtVerfuegbarException, Exception {
-        List<DTOKarteBestellen> karten = new LinkedList<>();
+        List<StructKarteBestellen> karten = new LinkedList<>();
         int kundenID = 0;
         for (Object[] o : bestellteKarten) {
 
-            karten.add(new DTOKarteBestellen((int) o[1], kundenID, (boolean) o[4]));
+            karten.add(new StructKarteBestellen((int) o[1], kundenID, (boolean) o[4]));
         }
-        _client.verkaufSpeichern(karten);
+        _client.verkaufSpeichern(karten); //Muss In Client geändert werden
 
         updateController();
     }
 
     private void updateController() {
         try {
-            _kategorie = _client.getKategorieInfo(_kategorie.getId());
+            _kategorie = _client.getKategorieInfo(_kategorie.kategId);
         } catch (RemoteException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
         try {
-            _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new DTOKategorienAuswaehlen(_kategorie.getId()));
+            _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new StructKategorieAuswaehlen(_kategorie.kategId));
         } catch (RemoteException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public void cancelClicked() {
-        CorbaMainGuiCtrl.KarteCancel(_veranstaltung.getID());
+        CorbaMainGuiCtrl.KarteCancel(_veranstaltung.vid);
     }
 
     void setVeranstaltung(int veranstaltungID) {
@@ -133,13 +133,13 @@ public class CorbaKartenInfoCtrl {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
         try {
-            _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new DTOKategorienAuswaehlen(_kategorie.getId()));
+            _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new StructKategorieAuswaehlen(_kategorie.kategId);
         } catch (RemoteException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public void loadKarten() throws RemoteException {
-        _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new DTOKategorienAuswaehlen(_kategorie.getId()));
+        _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new StructKategorieAuswaehlen(_kategorie.kategId));
     }
 }

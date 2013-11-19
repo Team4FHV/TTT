@@ -4,7 +4,7 @@
  */
 package CorbaGUICtrl;
 
-import CorbaClient.CorbaClient;
+import client.CorbaClient;
 import DTO.objecte.DTOKategorieInformation;
 import DTO.objecte.DTOVeranstaltung;
 import DTO.objecte.DTOVeranstaltungAnzeigen;

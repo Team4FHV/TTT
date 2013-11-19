@@ -5,7 +5,7 @@
 package CorbaGUICtrl;
 
 import DTO.objecte.*;
-import CorbaClient.CorbaClient;
+import client.CorbaClient;
 import Exceptions.KarteNichtVerfuegbarException;
 import Exceptions.SaveFailedException;
 import java.rmi.RemoteException;

@@ -7,10 +7,6 @@ package controller;
 import ConstantContent.KonstantBenutzer;
 import ConstantContent.KonstantKartenStatus;
 import ConstantContent.KonstantKunde;
-import CorbaServer.CorbaConterollerInterfacePOA;
-import CorbaServer.StructKarte;
-import CorbaServer.StructKategorie;
-import CorbaServer.StructVeranstaltung;
 import Exceptions.KarteNichtVerfuegbarException;
 import Exceptions.SaveFailedException;
 import Hibernate.objecte.Benutzer;
@@ -19,6 +15,12 @@ import Hibernate.objecte.Kategorie;
 import Hibernate.objecte.Kuenstler;
 import Hibernate.objecte.Kunde;
 import Hibernate.objecte.Veranstaltung;
+import corba.CorbaConterollerInterfacePOA;
+import corba.StructKarteBestellen;
+import corba.StructKategorieAuswaehlen;
+import corba.StructKategorieInformation;
+import corba.StructKategorieKarte;
+import corba.StructVeranstaltungAnzeigen;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -52,64 +54,66 @@ public class CorbaController extends CorbaConterollerInterfacePOA {
     }
 
     @Override
-    public StructVeranstaltung[] sucheVeranstaltungNachKriterien(String datum, String ort, String kuenstler) {
+    public corba.StructVeranstaltung[] sucheVeranstaltungNachKriterien(String datum, String ort, String kuenstler) {
 
         Kuenstler k = dm.getKuenstlerNachName(kuenstler);
         Date date = new Date();
         List<Veranstaltung> list = ucs.searchFilter(ort, date, k);
-        StructVeranstaltung[] veranstaltungsList = new StructVeranstaltung[list.size()];
+        corba.StructVeranstaltung[] veranstaltungsList = new corba.StructVeranstaltung[list.size()];
         for (int i = 0; i < list.size(); i++) {
             Veranstaltung v = list.get(i);
-            veranstaltungsList[i] = new StructVeranstaltung(v.getVeranstaltungId(), v.getDatumUhrzeit().toString(), v.getName(), v.getVeranstaltungsort().getAdresse(), kuenstler);
+            boolean erm = (v.getErmaessigung() == 1);
+            veranstaltungsList[i] = new corba.StructVeranstaltung(v.getVeranstaltungId(), v.getDatumUhrzeit().toString(),
+                    v.getName(), v.getVeranstaltungsort().getAdresse(), kuenstler, erm );
         }
         return veranstaltungsList;
     }
 
     @Override
-    public StructKategorie[] getKategorieVonVeranstaltung(int vid) {
+    public StructKategorieInformation[] getKategorieInfoVonVeranstaltung(StructVeranstaltungAnzeigen veranstaltung) {
 
-        Veranstaltung veranstaltung = ucb.getVeranstaltungByID(vid);
+        Veranstaltung v = ucb.getVeranstaltungByID(veranstaltung.id);
 
-        Object[] kat = veranstaltung.getKategories().toArray();
-        StructKategorie[] result = new StructKategorie[kat.length];
+        Object[] kat = v.getKategories().toArray();
+        corba.StructKategorieInformation[] result = new corba.StructKategorieInformation[kat.length];
 
         for (int i = 0; i < kat.length; i++) {
             Kategorie k = (Kategorie) kat[i];
             int ermaessigung = k.getVeranstaltung().getErmaessigung();
             int frei = dm.anzahlFreiePlatzeNachKategorie(k);
             double preis = k.getPreis().doubleValue();
-            result[i] = new StructKategorie(k.getKategorieId(), k.getName(), preis, frei, ermaessigung);
+            result[i] = new corba.StructKategorieInformation(k.getKategorieId(), k.getName(), preis, frei, ermaessigung);
         }
         return result;
     }
 
     @Override
-    public StructKarte[] getAlleFeieKartenNachKategorie(int katid) {
+    public StructKategorieKarte getAlleFreieKartenNachKategorie(StructKategorieAuswaehlen kategorie) {
 
-        Kategorie k = ucb.getKategorieByID(katid);
+        Kategorie k = ucb.getKategorieByID(kategorie.id);
         List<Karte> karten = ucb.getFreieKartenNachKategorie(k);
 
-        StructKarte[] freieKarten = new StructKarte[karten.size()];
+        corba.StructKarte[] freieKarten = new corba.StructKarte[karten.size()];
 
         for (int i = 0; i < karten.size(); i++) {
             Karte karte = karten.get(i);
-            freieKarten[i] = new StructKarte(karte.getKartenId(), karte.getReihe(), karte.getSitzplatz());
+            freieKarten[i] = new corba.StructKarte(karte.getKartenId(), karte.getReihe(), karte.getSitzplatz());
         }
 
-        return freieKarten;
+        return new StructKategorieKarte(freieKarten);
     }
 
     @Override
-    public void verkaufSpeichern(StructKarte[] listkarten) {
+    public void verkaufSpeichern(StructKarteBestellen[] karten) {
 
         Set<Karte> bestellteKartenSet = new HashSet<>();
         int statusFREI = KonstantKartenStatus.FREI.getKartenstatusId();
 
         Kunde kunde = KonstantKunde.ANONYMOUS;
 
-        for (int i = 0; i < listkarten.length; i++) {
+        for (int i = 0; i < karten.length; i++) {
 
-            Karte k = ucb.getKarteByID(listkarten[i].kartenId);
+            Karte k = ucb.getKarteByID(karten[i].kartenId);
             if (dm.getKartenStatusId(k.getKartenId()) == statusFREI) {
                 try {
                     ucb.karteKaufen(k, false); // ermassigung TODO
@@ -136,5 +140,15 @@ public class CorbaController extends CorbaConterollerInterfacePOA {
             Logger.getLogger(CorbaController.class.getName()).log(Level.SEVERE, null, ex);
 
         }
+    }
+
+    @Override
+    public StructKategorieInformation getKategorieInfo(int id) {
+         Kategorie kat = ucb.getKategorieByID(id);
+        int ermaessigung = kat.getVeranstaltung().getErmaessigung();
+        int frei = dm.anzahlFreiePlatzeNachKategorie(kat);
+        double preis = kat.getPreis().doubleValue();
+        return new StructKategorieInformation(kat.getKategorieId(), kat.getName(), preis, frei, ermaessigung);
+    
     }
 }

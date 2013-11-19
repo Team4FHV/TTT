@@ -4,9 +4,10 @@
  */
 package server;
 
-import CorbaServer.CorbaConterollerInterface;
-import CorbaServer.CorbaConterollerInterfaceHelper;
+
 import controller.CorbaController;
+import corba.CorbaConterollerInterface;
+import corba.CorbaConterollerInterfaceHelper;
 import java.util.Properties;
 import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NameComponent;

@@ -5,9 +5,10 @@
 package CorbaGUI;
 
 import CorbaGUICtrl.CorbaKartenInfoCtrl;
-import DTO.objecte.*;
 import Exceptions.KarteNichtVerfuegbarException;
 import Exceptions.SaveFailedException;
+import corba.StructKategorieInformation;
+import corba.StructVeranstaltung;
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
@@ -568,8 +569,8 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
 
     private void changePreis() {
         BigDecimal preis = new BigDecimal(0);
-        BigDecimal kartenpreis = _ctrl.getKategorie().getPreis();
-        int ermaessigung = 100 - _ctrl.getKategorie().getErmaessigung();
+        BigDecimal kartenpreis = new BigDecimal(_ctrl.getKategorie().katPreis);
+        int ermaessigung = 100 - _ctrl.getKategorie().ermaessigung;
         BigDecimal ermaessigt = new BigDecimal(ermaessigung);
         ermaessigt = ermaessigt.divide(new BigDecimal(100));
         BigDecimal karteErmaessigt = kartenpreis.multiply(ermaessigt);
@@ -650,17 +651,17 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
     }
 
     private void fillVeranstaltungsInformation() {
-        DTOVeranstaltung veranstaltung = _ctrl.getVeranstaltung();
-        _lblVeranstaltungsname.setText(veranstaltung.getVname());
-        _lblVeranstaltungsdatum.setText(veranstaltung.getDate().toString());
-        _lblVeranstaltungsort.setText(veranstaltung.getVOrt());
+        StructVeranstaltung veranstaltung = _ctrl.getVeranstaltung();
+        _lblVeranstaltungsname.setText(veranstaltung.vName);
+        _lblVeranstaltungsdatum.setText(veranstaltung.vDatum);
+        _lblVeranstaltungsort.setText(veranstaltung.vOrt);
     }
 
     private void fillKategorieInformation() {
-        DTOKategorieInformation kategorie = _ctrl.getKategorie();
-        _lblKategoriename.setText(kategorie.getName());
-        _lblKategoriepreis.setText(kategorie.getPreis().doubleValue() + " €");
-        _lblFreiePlaetze.setText("" + kategorie.getFreieplätze());
+        StructKategorieInformation kategorie = _ctrl.getKategorie();
+        _lblKategoriename.setText(kategorie.katName);
+        _lblKategoriepreis.setText(kategorie.katPreis + " €");
+        _lblFreiePlaetze.setText("" + kategorie.freiePlaetze);
     }
 
     private void btnKaufenClicked() {

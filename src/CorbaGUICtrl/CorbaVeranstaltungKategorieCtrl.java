@@ -7,7 +7,6 @@ package CorbaGUICtrl;
 import client.CorbaClient;
 import corba.*;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -23,16 +22,16 @@ public class CorbaVeranstaltungKategorieCtrl {
 
     public CorbaVeranstaltungKategorieCtrl(int veranstaltungID, CorbaClient client) {
         _client = client;
-        try {
+//        try {
             _veranstaltung = _client.getVeranstaltungById(veranstaltungID);
-        } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        try {
+//        } catch (RemoteException ex) {
+//            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//        }
+//        try {
             _kategorien = _client.getKategorieInfoVonVeranstaltung(new StructVeranstaltungAnzeigen(_veranstaltung.vid));
-        } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+//        } catch (RemoteException ex) {
+//            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//        }
     }
 
     public StructVeranstaltung getVeranstaltung() {
@@ -71,11 +70,11 @@ public class CorbaVeranstaltungKategorieCtrl {
 
     public void selectKategorie(int id) {
         StructKategorieInformation selectedKategorie = null;
-        try {
+//        try {
             selectedKategorie = _client.getKategorieInfo(id);
-        } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+//        } catch (RemoteException ex) {
+//            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//        }
         if (selectedKategorie != null) {
             CorbaMainGuiCtrl.KategorieAusgewählt(_veranstaltung.vid, selectedKategorie.kategId);
         }
@@ -86,15 +85,15 @@ public class CorbaVeranstaltungKategorieCtrl {
     }
 
     void setVeranstaltungsID(int id) {
-        try {
+//        try {
             _veranstaltung = _client.getVeranstaltungById(id);
-        } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        try {
+//        } catch (RemoteException ex) {
+//            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//        }
+//        try {
             _kategorien = _client.getKategorieInfoVonVeranstaltung(new StructVeranstaltungAnzeigen(_veranstaltung.vid));
-        } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+//        } catch (RemoteException ex) {
+//            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//        }
     }
 }

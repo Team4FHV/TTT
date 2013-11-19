@@ -7,8 +7,6 @@ package CorbaGUICtrl;
 import corba.*;
 import client.CorbaClient;
 import Exceptions.KarteNichtVerfuegbarException;
-import Exceptions.SaveFailedException;
-import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -28,21 +26,21 @@ public class CorbaKartenInfoCtrl {
 
     public CorbaKartenInfoCtrl(int veranstaltungID, int kategorieID, CorbaClient client) {
         _client = client;
-        try {
+       // try {
             _veranstaltung = client.getVeranstaltungById(veranstaltungID);
-        } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        try {
+//        } catch (RemoteException ex) {
+//            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//        }
+//        try {
             _kategorie = client.getKategorieInfo(kategorieID);
-        } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        try {
+//        } catch (RemoteException ex) {
+//            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//        }
+//        try {
             _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new DTOKategorienAuswaehlen(_kategorie.getId()));
-        } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+//        } catch (RemoteException ex) {
+//            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//        }
     }
 
     public TableModel getKartenInfo() {
@@ -102,16 +100,16 @@ public class CorbaKartenInfoCtrl {
     }
 
     private void updateController() {
-        try {
+//        try {
             _kategorie = _client.getKategorieInfo(_kategorie.kategId);
-        } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        try {
+//        } catch (RemoteException ex) {
+//            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//        }
+//        try {
             _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new StructKategorieAuswaehlen(_kategorie.kategId));
-        } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+//        } catch (RemoteException ex) {
+//            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//        }
     }
 
     public void cancelClicked() {
@@ -119,27 +117,27 @@ public class CorbaKartenInfoCtrl {
     }
 
     void setVeranstaltung(int veranstaltungID) {
-        try {
+//        try {
             _veranstaltung = _client.getVeranstaltungById(veranstaltungID);
-        } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+//        } catch (RemoteException ex) {
+//            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//        }
     }
 
     void setKategorieID(int kategorieID) {
-        try {
+//        try {
             _kategorie = _client.getKategorieInfo(kategorieID);
-        } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        try {
-            _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new StructKategorieAuswaehlen(_kategorie.kategId);
-        } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+//        } catch (RemoteException ex) {
+//            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//        }
+//        try {
+            _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new StructKategorieAuswaehlen(_kategorie.kategId));
+//        } catch (RemoteException ex) {
+//            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//        }
     }
 
-    public void loadKarten() throws RemoteException {
+    public void loadKarten() {
         _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new StructKategorieAuswaehlen(_kategorie.kategId));
     }
 }

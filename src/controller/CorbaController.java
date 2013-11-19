@@ -64,7 +64,7 @@ public class CorbaController extends CorbaConterollerInterfacePOA {
             Veranstaltung v = list.get(i);
             boolean erm = (v.getErmaessigung() == 1);
             veranstaltungsList[i] = new corba.StructVeranstaltung(v.getVeranstaltungId(), v.getDatumUhrzeit().toString(),
-                    v.getName(), v.getVeranstaltungsort().getAdresse(), kuenstler, erm );
+                    v.getName(), v.getVeranstaltungsort().getAdresse(), kuenstler, erm);
         }
         return veranstaltungsList;
     }
@@ -105,50 +105,37 @@ public class CorbaController extends CorbaConterollerInterfacePOA {
 
     @Override
     public void verkaufSpeichern(StructKarteBestellen[] karten) {
-
-        Set<Karte> bestellteKartenSet = new HashSet<>();
-        int statusFREI = KonstantKartenStatus.FREI.getKartenstatusId();
-
-        Kunde kunde = KonstantKunde.ANONYMOUS;
-
-        for (int i = 0; i < karten.length; i++) {
-
-            Karte k = ucb.getKarteByID(karten[i].kartenId);
-            if (dm.getKartenStatusId(k.getKartenId()) == statusFREI) {
-                try {
-                    ucb.karteKaufen(k, false); // ermassigung TODO
-                } catch (SaveFailedException ex) {
-                    Logger.getLogger(CorbaController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                bestellteKartenSet.add(k);
-            } else {
-                try {
-                    ucb.kartenFreiGeben(bestellteKartenSet);
-                } catch (SaveFailedException ex) {
-                    Logger.getLogger(CorbaController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                try {
-                    throw new KarteNichtVerfuegbarException(k.getKartenId());
-                } catch (KarteNichtVerfuegbarException ex) {
-                    Logger.getLogger(CorbaController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
         try {
-            ucb.verkaufSpeichern(benutzer, kunde, bestellteKartenSet);
+            Set<Karte> bestellteKartenSet = new HashSet<>();
+            int statusFREI = KonstantKartenStatus.FREI.getKartenstatusId();
+
+            Kunde kunde = KonstantKunde.ANONYMOUS;
+
+            for (int i = 0; i < karten.length; i++) {
+                boolean erm = karten[i].ermaessigt;
+                Karte k = ucb.getKarteByID(karten[i].kartenId);
+               if (dm.getKartenStatusId(k.getKartenId()) == statusFREI) {
+                        ucb.karteKaufen(k, erm);
+                        bestellteKartenSet.add(k);
+                    } else {
+                        ucb.kartenFreiGeben(bestellteKartenSet);
+//                        throw new KarteNichtVerfuegbarException(k.getKartenId());
+                    }
+            }
+                ucb.verkaufSpeichern(benutzer, kunde, bestellteKartenSet);
         } catch (Exception ex) {
             Logger.getLogger(CorbaController.class.getName()).log(Level.SEVERE, null, ex);
-
         }
     }
 
+    
     @Override
     public StructKategorieInformation getKategorieInfo(int id) {
-         Kategorie kat = ucb.getKategorieByID(id);
+        Kategorie kat = ucb.getKategorieByID(id);
         int ermaessigung = kat.getVeranstaltung().getErmaessigung();
         int frei = dm.anzahlFreiePlatzeNachKategorie(kat);
         double preis = kat.getPreis().doubleValue();
         return new StructKategorieInformation(kat.getKategorieId(), kat.getName(), preis, frei, ermaessigung);
-    
+
     }
 }

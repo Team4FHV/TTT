@@ -13,7 +13,7 @@ module TicTakTicketCORBA {
 			long freiePlaetze;
 			long ermaessigung;
 		};		
-		struct StructVernastaltung{
+		struct StructVeranstaltung{
 			long vid;
 			string vDatum;
 			string vName;
@@ -21,12 +21,12 @@ module TicTakTicketCORBA {
 			string kuenstler;			
 		};
 		interface CorbaConterollerInterface {
-			typedef sequence<StructVernastaltung> veranstaltungList;
+			typedef sequence<StructVeranstaltung> veranstaltungList;
 			typedef sequence<StructKategorie> kategorieList;
 			typedef sequence<StructKarte> karteList;
 			//falls null nicht geht einzelne Methoden mit jedem Parameter machen
 			veranstaltungList sucheVeranstaltungNachKriterien(in string datum, in string ort, in string kuenstler);
-			kategorieList getKategorieVonVernastaltung(in long vid);
+			kategorieList getKategorieVonVeranstaltung(in long vid);
 			karteList getAlleFeieKartenNachKategorie(in long katid);
 			void verkaufSpeichern(in karteList listkarten);
 		};

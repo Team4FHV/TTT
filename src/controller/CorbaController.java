@@ -7,6 +7,7 @@ package controller;
 import ConstantContent.KonstantBenutzer;
 import ConstantContent.KonstantKartenStatus;
 import ConstantContent.KonstantKunde;
+import Domain.DAOFabrik;
 import Exceptions.KarteNichtVerfuegbarException;
 import Exceptions.SaveFailedException;
 import Hibernate.objecte.Benutzer;
@@ -121,6 +122,7 @@ public class CorbaController extends CorbaConterollerInterfacePOA {
             for (int i = 0; i < karten.length; i++) {
                 boolean erm = karten[i].ermaessigt;
                 Karte k = ucb.getKarteByID(karten[i].kartenId);
+                DAOFabrik.getInstance().getKarteDAO().saveORupdate(k);
                if (dm.getKartenStatusId(k.getKartenId()) == statusFREI) {
                         ucb.karteKaufen(k, erm);
                         bestellteKartenSet.add(k);

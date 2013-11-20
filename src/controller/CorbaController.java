@@ -9,19 +9,18 @@ import ConstantContent.KonstantKartenStatus;
 import ConstantContent.KonstantKunde;
 import Domain.DAOFabrik;
 import Exceptions.KarteNichtVerfuegbarException;
-import Exceptions.SaveFailedException;
 import Hibernate.objecte.Benutzer;
 import Hibernate.objecte.Karte;
 import Hibernate.objecte.Kategorie;
 import Hibernate.objecte.Kuenstler;
 import Hibernate.objecte.Kunde;
 import Hibernate.objecte.Veranstaltung;
+import corba.CobraException;
 import corba.CorbaConterollerInterfacePOA;
 import corba.StructKarteBestellen;
 import corba.StructKategorieAuswaehlen;
 import corba.StructKategorieInformation;
 import corba.StructKategorieKarte;
-import corba.StructVeranstaltung;
 import corba.StructVeranstaltungAnzeigen;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -78,11 +77,16 @@ public class CorbaController extends CorbaConterollerInterfacePOA {
         }
         List<Veranstaltung> list = ucs.searchFilter(ort, date, k);
         corba.StructVeranstaltung[] veranstaltungsList = new corba.StructVeranstaltung[list.size()];
+        String kuenstlerList = "";
         for (int i = 0; i < list.size(); i++) {
             Veranstaltung v = list.get(i);
+            Object [] ku = v.getKuenstlers().toArray();
+            for (int j = 0; j < ku.length; j++){
+                kuenstlerList = kuenstlerList + ((Kuenstler)ku[j]).getName() + " ";
+            }
             boolean erm = (v.getErmaessigung() == 1);
             veranstaltungsList[i] = new corba.StructVeranstaltung(v.getVeranstaltungId(), v.getDatumUhrzeit().toString(),
-                    v.getName(), v.getVeranstaltungsort().getAdresse(), kuenstler, erm);
+                    v.getName(), v.getVeranstaltungsort().getAdresse(), kuenstlerList, erm);
         }
         return veranstaltungsList;
     }
@@ -122,7 +126,7 @@ public class CorbaController extends CorbaConterollerInterfacePOA {
     }
 
     @Override
-    public void verkaufSpeichern(StructKarteBestellen[] karten) {
+    public void verkaufSpeichern(StructKarteBestellen[] karten) throws CobraException {
         try {
             Set<Karte> bestellteKartenSet = new HashSet<>();
             int statusFREI = KonstantKartenStatus.FREI.getKartenstatusId();
@@ -144,6 +148,13 @@ public class CorbaController extends CorbaConterollerInterfacePOA {
                 ucb.verkaufSpeichern(benutzer, kunde, bestellteKartenSet);
         } catch (Exception ex) {
             Logger.getLogger(CorbaController.class.getName()).log(Level.SEVERE, null, ex);
+            String message;
+            if (ex instanceof KarteNichtVerfuegbarException){
+                 message = "Karte "+ ((KarteNichtVerfuegbarException) ex).getKartenId() + " ist nicht verfügbar";
+            } else {
+                message = ex.toString();
+            }
+             throw  new CobraException(message);
         }
     }
 

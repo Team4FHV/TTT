@@ -4,6 +4,7 @@
  */
 package client;
 
+import corba.CobraException;
 import corba.CorbaConterollerInterface;
 import corba.CorbaConterollerInterfaceHelper;
 import corba.StructKarteBestellen;
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
@@ -76,7 +79,11 @@ public class CorbaClient_MO {
         for (int i = 0; i < list.size(); i++) {
             karten[i] = list.get(i);
         }
-        Stub.verkaufSpeichern(karten);
+        try {
+            Stub.verkaufSpeichern(karten);
+        } catch (CobraException ex) {
+            Logger.getLogger(CorbaClient_MO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public corba.StructKategorieInformation getKategorieInfo(int id) {

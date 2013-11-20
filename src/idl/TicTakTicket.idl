@@ -56,11 +56,13 @@ module TicTakTicket {
 		kategorieList getKategorieInfoVonVeranstaltung(in StructVeranstaltungAnzeigen veranstaltung);
 				
 		veranstaltungList sucheVeranstaltungNachKriterien(in string datum, in string ort, in string kuenstler);
-			
-			
-		void verkaufSpeichern(in bestellungList karten);
+				
+		void verkaufSpeichern(in bestellungList karten) raises (exception);
 			
 		StructKategorieInformation getKategorieInfo(in long id);
 		};
 	};
+        exception CobraException{
+            string message; 
+        };
 };

@@ -4,6 +4,7 @@
  */
 package client;
 
+import corba.CobraException;
 import corba.CorbaConterollerInterface;
 import corba.CorbaConterollerInterfaceHelper;
 import corba.StructKarteBestellen;
@@ -13,6 +14,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
@@ -35,11 +39,11 @@ public class CorbaClient {
         try {
 
             System.out.println("Bitte geben Sie eine Port ein");
-//               Scanner sc = new Scanner (System.in);
-//               String host = sc.next ();//TODO
+            Scanner sc = new Scanner (System.in);
+            String host = sc.next ();
             Properties props = new Properties();
             props.put("org.omg.CORBA.ORBInitialPort", "2050");
-            props.put("org.omg.CORBA.ORBInitialHost", "localhost");
+            props.put("org.omg.CORBA.ORBInitialHost", host);
             ORB orb = ORB.init(args, props);
 
             //            ORB orb = ORB.init(args, null);
@@ -78,12 +82,13 @@ public class CorbaClient {
 
     }
 
-    public void verkaufSpeichern(List<StructKarteBestellen> list) {
+    public void verkaufSpeichern(List<StructKarteBestellen> list) throws CobraException {
         corba.StructKarteBestellen[] karten = new StructKarteBestellen[list.size()];
         for (int i = 0; i < list.size(); i++) {
             karten[i] = list.get(i);
         }
-        Stub.verkaufSpeichern(karten);
+            Stub.verkaufSpeichern(karten);
+       
     }
 
     public corba.StructKategorieInformation getKategorieInfo(int id) {

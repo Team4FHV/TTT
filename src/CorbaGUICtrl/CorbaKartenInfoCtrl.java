@@ -9,6 +9,8 @@ import client.CorbaClient;
 import Exceptions.KarteNichtVerfuegbarException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -94,7 +96,12 @@ public class CorbaKartenInfoCtrl {
 
             karten.add(new StructKarteBestellen((int) o[1], kundenID, (boolean) o[4]));
         }
-        _client.verkaufSpeichern(karten); //Muss In Client geändert werden
+        try {
+            _client.verkaufSpeichern(karten); 
+        } catch (CobraException ex) {
+            Logger.getLogger(CorbaKartenInfoCtrl.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.message, "Error", JOptionPane.ERROR_MESSAGE);
+        }
 
         updateController();
     }

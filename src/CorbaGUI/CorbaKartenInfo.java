@@ -101,17 +101,7 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         _pnlKundenNummer = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
-        jPanel12 = new javax.swing.JPanel();
-        _lblKundennummerInformation = new javax.swing.JLabel();
         _pnlKundenInformation = new javax.swing.JPanel();
-        jPanel9 = new javax.swing.JPanel();
-        _lblKundenVornameText = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
-        _lblKundenNachnameText = new javax.swing.JLabel();
-        jPanel11 = new javax.swing.JPanel();
-        _lblKundenGeburtsdatumText = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
@@ -124,6 +114,7 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
         jPanel15 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 153, 0));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -131,10 +122,13 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new java.awt.GridLayout(3, 0));
 
+        jPanel1.setBackground(new java.awt.Color(204, 153, 0));
         jPanel1.setLayout(new java.awt.GridLayout(1, 3));
 
+        _pnlVeranstaltungInformationen.setBackground(new java.awt.Color(204, 153, 0));
         _pnlVeranstaltungInformationen.setLayout(new java.awt.GridLayout(2, 1));
 
+        jPanel24.setBackground(new java.awt.Color(204, 153, 0));
         jPanel24.setLayout(new java.awt.GridLayout(1, 1));
 
         jLabel9.setText("Veranstaltungsinformationen:");
@@ -142,10 +136,13 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
 
         _pnlVeranstaltungInformationen.add(jPanel24);
 
+        jPanel25.setBackground(new java.awt.Color(204, 153, 0));
         jPanel25.setLayout(new java.awt.GridLayout(3, 1));
 
+        jPanel26.setBackground(new java.awt.Color(204, 153, 0));
         jPanel26.setLayout(new java.awt.GridLayout(1, 2));
 
+        jPanel29.setBackground(new java.awt.Color(204, 153, 0));
         jPanel29.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel10.setText("Veranstaltungsname:");
@@ -153,6 +150,7 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
 
         jPanel26.add(jPanel29);
 
+        jPanel30.setBackground(new java.awt.Color(204, 153, 0));
         jPanel30.setLayout(new java.awt.GridLayout(1, 0));
 
         _lblVeranstaltungsname.setText("jLabel11");
@@ -162,8 +160,10 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
 
         jPanel25.add(jPanel26);
 
+        jPanel27.setBackground(new java.awt.Color(204, 153, 0));
         jPanel27.setLayout(new java.awt.GridLayout(1, 2));
 
+        jPanel31.setBackground(new java.awt.Color(204, 153, 0));
         jPanel31.setLayout(new java.awt.GridLayout(1, 1));
 
         jLabel12.setText("Datum:");
@@ -171,6 +171,7 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
 
         jPanel27.add(jPanel31);
 
+        jPanel32.setBackground(new java.awt.Color(204, 153, 0));
         jPanel32.setLayout(new java.awt.GridLayout(1, 1));
 
         _lblVeranstaltungsdatum.setText("jLabel13");
@@ -180,8 +181,10 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
 
         jPanel25.add(jPanel27);
 
+        jPanel28.setBackground(new java.awt.Color(204, 153, 0));
         jPanel28.setLayout(new java.awt.GridLayout(1, 2));
 
+        jPanel33.setBackground(new java.awt.Color(204, 153, 0));
         jPanel33.setLayout(new java.awt.GridLayout(1, 1));
 
         jLabel14.setText("Veranstaltungsort:");
@@ -189,6 +192,7 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
 
         jPanel28.add(jPanel33);
 
+        jPanel34.setBackground(new java.awt.Color(204, 153, 0));
         jPanel34.setLayout(new java.awt.GridLayout(1, 1));
 
         _lblVeranstaltungsort.setText("jLabel15");
@@ -202,8 +206,10 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
 
         jPanel1.add(_pnlVeranstaltungInformationen);
 
+        _pnlKategorieInformationen.setBackground(new java.awt.Color(204, 153, 0));
         _pnlKategorieInformationen.setLayout(new java.awt.GridLayout(2, 1));
 
+        jPanel35.setBackground(new java.awt.Color(204, 153, 0));
         jPanel35.setLayout(new java.awt.GridLayout(1, 1));
 
         jLabel16.setText("Kategorieinformationen:");
@@ -211,10 +217,12 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
 
         _pnlKategorieInformationen.add(jPanel35);
 
+        jPanel36.setBackground(new java.awt.Color(204, 153, 0));
         jPanel36.setLayout(new java.awt.GridLayout(3, 1));
 
         jPanel37.setLayout(new java.awt.GridLayout(1, 2));
 
+        jPanel40.setBackground(new java.awt.Color(204, 153, 0));
         jPanel40.setLayout(new java.awt.GridLayout(1, 1));
 
         jLabel17.setText("Kategoriename:");
@@ -222,6 +230,7 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
 
         jPanel37.add(jPanel40);
 
+        jPanel41.setBackground(new java.awt.Color(204, 153, 0));
         jPanel41.setLayout(new java.awt.GridLayout(1, 1));
 
         _lblKategoriename.setText("jLabel18");
@@ -233,6 +242,7 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
 
         jPanel38.setLayout(new java.awt.GridLayout(1, 2));
 
+        jPanel42.setBackground(new java.awt.Color(204, 153, 0));
         jPanel42.setLayout(new java.awt.GridLayout(1, 1));
 
         jLabel19.setText("Preis:");
@@ -240,6 +250,7 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
 
         jPanel38.add(jPanel42);
 
+        jPanel43.setBackground(new java.awt.Color(204, 153, 0));
         jPanel43.setLayout(new java.awt.GridLayout(1, 1));
 
         _lblKategoriepreis.setText("jLabel20");
@@ -251,6 +262,7 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
 
         jPanel39.setLayout(new java.awt.GridLayout(1, 2));
 
+        jPanel44.setBackground(new java.awt.Color(204, 153, 0));
         jPanel44.setLayout(new java.awt.GridLayout(1, 1));
 
         jLabel21.setText("Freie Plätze:");
@@ -258,6 +270,7 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
 
         jPanel39.add(jPanel44);
 
+        jPanel45.setBackground(new java.awt.Color(204, 153, 0));
         jPanel45.setLayout(new java.awt.GridLayout(1, 1));
 
         _lblFreiePlaetze.setText("jLabel22");
@@ -271,7 +284,10 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
 
         jPanel1.add(_pnlKategorieInformationen);
 
+        _pnlPreisInformation.setBackground(new java.awt.Color(204, 153, 0));
         _pnlPreisInformation.setLayout(new java.awt.GridLayout(3, 1));
+
+        jPanel19.setBackground(new java.awt.Color(204, 153, 0));
 
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
         jPanel19.setLayout(jPanel19Layout);
@@ -286,6 +302,8 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
 
         _pnlPreisInformation.add(jPanel19);
 
+        jPanel20.setBackground(new java.awt.Color(204, 153, 0));
+
         javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
         jPanel20.setLayout(jPanel20Layout);
         jPanel20Layout.setHorizontalGroup(
@@ -299,8 +317,10 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
 
         _pnlPreisInformation.add(jPanel20);
 
+        jPanel21.setBackground(new java.awt.Color(204, 153, 0));
         jPanel21.setLayout(new java.awt.GridLayout(1, 2));
 
+        jPanel22.setBackground(new java.awt.Color(204, 153, 0));
         jPanel22.setLayout(new java.awt.GridLayout(1, 1));
 
         jLabel8.setText("Gesamtpreis:");
@@ -308,6 +328,7 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
 
         jPanel21.add(jPanel22);
 
+        jPanel23.setBackground(new java.awt.Color(204, 153, 0));
         jPanel23.setLayout(new java.awt.GridLayout(1, 1));
         jPanel23.add(_lblGesamtpreis);
 
@@ -319,6 +340,7 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1);
 
+        jPanel2.setBackground(new java.awt.Color(204, 153, 0));
         jPanel2.setLayout(new java.awt.GridLayout(1, 1));
 
         _tblKarten.setModel(new javax.swing.table.DefaultTableModel(
@@ -358,47 +380,23 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2);
 
+        jPanel3.setBackground(new java.awt.Color(204, 153, 0));
         jPanel3.setLayout(new java.awt.GridLayout(1, 3));
 
+        jPanel4.setBackground(new java.awt.Color(204, 153, 0));
         jPanel4.setLayout(new java.awt.GridLayout(2, 1));
 
+        _pnlKundenNummer.setBackground(new java.awt.Color(204, 153, 0));
         _pnlKundenNummer.setLayout(new java.awt.GridLayout(3, 1));
-
-        jPanel7.setLayout(new java.awt.GridLayout(1, 1));
-        _pnlKundenNummer.add(jPanel7);
-
-        jPanel8.setLayout(new java.awt.GridLayout(1, 2));
-        _pnlKundenNummer.add(jPanel8);
-
-        jPanel12.setLayout(new java.awt.GridLayout(1, 1));
-
-        _lblKundennummerInformation.setForeground(new java.awt.Color(255, 0, 0));
-        jPanel12.add(_lblKundennummerInformation);
-
-        _pnlKundenNummer.add(jPanel12);
-
         jPanel4.add(_pnlKundenNummer);
 
+        _pnlKundenInformation.setBackground(new java.awt.Color(204, 153, 0));
         _pnlKundenInformation.setLayout(new java.awt.GridLayout(3, 1));
-
-        jPanel9.setLayout(new java.awt.GridLayout(1, 2));
-        jPanel9.add(_lblKundenVornameText);
-
-        _pnlKundenInformation.add(jPanel9);
-
-        jPanel10.setLayout(new java.awt.GridLayout(1, 2));
-        jPanel10.add(_lblKundenNachnameText);
-
-        _pnlKundenInformation.add(jPanel10);
-
-        jPanel11.setLayout(new java.awt.GridLayout(1, 2));
-        jPanel11.add(_lblKundenGeburtsdatumText);
-
-        _pnlKundenInformation.add(jPanel11);
-
         jPanel4.add(_pnlKundenInformation);
 
         jPanel3.add(jPanel4);
+
+        jPanel5.setBackground(new java.awt.Color(204, 153, 0));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -413,7 +411,10 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
 
         jPanel3.add(jPanel5);
 
+        jPanel6.setBackground(new java.awt.Color(204, 153, 0));
         jPanel6.setLayout(new java.awt.GridLayout(3, 1));
+
+        jPanel13.setBackground(new java.awt.Color(204, 153, 0));
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -430,9 +431,11 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
 
         jPanel14.setLayout(new java.awt.GridLayout(1, 3));
 
+        jPanel16.setBackground(new java.awt.Color(204, 153, 0));
         jPanel16.setLayout(new java.awt.GridLayout(1, 1));
         jPanel14.add(jPanel16);
 
+        jPanel17.setBackground(new java.awt.Color(204, 153, 0));
         jPanel17.setLayout(new java.awt.GridLayout(1, 1));
 
         _btnKaufen.setText("Kaufen");
@@ -445,6 +448,7 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
 
         jPanel14.add(jPanel17);
 
+        jPanel18.setBackground(new java.awt.Color(204, 153, 0));
         jPanel18.setLayout(new java.awt.GridLayout(1, 1));
 
         _btnCancel.setText("Cancel");
@@ -458,6 +462,8 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
         jPanel14.add(jPanel18);
 
         jPanel6.add(jPanel14);
+
+        jPanel15.setBackground(new java.awt.Color(204, 153, 0));
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -497,10 +503,6 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
     private javax.swing.JLabel _lblGesamtpreis;
     private javax.swing.JLabel _lblKategoriename;
     private javax.swing.JLabel _lblKategoriepreis;
-    private javax.swing.JLabel _lblKundenGeburtsdatumText;
-    private javax.swing.JLabel _lblKundenNachnameText;
-    private javax.swing.JLabel _lblKundenVornameText;
-    private javax.swing.JLabel _lblKundennummerInformation;
     private javax.swing.JLabel _lblVeranstaltungsdatum;
     private javax.swing.JLabel _lblVeranstaltungsname;
     private javax.swing.JLabel _lblVeranstaltungsort;
@@ -520,9 +522,6 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
@@ -561,9 +560,6 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel45;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 

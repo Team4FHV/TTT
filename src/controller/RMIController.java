@@ -20,6 +20,7 @@ import DTO.objecte.DTOVeranstaltung;
 import DTO.objecte.DTOVeranstaltungAnzeigen;
 import DTO.objecte.DTOVeranstaltungInformation;
 import DTO.objecte.DTOVeranstaltungSuchen;
+import Domain.DAOFabrik;
 import Exceptions.BenutzerInaktivException;
 import Exceptions.BenutzerNichtInDBException;
 import Exceptions.FalschesPasswordExeption;
@@ -241,6 +242,10 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
 
             for (DTOKarteBestellen b : karten) {
                 Karte k = ucb.getKarteByID(b.getKartenID());
+                DAOFabrik.getInstance().getKarteDAO().saveORupdate(k);
+                System.out.println("UHRA ");
+                     System.out.println(dm.getKartenStatusId(k.getKartenId()));
+                     System.out.println(statusFREI);
                 if (dm.getKartenStatusId(k.getKartenId())== statusFREI) {
                     ucb.karteKaufen(k, b.isErmaessigt());
                     bestellteKartenSet.add(k);

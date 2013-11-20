@@ -17,4 +17,5 @@ public interface CorbaConterollerInterfaceOperations
   corba.StructVeranstaltung[] sucheVeranstaltungNachKriterien (String datum, String ort, String kuenstler);
   void verkaufSpeichern (corba.StructKarteBestellen[] karten);
   corba.StructKategorieInformation getKategorieInfo (int id);
+  
 } // interface CorbaConterollerInterfaceOperations

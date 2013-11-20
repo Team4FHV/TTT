@@ -150,4 +150,6 @@ public class _CorbaConterollerInterfaceStub extends org.omg.CORBA.portable.Objec
      orb.destroy() ;
    }
   }
+
+   
 } // class _CorbaConterollerInterfaceStub

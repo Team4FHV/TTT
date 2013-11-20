@@ -37,7 +37,7 @@ public class CorbaKartenInfoCtrl {
 //            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 //        }
 //        try {
-            _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new DTOKategorienAuswaehlen(_kategorie.getId()));
+            _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(_kategorie.kategId);
 //        } catch (RemoteException ex) {
 //            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 //        }
@@ -87,7 +87,7 @@ public class CorbaKartenInfoCtrl {
         });
     }
 
-    public void kartenBestellen(List<Object[]> bestellteKarten) throws RemoteException, SaveFailedException, KarteNichtVerfuegbarException, Exception {
+    public void kartenBestellen(List<Object[]> bestellteKarten)  {
         List<StructKarteBestellen> karten = new LinkedList<>();
         int kundenID = 0;
         for (Object[] o : bestellteKarten) {
@@ -106,7 +106,7 @@ public class CorbaKartenInfoCtrl {
 //            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 //        }
 //        try {
-            _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new StructKategorieAuswaehlen(_kategorie.kategId));
+            _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(_kategorie.kategId);
 //        } catch (RemoteException ex) {
 //            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 //        }
@@ -131,13 +131,13 @@ public class CorbaKartenInfoCtrl {
 //            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 //        }
 //        try {
-            _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new StructKategorieAuswaehlen(_kategorie.kategId));
+            _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(_kategorie.kategId);
 //        } catch (RemoteException ex) {
 //            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 //        }
     }
 
     public void loadKarten() {
-        _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(new StructKategorieAuswaehlen(_kategorie.kategId));
+        _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(_kategorie.kategId);
     }
 }

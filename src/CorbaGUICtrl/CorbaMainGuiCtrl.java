@@ -59,7 +59,7 @@ public class CorbaMainGuiCtrl {
     }
 
     public static void main(String[] args) {
-        _client = new CorbaClient();
+        _client = new CorbaClient(args); 
         _veranstaltungSuchen = new CorbaVeranstaltungSuchen(getVeranstaltungSuchenCtrl());
     }
 

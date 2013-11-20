@@ -27,7 +27,7 @@ public class CorbaVeranstaltungsSuchenCtrl {
     public CorbaVeranstaltungsSuchenCtrl(CorbaClient client) {
          _client = client;
 //        try {
-            _veranstaltungen = _client.sucheVeranstaltungenNachKrieterien(null, null, null);
+            _veranstaltungen = _client.sucheVeranstaltungNachKriterien("", "", "");
 //        } catch (RemoteException ex) {
 //            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 //        }
@@ -36,13 +36,14 @@ public class CorbaVeranstaltungsSuchenCtrl {
     public void searchingForEvents(String date, String place, String artist) {
         Date d = null;
         try {
-            SimpleDateFormat sdfToDate = new SimpleDateFormat("dd.MM.yyyy");
-            d = sdfToDate.parse(date);
+//            SimpleDateFormat sdfToDate = new SimpleDateFormat("dd.MM.yyyy");
+//            d = sdfToDate.parse(date);
+          
         } catch (Exception e) {
         }
         System.out.println(d);
 //        try {
-            _veranstaltungen = _client.sucheVeranstaltungenNachKrieterien(date, place, artist);
+            _veranstaltungen = _client.sucheVeranstaltungNachKriterien(date, place, artist);
 //        } catch (RemoteException ex) {
 //            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 //        }
@@ -66,7 +67,7 @@ public class CorbaVeranstaltungsSuchenCtrl {
             "Datum", "Name", "Ort", "Künstler", "Id"
         }) {
             Class[] types = new Class[]{
-                java.util.Date.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean[]{
                 false, false, false, false, false

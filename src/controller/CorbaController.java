@@ -21,6 +21,7 @@ import corba.StructKarteBestellen;
 import corba.StructKategorieAuswaehlen;
 import corba.StructKategorieInformation;
 import corba.StructKategorieKarte;
+import corba.StructVeranstaltung;
 import corba.StructVeranstaltungAnzeigen;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -57,13 +58,22 @@ public class CorbaController extends CorbaConterollerInterfacePOA {
 
     @Override
     public corba.StructVeranstaltung[] sucheVeranstaltungNachKriterien(String datum, String ort, String kuenstler) {
-
-        Kuenstler k = dm.getKuenstlerNachName(kuenstler);
+    Date date = new Date();
+     Kuenstler k;
+        if (datum == null) {
+            date = new Date();
+        }
        
-         Date date = null;
+        if (kuenstler != null) {
+            k = dm.getKuenstlerNachName(kuenstler);
+        } else {
+            k = null;
+        }
+        
         try {
-            SimpleDateFormat sdfToDate = new SimpleDateFormat("dd.MM.yyyy");
-            date = sdfToDate.parse(datum);
+          SimpleDateFormat sdfToDate = new SimpleDateFormat("dd.MM.yyyy");
+           date = sdfToDate.parse(datum); System.err.println("DATUM " + date.toString());
+            
         } catch (Exception e) {
         }
         List<Veranstaltung> list = ucs.searchFilter(ort, date, k);
@@ -147,4 +157,11 @@ public class CorbaController extends CorbaConterollerInterfacePOA {
         return new StructKategorieInformation(kat.getKategorieId(), kat.getName(), preis, frei, ermaessigung);
 
     }
+    
+//    public StructVeranstaltung getVeranstaltungById(int veranstaltungID){
+//       Veranstaltung v = ucb.getVeranstaltungByID(veranstaltungID);
+//       
+//        return new StructVeranstaltung(v.getVeranstaltungId(), v.getDatumUhrzeit().toString(), v.getName(), v.getVeranstaltungsort().getAdresse(),
+//                "", true);
+//    }
 }

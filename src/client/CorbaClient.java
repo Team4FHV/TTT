@@ -92,7 +92,12 @@ public class CorbaClient {
     }
 
     public StructVeranstaltung getVeranstaltungById(int veranstaltungID) {
-        
+        ArrayList<StructVeranstaltung> veranstaltungen = sucheVeranstaltungNachKriterien("", "", "");
+        for (StructVeranstaltung v : veranstaltungen) {
+            if (v.vid == veranstaltungID) {
+                return v;
+            }
+        }
         return new StructVeranstaltung(veranstaltungID, "", "", "", "", true);
     }
 }

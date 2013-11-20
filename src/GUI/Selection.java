@@ -42,6 +42,7 @@ public class Selection extends javax.swing.JFrame {
         jButtonKreservieren = new javax.swing.JButton();
         jButtonKverkaufen = new javax.swing.JButton();
         jButtonKuVerwalten = new javax.swing.JButton();
+        jButtonMessages = new javax.swing.JButton();
         jPanelInfoMessage = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -62,7 +63,7 @@ public class Selection extends javax.swing.JFrame {
 
         jPanelScreen.add(jPanelScreenTitle);
 
-        jPanelSelection.setLayout(new java.awt.GridLayout(4, 2));
+        jPanelSelection.setLayout(new java.awt.GridLayout(5, 2));
 
         jButtonVsuchen.setText("Veranstaltung suchen");
         jButtonVsuchen.addActionListener(new java.awt.event.ActionListener() {
@@ -95,6 +96,9 @@ public class Selection extends javax.swing.JFrame {
             }
         });
         jPanelSelection.add(jButtonKuVerwalten);
+
+        jButtonMessages.setText("Messages schreiben");
+        jPanelSelection.add(jButtonMessages);
 
         jPanelScreen.add(jPanelSelection);
 
@@ -130,6 +134,7 @@ public class Selection extends javax.swing.JFrame {
     private javax.swing.JButton jButtonKreservieren;
     private javax.swing.JButton jButtonKuVerwalten;
     private javax.swing.JButton jButtonKverkaufen;
+    private javax.swing.JButton jButtonMessages;
     private javax.swing.JButton jButtonVsuchen;
     private javax.swing.JLabel jLabelScreenTitle;
     private javax.swing.JPanel jPanelInfoMessage;

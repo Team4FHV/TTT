@@ -67,6 +67,8 @@ public class CorbaVeranstaltungSuchen extends javax.swing.JFrame {
         jPanelSelectBack = new javax.swing.JPanel();
         jPaneSelect = new javax.swing.JPanel();
         jPanelBackButton = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jButtonBack = new javax.swing.JButton();
         jButtonAnzeigen = new javax.swing.JButton();
 
@@ -79,8 +81,10 @@ public class CorbaVeranstaltungSuchen extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new java.awt.GridLayout(1, 1));
 
+        jPanelScreen.setBackground(new java.awt.Color(204, 153, 0));
         jPanelScreen.setLayout(new java.awt.GridLayout(5, 1));
 
+        jPanelScreenTitle.setBackground(new java.awt.Color(204, 153, 0));
         jPanelScreenTitle.setLayout(new java.awt.GridLayout(1, 1));
 
         jLabel1.setText("Veranstaltung suchen");
@@ -88,8 +92,10 @@ public class CorbaVeranstaltungSuchen extends javax.swing.JFrame {
 
         jPanelScreen.add(jPanelScreenTitle);
 
+        jPanelEventSearch.setBackground(new java.awt.Color(204, 153, 0));
         jPanelEventSearch.setLayout(new java.awt.GridLayout(2, 4));
 
+        jPanelSearchLabels.setBackground(new java.awt.Color(204, 153, 0));
         jPanelSearchLabels.setLayout(new java.awt.GridLayout(1, 1));
 
         jLabelDate.setText("Datum");
@@ -101,16 +107,19 @@ public class CorbaVeranstaltungSuchen extends javax.swing.JFrame {
         jLabelArtist.setText("Künstler");
         jPanelSearchLabels.add(jLabelArtist);
 
+        jPanelSearchButton.setBackground(new java.awt.Color(204, 153, 0));
         jPanelSearchButton.setLayout(new java.awt.GridLayout(1, 1));
         jPanelSearchLabels.add(jPanelSearchButton);
 
         jPanelEventSearch.add(jPanelSearchLabels);
 
+        jPanelSearchInput.setBackground(new java.awt.Color(204, 153, 0));
         jPanelSearchInput.setLayout(new java.awt.GridLayout(1, 5));
         jPanelSearchInput.add(jTextFieldDate);
         jPanelSearchInput.add(jTextFieldPlace);
         jPanelSearchInput.add(jTextFieldArtist);
 
+        jPanelDeleteSearchButton.setBackground(new java.awt.Color(204, 153, 0));
         jPanelDeleteSearchButton.setLayout(new java.awt.GridLayout(1, 1));
 
         jButtonSearchStart.setText("Suchen");
@@ -123,6 +132,7 @@ public class CorbaVeranstaltungSuchen extends javax.swing.JFrame {
 
         jPanelSearchInput.add(jPanelDeleteSearchButton);
 
+        jPanelSearchDelete.setBackground(new java.awt.Color(204, 153, 0));
         jPanelSearchDelete.setLayout(new java.awt.GridLayout(1, 0));
 
         jButtonSearchDelete.setText("Eingabe löschen");
@@ -139,6 +149,8 @@ public class CorbaVeranstaltungSuchen extends javax.swing.JFrame {
 
         jPanelScreen.add(jPanelEventSearch);
 
+        jPanel1.setBackground(new java.awt.Color(204, 153, 0));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -152,6 +164,7 @@ public class CorbaVeranstaltungSuchen extends javax.swing.JFrame {
 
         jPanelScreen.add(jPanel1);
 
+        jPanelEventTable.setBackground(new java.awt.Color(204, 153, 0));
         jPanelEventTable.setLayout(new java.awt.GridLayout(1, 1));
 
         jTableVeranstaltungen.setModel(new javax.swing.table.DefaultTableModel(
@@ -188,7 +201,10 @@ public class CorbaVeranstaltungSuchen extends javax.swing.JFrame {
 
         jPanelScreen.add(jPanelEventTable);
 
+        jPanelSelectBack.setBackground(new java.awt.Color(204, 153, 0));
         jPanelSelectBack.setLayout(new java.awt.GridLayout(1, 2));
+
+        jPaneSelect.setBackground(new java.awt.Color(204, 153, 0));
 
         javax.swing.GroupLayout jPaneSelectLayout = new javax.swing.GroupLayout(jPaneSelect);
         jPaneSelect.setLayout(jPaneSelectLayout);
@@ -203,12 +219,33 @@ public class CorbaVeranstaltungSuchen extends javax.swing.JFrame {
 
         jPanelSelectBack.add(jPaneSelect);
 
+        jPanelBackButton.setBackground(new java.awt.Color(204, 153, 0));
+        jPanelBackButton.setLayout(new java.awt.GridLayout(2, 0));
+
+        jPanel3.setBackground(new java.awt.Color(204, 153, 0));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 460, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 54, Short.MAX_VALUE)
+        );
+
+        jPanelBackButton.add(jPanel3);
+
+        jPanel2.setLayout(new java.awt.GridLayout(1, 2));
+
         jButtonBack.setText("Cancel");
         jButtonBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonBackActionPerformed(evt);
             }
         });
+        jPanel2.add(jButtonBack);
 
         jButtonAnzeigen.setText("Veranstaltung anzeigen");
         jButtonAnzeigen.addActionListener(new java.awt.event.ActionListener() {
@@ -216,27 +253,9 @@ public class CorbaVeranstaltungSuchen extends javax.swing.JFrame {
                 jButtonAnzeigenActionPerformed(evt);
             }
         });
+        jPanel2.add(jButtonAnzeigen);
 
-        javax.swing.GroupLayout jPanelBackButtonLayout = new javax.swing.GroupLayout(jPanelBackButton);
-        jPanelBackButton.setLayout(jPanelBackButtonLayout);
-        jPanelBackButtonLayout.setHorizontalGroup(
-            jPanelBackButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBackButtonLayout.createSequentialGroup()
-                .addContainerGap(130, Short.MAX_VALUE)
-                .addComponent(jButtonAnzeigen)
-                .addGap(54, 54, 54)
-                .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanelBackButtonLayout.setVerticalGroup(
-            jPanelBackButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelBackButtonLayout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(jPanelBackButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonAnzeigen, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
+        jPanelBackButton.add(jPanel2);
 
         jPanelSelectBack.add(jPanelBackButton);
 
@@ -278,6 +297,8 @@ public class CorbaVeranstaltungSuchen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelName;
     private javax.swing.JPanel jPaneSelect;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelBackButton;
     private javax.swing.JPanel jPanelDeleteSearchButton;
     private javax.swing.JPanel jPanelEventSearch;

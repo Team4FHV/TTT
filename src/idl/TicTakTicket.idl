@@ -42,6 +42,10 @@ module TicTakTicket {
 		};
 	
 		
+            exception CobraException{
+                 string message; 
+            };
+
 	interface CorbaConterollerInterface {
 		typedef sequence<StructVeranstaltung> veranstaltungList;
 
@@ -57,12 +61,10 @@ module TicTakTicket {
 				
 		veranstaltungList sucheVeranstaltungNachKriterien(in string datum, in string ort, in string kuenstler);
 				
-		void verkaufSpeichern(in bestellungList karten) raises (exception);
+		void verkaufSpeichern(in bestellungList karten) raises (CobraException);
 			
 		StructKategorieInformation getKategorieInfo(in long id);
 		};
 	};
-        exception CobraException{
-            string message; 
-        };
+       
 };

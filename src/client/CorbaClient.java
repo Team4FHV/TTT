@@ -4,7 +4,6 @@
  */
 package client;
 
-import CorbaGUICtrl.CorbaMainGuiCtrl;
 import corba.CorbaConterollerInterface;
 import corba.CorbaConterollerInterfaceHelper;
 import corba.StructKarteBestellen;

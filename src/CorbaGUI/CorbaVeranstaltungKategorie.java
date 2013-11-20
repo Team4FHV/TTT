@@ -70,6 +70,7 @@ public class CorbaVeranstaltungKategorie extends javax.swing.JFrame {
         _btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 153, 0));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -77,10 +78,13 @@ public class CorbaVeranstaltungKategorie extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new java.awt.GridLayout(3, 1));
 
+        jPanel1.setBackground(new java.awt.Color(204, 153, 0));
         jPanel1.setLayout(new java.awt.GridLayout(1, 2));
 
+        jPanel4.setBackground(new java.awt.Color(204, 153, 0));
         jPanel4.setLayout(new java.awt.GridLayout(2, 1));
 
+        jPanel6.setBackground(new java.awt.Color(204, 153, 0));
         jPanel6.setLayout(new java.awt.GridLayout(1, 1));
 
         jLabel1.setText("Veranstaltungsinformationen:");
@@ -88,10 +92,13 @@ public class CorbaVeranstaltungKategorie extends javax.swing.JFrame {
 
         jPanel4.add(jPanel6);
 
+        jPanel7.setBackground(new java.awt.Color(204, 153, 0));
         jPanel7.setLayout(new java.awt.GridLayout(3, 1));
 
+        jPanel8.setBackground(new java.awt.Color(204, 153, 0));
         jPanel8.setLayout(new java.awt.GridLayout(1, 2));
 
+        jPanel11.setBackground(new java.awt.Color(204, 153, 0));
         jPanel11.setLayout(new java.awt.GridLayout(1, 1));
 
         jLabel2.setText("Veranstaltungsname:");
@@ -99,6 +106,7 @@ public class CorbaVeranstaltungKategorie extends javax.swing.JFrame {
 
         jPanel8.add(jPanel11);
 
+        jPanel12.setBackground(new java.awt.Color(204, 153, 0));
         jPanel12.setLayout(new java.awt.GridLayout(1, 1));
 
         _lblVeranstaltungsname.setText("jLabel3");
@@ -108,8 +116,10 @@ public class CorbaVeranstaltungKategorie extends javax.swing.JFrame {
 
         jPanel7.add(jPanel8);
 
+        jPanel9.setBackground(new java.awt.Color(204, 153, 0));
         jPanel9.setLayout(new java.awt.GridLayout(1, 2));
 
+        jPanel13.setBackground(new java.awt.Color(204, 153, 0));
         jPanel13.setLayout(new java.awt.GridLayout(1, 1));
 
         jLabel4.setText("Datum:");
@@ -117,6 +127,7 @@ public class CorbaVeranstaltungKategorie extends javax.swing.JFrame {
 
         jPanel9.add(jPanel13);
 
+        jPanel14.setBackground(new java.awt.Color(204, 153, 0));
         jPanel14.setLayout(new java.awt.GridLayout(1, 1));
 
         _lblVeranstaltungsdatum.setText("jLabel5");
@@ -126,8 +137,10 @@ public class CorbaVeranstaltungKategorie extends javax.swing.JFrame {
 
         jPanel7.add(jPanel9);
 
+        jPanel10.setBackground(new java.awt.Color(204, 153, 0));
         jPanel10.setLayout(new java.awt.GridLayout(1, 2));
 
+        jPanel15.setBackground(new java.awt.Color(204, 153, 0));
         jPanel15.setLayout(new java.awt.GridLayout(1, 1));
 
         jLabel6.setText("Veranstaltungsort:");
@@ -135,6 +148,7 @@ public class CorbaVeranstaltungKategorie extends javax.swing.JFrame {
 
         jPanel10.add(jPanel15);
 
+        jPanel16.setBackground(new java.awt.Color(204, 153, 0));
         jPanel16.setLayout(new java.awt.GridLayout(1, 1));
 
         _lblVeranstaltungsort.setText("jLabel7");
@@ -147,6 +161,8 @@ public class CorbaVeranstaltungKategorie extends javax.swing.JFrame {
         jPanel4.add(jPanel7);
 
         jPanel1.add(jPanel4);
+
+        jPanel5.setBackground(new java.awt.Color(204, 153, 0));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -163,6 +179,7 @@ public class CorbaVeranstaltungKategorie extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1);
 
+        jPanel2.setBackground(new java.awt.Color(204, 153, 0));
         jPanel2.setLayout(new java.awt.GridLayout(1, 1));
 
         _tblKategorien.setModel(new javax.swing.table.DefaultTableModel(
@@ -202,7 +219,10 @@ public class CorbaVeranstaltungKategorie extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2);
 
+        jPanel3.setBackground(new java.awt.Color(204, 153, 0));
         jPanel3.setLayout(new java.awt.GridLayout(1, 3));
+
+        jPanel17.setBackground(new java.awt.Color(204, 153, 0));
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
@@ -217,6 +237,8 @@ public class CorbaVeranstaltungKategorie extends javax.swing.JFrame {
 
         jPanel3.add(jPanel17);
 
+        jPanel18.setBackground(new java.awt.Color(204, 153, 0));
+
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
         jPanel18Layout.setHorizontalGroup(
@@ -230,8 +252,10 @@ public class CorbaVeranstaltungKategorie extends javax.swing.JFrame {
 
         jPanel3.add(jPanel18);
 
+        jPanel19.setBackground(new java.awt.Color(204, 153, 0));
         jPanel19.setLayout(new java.awt.GridLayout(1, 2));
 
+        jPanel20.setBackground(new java.awt.Color(204, 153, 0));
         jPanel20.setLayout(new java.awt.GridLayout(1, 1));
 
         _btnKategorieAuswaehlen.setText("Kategorie auswählen");
@@ -244,6 +268,7 @@ public class CorbaVeranstaltungKategorie extends javax.swing.JFrame {
 
         jPanel19.add(jPanel20);
 
+        jPanel21.setBackground(new java.awt.Color(204, 153, 0));
         jPanel21.setLayout(new java.awt.GridLayout(1, 1));
 
         _btnCancel.setText("Cancel");

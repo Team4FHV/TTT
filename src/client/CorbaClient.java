@@ -38,9 +38,10 @@ public class CorbaClient {
     private void startClient() {
         try {
 
-            System.out.println("Bitte geben Sie eine Port ein");
-            Scanner sc = new Scanner (System.in);
-            String host = sc.next ();
+//            System.out.println("Bitte geben Sie HOST ein");
+//            Scanner sc = new Scanner (System.in);
+//            String host = sc.next ();
+            String host = "localhost";
             Properties props = new Properties();
             props.put("org.omg.CORBA.ORBInitialPort", "2050");
             props.put("org.omg.CORBA.ORBInitialHost", host);

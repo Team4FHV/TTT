@@ -32,15 +32,63 @@
     <Container class="javax.swing.JPanel" name="jPanelMessageScreen">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
-        <Property name="columns" type="int" value="0"/>
+        <Property name="columns" type="int" value="2"/>
         <Property name="rows" type="int" value="3"/>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jlblSreenTitle">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Messages schreiben"/>
-          </Properties>
-        </Component>
+        <Container class="javax.swing.JPanel" name="jPanelScreenHead">
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
+            <Property name="columns" type="int" value="0"/>
+            <Property name="rows" type="int" value="1"/>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="jlblSreenTitle">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Messages erstellen"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jlblTopicSelection">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Bitte Topic ausw&#xe4;hlen"/>
+              </Properties>
+            </Component>
+            <Container class="javax.swing.JPanel" name="jPanelTopicAvailable">
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
+                <Property name="columns" type="int" value="0"/>
+                <Property name="rows" type="int" value="1"/>
+              </Layout>
+              <SubComponents>
+                <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JList" name="jListTopic">
+                      <Properties>
+                        <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                          <StringArray count="5">
+                            <StringItem index="0" value="Item 1"/>
+                            <StringItem index="1" value="Item 2"/>
+                            <StringItem index="2" value="Item 3"/>
+                            <StringItem index="3" value="Item 4"/>
+                            <StringItem index="4" value="Item 5"/>
+                          </StringArray>
+                        </Property>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jListTopicMouseClicked"/>
+                      </Events>
+                    </Component>
+                  </SubComponents>
+                </Container>
+              </SubComponents>
+            </Container>
+          </SubComponents>
+        </Container>
         <Container class="javax.swing.JPanel" name="jPanelMessagesWrite">
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">

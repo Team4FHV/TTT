@@ -5,26 +5,26 @@
 package DTO.objecte;
 
 import java.util.Date;
-
+import java.io.Serializable;;
 /**
  *
  * @author Monika
  */
-public class DTOMessage {
+public class DTOMessage implements Serializable{
     private String _title;
     private String _text;
     private Date _date;
-    private int _id;
+    //private Integer _id;
     private String _topic; 
 
     public DTOMessage() {        
     }
-    
-    public DTOMessage(String title, String text, Date date, int id) {
-        _title = title;
-        _text = text;
-        _date = date;
-        _id = id;
+
+    public DTOMessage(String title, String text, Date date, String topic) {
+        this._title = title;
+        this._text = text;
+        this._date = date;
+        this._topic = topic;
     }
 
     public String getTopic() {
@@ -59,14 +59,4 @@ public class DTOMessage {
         this._date = date;
     }
 
-    public int getId() {
-        return _id;
-    }
-
-    public void setId(int id) {
-        this._id = id;
-    }
-    
-    
-    
 }

@@ -12,12 +12,15 @@ import GUIController.MessageSchreibenCtrl;
  */
 public class MessageSchreiben extends javax.swing.JFrame {
     private MessageSchreibenCtrl _ctrl;
+    private String _topic;
     /**
      * Creates new form MessageSchreiben
      */
     public MessageSchreiben(MessageSchreibenCtrl ctrl) {
         _ctrl = ctrl;
         this.setVisible(true);
+        initComponents();
+        loadComponents();
     }
 
     /**
@@ -30,7 +33,12 @@ public class MessageSchreiben extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanelMessageScreen = new javax.swing.JPanel();
+        jPanelScreenHead = new javax.swing.JPanel();
         jlblSreenTitle = new javax.swing.JLabel();
+        jlblTopicSelection = new javax.swing.JLabel();
+        jPanelTopicAvailable = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jListTopic = new javax.swing.JList();
         jPanelMessagesWrite = new javax.swing.JPanel();
         jPanelMessageTitle = new javax.swing.JPanel();
         jlblMessageTitle = new javax.swing.JLabel();
@@ -52,10 +60,35 @@ public class MessageSchreiben extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
-        jPanelMessageScreen.setLayout(new java.awt.GridLayout(3, 0));
+        jPanelMessageScreen.setLayout(new java.awt.GridLayout(3, 2));
 
-        jlblSreenTitle.setText("Messages schreiben");
-        jPanelMessageScreen.add(jlblSreenTitle);
+        jPanelScreenHead.setLayout(new java.awt.GridLayout(1, 0));
+
+        jlblSreenTitle.setText("Messages erstellen");
+        jPanelScreenHead.add(jlblSreenTitle);
+
+        jlblTopicSelection.setText("Bitte Topic auswählen");
+        jPanelScreenHead.add(jlblTopicSelection);
+
+        jPanelTopicAvailable.setLayout(new java.awt.GridLayout(1, 0));
+
+        jListTopic.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jListTopic.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListTopicMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jListTopic);
+
+        jPanelTopicAvailable.add(jScrollPane3);
+
+        jPanelScreenHead.add(jPanelTopicAvailable);
+
+        jPanelMessageScreen.add(jPanelScreenHead);
 
         jPanelMessagesWrite.setLayout(new java.awt.GridLayout(2, 2));
 
@@ -120,33 +153,61 @@ public class MessageSchreiben extends javax.swing.JFrame {
         jbtnCancelClicked();
     }//GEN-LAST:event_formWindowClosing
 
+    private void jListTopicMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListTopicMouseClicked
+        jListMouseClicked();
+    }//GEN-LAST:event_jListTopicMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JList jListTopic;
     private javax.swing.JPanel jPanelMessageButton;
     private javax.swing.JPanel jPanelMessageScreen;
     private javax.swing.JPanel jPanelMessageText;
     private javax.swing.JPanel jPanelMessageTitle;
     private javax.swing.JPanel jPanelMessagesWrite;
+    private javax.swing.JPanel jPanelScreenHead;
+    private javax.swing.JPanel jPanelTopicAvailable;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton jbtnCancel;
     private javax.swing.JButton jbtnSave;
     private javax.swing.JLabel jlblInfoMessage;
     private javax.swing.JLabel jlblMessageText;
     private javax.swing.JLabel jlblMessageTitle;
     private javax.swing.JLabel jlblSreenTitle;
+    private javax.swing.JLabel jlblTopicSelection;
     private javax.swing.JTextArea jtaMessageText;
     private javax.swing.JTextField jtfMessageTitle;
     // End of variables declaration//GEN-END:variables
-   
+    
+     private void loadComponents() {
+        setListModel();
+    }
+    
+    private void setListModel() {
+        jListTopic.setModel(null);
+    }
+    
+     private void jListMouseClicked() {
+        _topic = jListTopic.getSelectedValue().toString();
+        System.out.println(_topic);
+    }
+
+    private void jbtnSaveClicked() {
+        String title = jtfMessageTitle.getText();
+        String text = jtaMessageText.getText();
+        if (!title.isEmpty() || !text.isEmpty()) {
+            _ctrl.createMessage(title, text, _topic);
+        } else {
+            jlblInfoMessage.setText("Bitte geben Sie Titel und Text ein.");
+        }
+    }
+
      public void Quit() {
         this.dispose();
     }
 
     private void jbtnCancelClicked() {
         
-    }
-
-    private void jbtnSaveClicked() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

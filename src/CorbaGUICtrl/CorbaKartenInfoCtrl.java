@@ -21,25 +21,25 @@ import javax.swing.table.TableModel;
  */
 public class CorbaKartenInfoCtrl {
 
-    private  StructVeranstaltung _veranstaltung;
+    private StructVeranstaltung _veranstaltung;
     private StructKategorieInformation _kategorie;
     private StructKategorieKarte _Kategoriekarten;
     private CorbaClient _client;
 
     public CorbaKartenInfoCtrl(int veranstaltungID, int kategorieID, CorbaClient client) {
         _client = client;
-       // try {
-            _veranstaltung = client.getVeranstaltungById(veranstaltungID);
+        // try {
+        _veranstaltung = client.getVeranstaltungById(veranstaltungID);
 //        } catch (RemoteException ex) {
 //            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 //        }
 //        try {
-            _kategorie = client.getKategorieInfo(kategorieID);
+        _kategorie = client.getKategorieInfo(kategorieID);
 //        } catch (RemoteException ex) {
 //            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 //        }
 //        try {
-            _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(_kategorie.kategId);
+        _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(_kategorie.kategId);
 //        } catch (RemoteException ex) {
 //            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 //        }
@@ -89,31 +89,25 @@ public class CorbaKartenInfoCtrl {
         });
     }
 
-    public void kartenBestellen(List<Object[]> bestellteKarten)  {
+    public void kartenBestellen(List<Object[]> bestellteKarten) throws CobraException {
         List<StructKarteBestellen> karten = new LinkedList<>();
         int kundenID = 0;
         for (Object[] o : bestellteKarten) {
 
             karten.add(new StructKarteBestellen((int) o[1], kundenID, (boolean) o[4]));
         }
-        try {
-            _client.verkaufSpeichern(karten); 
-        } catch (CobraException ex) {
-            Logger.getLogger(CorbaKartenInfoCtrl.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, ex.message, "Error", JOptionPane.ERROR_MESSAGE);
-        }
-
+        _client.verkaufSpeichern(karten);
         updateController();
     }
 
     private void updateController() {
 //        try {
-            _kategorie = _client.getKategorieInfo(_kategorie.kategId);
+        _kategorie = _client.getKategorieInfo(_kategorie.kategId);
 //        } catch (RemoteException ex) {
 //            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 //        }
 //        try {
-            _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(_kategorie.kategId);
+        _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(_kategorie.kategId);
 //        } catch (RemoteException ex) {
 //            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 //        }
@@ -125,7 +119,7 @@ public class CorbaKartenInfoCtrl {
 
     void setVeranstaltung(int veranstaltungID) {
 //        try {
-            _veranstaltung = _client.getVeranstaltungById(veranstaltungID);
+        _veranstaltung = _client.getVeranstaltungById(veranstaltungID);
 //        } catch (RemoteException ex) {
 //            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 //        }
@@ -133,12 +127,12 @@ public class CorbaKartenInfoCtrl {
 
     void setKategorieID(int kategorieID) {
 //        try {
-            _kategorie = _client.getKategorieInfo(kategorieID);
+        _kategorie = _client.getKategorieInfo(kategorieID);
 //        } catch (RemoteException ex) {
 //            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 //        }
 //        try {
-            _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(_kategorie.kategId);
+        _Kategoriekarten = _client.getAlleFreieKartenNachKategorie(_kategorie.kategId);
 //        } catch (RemoteException ex) {
 //            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 //        }

@@ -7,12 +7,15 @@ package CorbaGUI;
 import CorbaGUICtrl.CorbaKartenInfoCtrl;
 import Exceptions.KarteNichtVerfuegbarException;
 import Exceptions.SaveFailedException;
+import corba.CobraException;
 import corba.StructKategorieInformation;
 import corba.StructVeranstaltung;
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
@@ -662,18 +665,12 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
 
     private void btnKaufenClicked() {
         if (!_kartenauswahl.isEmpty()) {
-//            try {
+            try {
                 _ctrl.kartenBestellen(_kartenauswahl);
                 JOptionPane.showMessageDialog(null, "Karten erfolgreich gekauft", "Success", JOptionPane.INFORMATION_MESSAGE);
-//            } catch (RemoteException ex) {
-//                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-//            } catch (SaveFailedException ex) {
-//                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-//            } catch (KarteNichtVerfuegbarException ex) {
-//                JOptionPane.showMessageDialog(null, "Karte mit der ID " + ex.getKartenId() + " ist bereits vergeben", "Error", JOptionPane.ERROR_MESSAGE);
-//            } catch (Exception ex) {
-//                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-//            }
+            } catch (CobraException ex) {
+                JOptionPane.showMessageDialog(null, ex.message, "Error", JOptionPane.ERROR_MESSAGE);
+            }
             refreshWindow();
         }
         refreshWindow();
@@ -688,11 +685,7 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
     }
 
     private void refreshWindow() {
-//        try {
-            _ctrl.loadKarten();
-            loadComponents();
-//        } catch (RemoteException ex) {
-//            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-//        }
+        _ctrl.loadKarten();
+        loadComponents();
     }
 }

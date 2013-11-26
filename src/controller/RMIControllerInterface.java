@@ -13,6 +13,7 @@ import DTO.objecte.DTOKundeNeuSpeichern;
 import DTO.objecte.DTOKundenDaten;
 import DTO.objecte.DTOKundenDatenAendern;
 import DTO.objecte.DTOLoginDaten;
+import DTO.objecte.DTOMessage;
 import DTO.objecte.DTORollenList;
 import DTO.objecte.DTOVeranstaltung;
 import DTO.objecte.DTOVeranstaltungAnzeigen;
@@ -57,4 +58,6 @@ public interface RMIControllerInterface extends Remote {
     public DTOKategorieInformation getKategorieInfo(int id)  throws RemoteException;
     
     public DTOVeranstaltung getVeranstaltungById(int veranstaltungID) throws RemoteException;
+    
+    public List<DTOMessage> loadUnpublishedMessages() throws RemoteException;
 }

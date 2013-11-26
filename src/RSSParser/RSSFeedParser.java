@@ -4,6 +4,7 @@
  */
 package RSSParser;
 
+import DTO.objecte.DTOMessage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -72,11 +73,8 @@ public class RSSFeedParser {
           }
         } else if (event.isEndElement()) {
           if (event.asEndElement().getName().getLocalPart() == (ITEM)) {
-            FeedMessage message = new FeedMessage();
+            DTOMessage message = new DTOMessage(title, description, null, null);
           
-            message.setDescription(description);
-           
-            message.setTitle(title);
             feed.getMessages().add(message);
             event = eventReader.nextEvent();
             continue;

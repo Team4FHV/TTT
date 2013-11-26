@@ -15,6 +15,7 @@ import DTO.objecte.DTOKundeNeuSpeichern;
 import DTO.objecte.DTOKundenDaten;
 import DTO.objecte.DTOKundenDatenAendern;
 import DTO.objecte.DTOLoginDaten;
+import DTO.objecte.DTOMessage;
 import DTO.objecte.DTORollenList;
 import DTO.objecte.DTOVeranstaltung;
 import DTO.objecte.DTOVeranstaltungAnzeigen;
@@ -55,6 +56,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
     private UseCaseControllerBestellungErstellen ucb;
     private UseCaseControllerSearch ucs;
     private UseCaseControllerKundenDaten uck;
+    private MessageController mess;
     private DataManager<Object> dm;
     private Benutzer benutzer;
 
@@ -64,6 +66,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
         ucb = new UseCaseControllerBestellungErstellen();
         ucs = new UseCaseControllerSearch();
         uck = new UseCaseControllerKundenDaten();
+        mess = MessageController.getInstance();
         dm = new DataManager<>();
         benutzer = null;
     }
@@ -297,5 +300,10 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
         return new DTOVeranstaltung(veranstaltungID, Vname, VOrt, date, ermaessigt);
     }
     
-   
+    @Override
+    public List<DTOMessage> loadUnpublishedMessages() {
+       
+        return  mess.loadMessages();
+        
+    }
 }

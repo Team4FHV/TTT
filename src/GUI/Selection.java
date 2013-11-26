@@ -43,6 +43,7 @@ public class Selection extends javax.swing.JFrame {
         jButtonKverkaufen = new javax.swing.JButton();
         jButtonKuVerwalten = new javax.swing.JButton();
         jButtonMessages = new javax.swing.JButton();
+        _btnMessageZuordnen = new javax.swing.JButton();
         jPanelInfoMessage = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -63,7 +64,7 @@ public class Selection extends javax.swing.JFrame {
 
         jPanelScreen.add(jPanelScreenTitle);
 
-        jPanelSelection.setLayout(new java.awt.GridLayout(5, 2));
+        jPanelSelection.setLayout(new java.awt.GridLayout(6, 1));
 
         jButtonVsuchen.setText("Veranstaltung suchen");
         jButtonVsuchen.addActionListener(new java.awt.event.ActionListener() {
@@ -98,7 +99,20 @@ public class Selection extends javax.swing.JFrame {
         jPanelSelection.add(jButtonKuVerwalten);
 
         jButtonMessages.setText("Messages schreiben");
+        jButtonMessages.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonMessagesActionPerformed(evt);
+            }
+        });
         jPanelSelection.add(jButtonMessages);
+
+        _btnMessageZuordnen.setText("Messages zuordnen");
+        _btnMessageZuordnen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _btnMessageZuordnenActionPerformed(evt);
+            }
+        });
+        jPanelSelection.add(_btnMessageZuordnen);
 
         jPanelScreen.add(jPanelSelection);
 
@@ -125,12 +139,20 @@ public class Selection extends javax.swing.JFrame {
     private void jButtonKuVerwaltenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKuVerwaltenActionPerformed
         KundenVerwaltenClicked();
     }//GEN-LAST:event_jButtonKuVerwaltenActionPerformed
-
+    
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         CloseWindow();
     }//GEN-LAST:event_formWindowClosing
-
+    
+    private void jButtonMessagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMessagesActionPerformed
+        MessageSchreibenClicked();
+    }//GEN-LAST:event_jButtonMessagesActionPerformed
+    
+    private void _btnMessageZuordnenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__btnMessageZuordnenActionPerformed
+        MessageZuordnenClicked();
+    }//GEN-LAST:event__btnMessageZuordnenActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton _btnMessageZuordnen;
     private javax.swing.JButton jButtonKreservieren;
     private javax.swing.JButton jButtonKuVerwalten;
     private javax.swing.JButton jButtonKverkaufen;
@@ -163,8 +185,7 @@ public class Selection extends javax.swing.JFrame {
         this.dispose();
     }
     
-    public void CloseWindow()
-    {
+    public void CloseWindow() {
         _ctrl.closeWindow();
     }
     
@@ -174,6 +195,8 @@ public class Selection extends javax.swing.JFrame {
         jButtonKuVerwalten.setEnabled(false);
         jButtonKverkaufen.setEnabled(false);
         jButtonVsuchen.setEnabled(false);
+        jButtonMessages.setEnabled(false);
+        _btnMessageZuordnen.setEnabled(false);
         for (String s : roles) {
             if (s.equals("Datenpflege")) {
                 jButtonKuVerwalten.setEnabled(true);
@@ -181,7 +204,18 @@ public class Selection extends javax.swing.JFrame {
                 jButtonKreservieren.setEnabled(true);
                 jButtonKverkaufen.setEnabled(true);
                 jButtonVsuchen.setEnabled(true);
+            } else if (s.equals("Admin")) {
+                jButtonMessages.setEnabled(true);
+                _btnMessageZuordnen.setEnabled(true);
             }
         }
+    }
+    
+    private void MessageSchreibenClicked() {
+        _ctrl.MessageSchreiben();
+    }
+    
+    private void MessageZuordnenClicked() {
+        _ctrl.MessageZuordnen();
     }
 }

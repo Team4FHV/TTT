@@ -5,6 +5,8 @@
 package GUI;
 
 import GUIController.VeranstaltungsSuchenCtrl;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Frame;
 import java.util.List;
 import java.util.LinkedList;
@@ -45,6 +47,17 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
         jPanelScreen = new javax.swing.JPanel();
         jPanelScreenTitle = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
+        _btnMessage = new javax.swing.JButton();
+        jPanel11 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
         jPanelEventSearch = new javax.swing.JPanel();
         jPanelSearchLabels = new javax.swing.JPanel();
         jLabelDate = new javax.swing.JLabel();
@@ -83,6 +96,104 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
 
         jLabel1.setText("Veranstaltung suchen");
         jPanelScreenTitle.add(jLabel1);
+
+        jPanel2.setLayout(new java.awt.GridLayout(1, 2));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 230, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 109, Short.MAX_VALUE)
+        );
+
+        jPanel2.add(jPanel3);
+
+        jPanel4.setLayout(new java.awt.GridLayout(1, 2));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 115, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 109, Short.MAX_VALUE)
+        );
+
+        jPanel4.add(jPanel5);
+
+        jPanel6.setLayout(new java.awt.GridLayout(2, 1));
+
+        jPanel7.setLayout(new java.awt.GridLayout(1, 2));
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 57, Short.MAX_VALUE)
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 54, Short.MAX_VALUE)
+        );
+
+        jPanel7.add(jPanel9);
+
+        jPanel10.setLayout(new java.awt.GridLayout(2, 2));
+
+        _btnMessage.setBackground(new java.awt.Color(255, 255, 255));
+        _btnMessage.setText("M");
+        _btnMessage.setEnabled(false);
+        _btnMessage.setMaximumSize(new java.awt.Dimension(10, 10));
+        _btnMessage.setMinimumSize(new java.awt.Dimension(10, 10));
+        _btnMessage.setPreferredSize(new java.awt.Dimension(10, 10));
+        _btnMessage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _btnMessageActionPerformed(evt);
+            }
+        });
+        jPanel10.add(_btnMessage);
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 57, Short.MAX_VALUE)
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 27, Short.MAX_VALUE)
+        );
+
+        jPanel10.add(jPanel11);
+
+        jPanel7.add(jPanel10);
+
+        jPanel6.add(jPanel7);
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 115, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 54, Short.MAX_VALUE)
+        );
+
+        jPanel6.add(jPanel8);
+
+        jPanel4.add(jPanel6);
+
+        jPanel2.add(jPanel4);
+
+        jPanelScreenTitle.add(jPanel2);
 
         jPanelScreen.add(jPanelScreenTitle);
 
@@ -265,7 +376,11 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
         btnBackClicked();
     }//GEN-LAST:event_formWindowClosing
 
+    private void _btnMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__btnMessageActionPerformed
+        btnMessageClicked();
+    }//GEN-LAST:event__btnMessageActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton _btnMessage;
     private javax.swing.JButton jButtonAnzeigen;
     private javax.swing.JButton jButtonBack;
     private javax.swing.JButton jButtonSearchDelete;
@@ -276,6 +391,16 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelName;
     private javax.swing.JPanel jPaneSelect;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel jPanelBackButton;
     private javax.swing.JPanel jPanelDeleteSearchButton;
     private javax.swing.JPanel jPanelEventSearch;
@@ -297,6 +422,7 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
     private void loadComponents() {
         setTableModel();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        checkMessages();
     }
 
     public void btnSearchStartClicked() {
@@ -353,5 +479,25 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
 
     public void Quit() {
         this.dispose();
+    }
+
+    private void btnMessageClicked() {
+        ctrl.MessageClicked();
+    }
+
+    private void newMessage() {
+        _btnMessage.setEnabled(true);
+        _btnMessage.setForeground(Color.RED);
+        _btnMessage.setFont(new Font(Font.DIALOG, Font.BOLD, Font.BOLD));
+    }
+
+    public void checkMessages() {
+        if (ctrl.getMessage() != null) {
+            newMessage();
+        } else {
+            _btnMessage.setEnabled(false);
+            _btnMessage.setForeground(Color.GRAY);
+            _btnMessage.setFont(null);
+        }
     }
 }

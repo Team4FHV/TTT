@@ -54,8 +54,8 @@
         <Container class="javax.swing.JPanel" name="jPanelSelection">
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
-            <Property name="columns" type="int" value="2"/>
-            <Property name="rows" type="int" value="5"/>
+            <Property name="columns" type="int" value="1"/>
+            <Property name="rows" type="int" value="6"/>
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JButton" name="jButtonVsuchen">
@@ -94,6 +94,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Messages schreiben"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonMessagesActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="_btnMessageZuordnen">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Messages zuordnen"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_btnMessageZuordnenActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

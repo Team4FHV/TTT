@@ -1,11 +1,10 @@
-
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 package GUIController;
 
+import DTO.objecte.DTOMessage;
 import DTO.objecte.DTORollenList;
 
 import GUI.*;
@@ -25,12 +24,20 @@ public class MainGuiCtrl {
     private static KundeAnlegen _kundeAnlegen;
     private static Login _login;
     private static Selection _selection;
+    private static MessageViewer _messageViewer;
+    private static MessageSchreiben _messageSchreiben;
+    private static MessagesBearbeiten _messagesBearbeiten;
+    private static MessageZuordnen _messageZuordnen;
     private static KartenInfoCtrl _kartenInfoCtrl;
     private static VeranstaltungKategorieCtrl _veranstaltungKategorieCtrl;
     private static VeranstaltungsSuchenCtrl _veranstaltungSuchenCtrl;
     private static KundeAnlegenCtrl _kundeAnlegenCtrl;
     private static LoginCtrl _loginCtrl;
     private static SelectionCtrl _selectionCtrl;
+    private static MessageViewerCtrl _messsageViewerCtrl;
+    private static MessageSchreibenCtrl _messageSchreibenCtrl;
+    private static MessagesBearbeitenCtrl _messagesBearbeitenCtrl;
+    private static MessageZuordnenCtrl _messageZuordnenCtrl;
     private static Client _client;
 
     public static void VeranstaltungAusgewaehlt(int veranstaltungID) {
@@ -101,9 +108,75 @@ public class MainGuiCtrl {
         _kundeAnlegen.Quit();
         _kundeAnlegen = null;
     }
-     static void SelectionClose() {
+
+    public static void MessageSchreibenCancel() {
+        _messageSchreiben.setVisible(false);
+        _selectionCtrl = getSelectionCtrl();
+        _selectionCtrl.setRollen(_client.getUserRollen());
+        _selection = new Selection(_selectionCtrl);
+        _messageSchreiben.Quit();
+        _messageSchreiben = null;
+    }
+
+    public static void MessageSchreiben() {
+        _selection.setVisible(false);
+        _messageSchreiben = new MessageSchreiben(getMessageSchreibenCtrl());
+        _selection.Quit();
+        _selection = null;
+    }
+
+    static void SelectionClose() {
         _selection.setVisible(false);
         _login = new Login(getLoginCtrl());
+        _selection.Quit();
+        _selection = null;
+    }
+
+    public static void showMessages() {
+        _veranstaltungSuchen.setEnabled(false);
+        _messageViewer = new MessageViewer(getMessageViewerCtrl());
+    }
+
+    public static void enableVeranstaltungSuchen() {
+        _messageViewer.setVisible(false);
+        if (_veranstaltungSuchen != null) {
+            _veranstaltungSuchen.setEnabled(true);
+            _veranstaltungSuchen.checkMessages();
+            _veranstaltungSuchen.toFront();
+        }
+        _messageViewer.Quit();
+        _messageViewer = null;
+    }
+
+    static void MessageZuordnenCancel() {
+        _messageZuordnen.setVisible(false);
+        if (_messagesBearbeiten != null) {
+            _messagesBearbeiten.setEnabled(true);
+            _messagesBearbeiten.reloadMessages();
+            _messagesBearbeiten.toFront();
+        }
+        _messageZuordnen.Quit();
+        _messageZuordnen = null;
+    }
+
+    static void MessageBearbeitenCancel() {
+        _messagesBearbeiten.setVisible(false);
+        _selectionCtrl = getSelectionCtrl();
+        _selectionCtrl.setRollen(_client.getUserRollen());
+        _selection = new Selection(_selectionCtrl);
+        _messagesBearbeiten.Quit();
+        _messagesBearbeiten = null;
+    }
+
+    static void MessageZuordnen(DTOMessage dtoMessage) {
+        _messagesBearbeiten.setEnabled(false);
+        _messageZuordnenCtrl = getMessageZuordnenCtrl(dtoMessage);
+        _messageZuordnen = new MessageZuordnen(_messageZuordnenCtrl);
+    }
+
+    static void MessageBearbeiten() {
+        _selection.setVisible(false);
+        _messagesBearbeiten = new MessagesBearbeiten(getMessagesBearbeitenCtrl());
         _selection.Quit();
         _selection = null;
     }
@@ -113,14 +186,14 @@ public class MainGuiCtrl {
         _login = new Login(getLoginCtrl());
     }
 
-    public static VeranstaltungsSuchenCtrl getVeranstaltungSuchenCtrl() {
+    private static VeranstaltungsSuchenCtrl getVeranstaltungSuchenCtrl() {
         if (_veranstaltungSuchenCtrl == null) {
             _veranstaltungSuchenCtrl = new VeranstaltungsSuchenCtrl(_client);
         }
         return _veranstaltungSuchenCtrl;
     }
 
-    public static VeranstaltungKategorieCtrl getVeranstaltungKategorieCtrl(int id) {
+    private static VeranstaltungKategorieCtrl getVeranstaltungKategorieCtrl(int id) {
         if (_veranstaltungKategorieCtrl == null) {
             _veranstaltungKategorieCtrl = new VeranstaltungKategorieCtrl(id, _client);
         } else {
@@ -129,7 +202,7 @@ public class MainGuiCtrl {
         return _veranstaltungKategorieCtrl;
     }
 
-    public static KartenInfoCtrl getKartenInfoCtrl(int veranstaltungID, int kategorieID) {
+    private static KartenInfoCtrl getKartenInfoCtrl(int veranstaltungID, int kategorieID) {
         if (_kartenInfoCtrl == null) {
             _kartenInfoCtrl = new KartenInfoCtrl(veranstaltungID, kategorieID, _client);
         } else {
@@ -139,7 +212,7 @@ public class MainGuiCtrl {
         return _kartenInfoCtrl;
     }
 
-    public static KundeAnlegenCtrl getKundeAnlegenCtrl() {
+    private static KundeAnlegenCtrl getKundeAnlegenCtrl() {
         if (_kundeAnlegenCtrl == null) {
             _kundeAnlegenCtrl = new KundeAnlegenCtrl(_client);
         }
@@ -160,5 +233,37 @@ public class MainGuiCtrl {
         return _loginCtrl;
     }
 
-   
+    private static MessageViewerCtrl getMessageViewerCtrl() {
+        if (_messsageViewerCtrl == null) {
+            _messsageViewerCtrl = new MessageViewerCtrl(_client);
+        }
+        return _messsageViewerCtrl;
+    }
+
+    private static MessageSchreibenCtrl getMessageSchreibenCtrl() {
+        if (_messageSchreibenCtrl == null) {
+            _messageSchreibenCtrl = new MessageSchreibenCtrl(_client);
+        }
+        return _messageSchreibenCtrl;
+    }
+
+    private static MessageZuordnenCtrl getMessageZuordnenCtrl(DTOMessage m) {
+        if (_messageZuordnenCtrl == null) {
+            _messageZuordnenCtrl = new MessageZuordnenCtrl(_client, m);
+        } else {
+            _messageZuordnenCtrl.setMessage(m);
+        }
+        return _messageZuordnenCtrl;
+    }
+
+    private static MessagesBearbeitenCtrl getMessagesBearbeitenCtrl() {
+        if (_messagesBearbeitenCtrl == null) {
+            _messagesBearbeitenCtrl = new MessagesBearbeitenCtrl(_client);
+        }
+        return _messagesBearbeitenCtrl;
+    }
+
+    public static VeranstaltungSuchen getVeranstaltungSuchenView() {
+        return _veranstaltungSuchen;
+    }
 }

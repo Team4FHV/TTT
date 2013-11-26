@@ -6,7 +6,6 @@ package GUIController;
 
 import DTO.objecte.DTOMessage;
 import DTO.objecte.DTOTopicData;
-import DTO.objecte.DTOTopicList;
 import client.Client;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,14 +16,16 @@ import javax.swing.ListModel;
  *
  * @author Monika
  */
-public class MessageSchreibenCtrl {
+public class MessageZuordnenCtrl {
 
     private Client _client;
     private ArrayList<DTOTopicData> _topics = new ArrayList<>();
+    private DTOMessage _message;
 
-    public MessageSchreibenCtrl(Client client) {
+    public MessageZuordnenCtrl(Client client, DTOMessage m) {
         this._client = client;
         _topics = _client.getTopics();
+        _message = m;
     }
 
     public ListModel getTopicModel() {
@@ -47,6 +48,14 @@ public class MessageSchreibenCtrl {
     }
 
     public void CancelButtonClicked() {
-        MainGuiCtrl.MessageSchreibenCancel();
+        MainGuiCtrl.MessageZuordnenCancel();
+    }
+
+    public DTOMessage getMessage() {
+        return _message;
+    }
+
+    void setMessage(DTOMessage m) {
+        _message = m;
     }
 }

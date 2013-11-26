@@ -4,19 +4,20 @@
  */
 package GUI;
 
-import GUIController.MessageSchreibenCtrl;
+import DTO.objecte.DTOMessage;
+import GUIController.MessageZuordnenCtrl;
 
 /**
  *
  * @author Monika
  */
-public class MessageSchreiben extends javax.swing.JFrame {
-    private MessageSchreibenCtrl _ctrl;
+public class MessageZuordnen extends javax.swing.JFrame {
+    private MessageZuordnenCtrl _ctrl;
     private String _topic;
     /**
-     * Creates new form MessageSchreiben
+     * Creates new form MessageZuordnen
      */
-    public MessageSchreiben(MessageSchreibenCtrl ctrl) {
+    public MessageZuordnen(MessageZuordnenCtrl ctrl) {
         _ctrl = ctrl;
         this.setVisible(true);
         initComponents();
@@ -42,11 +43,12 @@ public class MessageSchreiben extends javax.swing.JFrame {
         jPanelMessagesWrite = new javax.swing.JPanel();
         jPanelMessageTitle = new javax.swing.JPanel();
         jlblMessageTitle = new javax.swing.JLabel();
-        jtfMessageTitle = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        _txtpaneTitel = new javax.swing.JTextPane();
         jPanelMessageText = new javax.swing.JPanel();
         jlblMessageText = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtaMessageText = new javax.swing.JTextArea();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        _txtpaneMessage = new javax.swing.JTextPane();
         jPanelMessageButton = new javax.swing.JPanel();
         jlblInfoMessage = new javax.swing.JLabel();
         jbtnSave = new javax.swing.JButton();
@@ -96,7 +98,14 @@ public class MessageSchreiben extends javax.swing.JFrame {
 
         jlblMessageTitle.setText("Message Titel");
         jPanelMessageTitle.add(jlblMessageTitle);
-        jPanelMessageTitle.add(jtfMessageTitle);
+
+        _txtpaneTitel.setEditable(false);
+        _txtpaneTitel.setBackground(new java.awt.Color(255, 255, 255));
+        _txtpaneTitel.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        _txtpaneTitel.setEnabled(false);
+        jScrollPane2.setViewportView(_txtpaneTitel);
+
+        jPanelMessageTitle.add(jScrollPane2);
 
         jPanelMessagesWrite.add(jPanelMessageTitle);
 
@@ -105,11 +114,13 @@ public class MessageSchreiben extends javax.swing.JFrame {
         jlblMessageText.setText("Message Text");
         jPanelMessageText.add(jlblMessageText);
 
-        jtaMessageText.setColumns(20);
-        jtaMessageText.setRows(5);
-        jScrollPane1.setViewportView(jtaMessageText);
+        _txtpaneMessage.setEditable(false);
+        _txtpaneMessage.setBackground(new java.awt.Color(255, 255, 255));
+        _txtpaneMessage.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        _txtpaneMessage.setEnabled(false);
+        jScrollPane4.setViewportView(_txtpaneMessage);
 
-        jPanelMessageText.add(jScrollPane1);
+        jPanelMessageText.add(jScrollPane4);
 
         jPanelMessagesWrite.add(jPanelMessageText);
 
@@ -159,6 +170,8 @@ public class MessageSchreiben extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextPane _txtpaneMessage;
+    private javax.swing.JTextPane _txtpaneTitel;
     private javax.swing.JList jListTopic;
     private javax.swing.JPanel jPanelMessageButton;
     private javax.swing.JPanel jPanelMessageScreen;
@@ -167,8 +180,9 @@ public class MessageSchreiben extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelMessagesWrite;
     private javax.swing.JPanel jPanelScreenHead;
     private javax.swing.JPanel jPanelTopicAvailable;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JButton jbtnCancel;
     private javax.swing.JButton jbtnSave;
     private javax.swing.JLabel jlblInfoMessage;
@@ -176,12 +190,11 @@ public class MessageSchreiben extends javax.swing.JFrame {
     private javax.swing.JLabel jlblMessageTitle;
     private javax.swing.JLabel jlblSreenTitle;
     private javax.swing.JLabel jlblTopicSelection;
-    private javax.swing.JTextArea jtaMessageText;
-    private javax.swing.JTextField jtfMessageTitle;
     // End of variables declaration//GEN-END:variables
     
      private void loadComponents() {
         setListModel();
+        loadMessage();
     }
     
     private void setListModel() {
@@ -194,9 +207,9 @@ public class MessageSchreiben extends javax.swing.JFrame {
     }
 
     private void jbtnSaveClicked() {
-        String title = jtfMessageTitle.getText();
-        String text = jtaMessageText.getText();
-        if (!title.isEmpty() || !text.isEmpty()) {
+        String title = _txtpaneTitel.getText();
+        String text = _txtpaneMessage.getText();
+        if (_topic != null) {
             _ctrl.createMessage(title, text, _topic);
         } else {
             jlblInfoMessage.setText("Bitte geben Sie Titel und Text ein.");
@@ -209,5 +222,12 @@ public class MessageSchreiben extends javax.swing.JFrame {
 
     private void jbtnCancelClicked() {
         _ctrl.CancelButtonClicked();
+    }
+
+    private void loadMessage() {
+       DTOMessage message = _ctrl.getMessage();
+       _txtpaneTitel.setText(message.getTitle());
+       _txtpaneMessage.setText(message.getText());
+       
     }
 }

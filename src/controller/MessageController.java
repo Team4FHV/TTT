@@ -19,6 +19,7 @@ public class MessageController {
     
 private static MessageController _instance = null;
 private  List<DTOMessage> messageList;
+private String[] topicNames = {"topic1", "topic2"};
 
 
 
@@ -38,4 +39,16 @@ private  List<DTOMessage> messageList;
     Feed feed = parser.readFeed();
     return feed.getMessages();
     }
+
+    public String[] getTopicNames() {
+        return topicNames;
+    }
+    
+    public void publishMessage(DTOMessage message){
+        
+    }
+    
+     public void addMessageToClient(DTOMessage m) {
+         
+     }
 }

@@ -17,6 +17,7 @@ import DTO.objecte.DTOKundenDatenAendern;
 import DTO.objecte.DTOLoginDaten;
 import DTO.objecte.DTOMessage;
 import DTO.objecte.DTORollenList;
+import DTO.objecte.DTOTopicData;
 import DTO.objecte.DTOVeranstaltung;
 import DTO.objecte.DTOVeranstaltungAnzeigen;
 import DTO.objecte.DTOVeranstaltungInformation;
@@ -301,9 +302,28 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
     }
     
     @Override
-    public List<DTOMessage> loadUnpublishedMessages() {
+    public List<DTOMessage> loadUnpublishedMessages()throws RemoteException {
        
         return  mess.loadMessages();
         
     }
+    
+    @Override
+    public ArrayList<DTOTopicData> getTopics() throws RemoteException{
+        ArrayList<DTOTopicData> result = new ArrayList<>();
+       for (String str : mess.getTopicNames()){
+           result.add(new DTOTopicData(str) );
+       }
+        return result;
+        
+    }
+    @Override
+    public void publishMessage(DTOMessage message) throws RemoteException{
+        
+    }
+    
+    @Override
+     public void addMessageToClient(DTOMessage m)  throws RemoteException{
+         
+     }
 }

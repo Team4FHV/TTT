@@ -15,6 +15,7 @@ import DTO.objecte.DTOKundenDatenAendern;
 import DTO.objecte.DTOLoginDaten;
 import DTO.objecte.DTOMessage;
 import DTO.objecte.DTORollenList;
+import DTO.objecte.DTOTopicData;
 import DTO.objecte.DTOVeranstaltung;
 import DTO.objecte.DTOVeranstaltungAnzeigen;
 import DTO.objecte.DTOVeranstaltungInformation;
@@ -60,4 +61,10 @@ public interface RMIControllerInterface extends Remote {
     public DTOVeranstaltung getVeranstaltungById(int veranstaltungID) throws RemoteException;
     
     public List<DTOMessage> loadUnpublishedMessages() throws RemoteException;
+    
+     public ArrayList<DTOTopicData> getTopics() throws RemoteException;
+     
+     public void publishMessage(DTOMessage message) throws RemoteException;
+     
+      public void addMessageToClient(DTOMessage m)  throws RemoteException;
 }

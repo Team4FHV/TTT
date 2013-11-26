@@ -185,7 +185,7 @@ public class MessageSchreiben extends javax.swing.JFrame {
     }
     
     private void setListModel() {
-        jListTopic.setModel(null);
+        jListTopic.setModel(_ctrl.getTopicModel());
     }
     
      private void jListMouseClicked() {
@@ -208,6 +208,6 @@ public class MessageSchreiben extends javax.swing.JFrame {
     }
 
     private void jbtnCancelClicked() {
-        
+        _ctrl.CancelButtonClicked();
     }
 }

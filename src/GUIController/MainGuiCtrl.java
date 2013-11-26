@@ -24,6 +24,7 @@ public class MainGuiCtrl {
     private static Login _login;
     private static Selection _selection;
     private static MessageViewer _messageViewer;
+    private static MessageSchreiben _messageSchreiben;
     private static KartenInfoCtrl _kartenInfoCtrl;
     private static VeranstaltungKategorieCtrl _veranstaltungKategorieCtrl;
     private static VeranstaltungsSuchenCtrl _veranstaltungSuchenCtrl;
@@ -31,6 +32,7 @@ public class MainGuiCtrl {
     private static LoginCtrl _loginCtrl;
     private static SelectionCtrl _selectionCtrl;
     private static MessageViewerCtrl _messsageViewerCtrl;
+    private static MessageSchreibenCtrl _messageSchreibenCtrl;
     private static Client _client;
 
     public static void VeranstaltungAusgewaehlt(int veranstaltungID) {
@@ -102,6 +104,22 @@ public class MainGuiCtrl {
         _kundeAnlegen = null;
     }
 
+    public static void MessageSchreibenCancel() {
+        _messageSchreiben.setVisible(false);
+        _selectionCtrl = getSelectionCtrl();
+        _selectionCtrl.setRollen(_client.getUserRollen());
+        _selection = new Selection(_selectionCtrl);
+        _messageSchreiben.Quit();
+        _messageSchreiben = null;
+    }
+
+    public static void MessageSchreiben() {
+        _selection.setVisible(false);
+        _messageSchreiben = new MessageSchreiben(getMessageSchreibenCtrl());
+        _selection.Quit();
+        _selection = null;
+    }
+
     static void SelectionClose() {
         _selection.setVisible(false);
         _login = new Login(getLoginCtrl());
@@ -110,15 +128,16 @@ public class MainGuiCtrl {
     }
 
     public static void showMessages() {
-        _veranstaltungSuchen.enable(false);
+        _veranstaltungSuchen.setEnabled(false);
         _messageViewer = new MessageViewer(getMessageViewerCtrl());
     }
 
     public static void enableVeranstaltungSuchen() {
         _messageViewer.setVisible(false);
         if (_veranstaltungSuchen != null) {
-
-            _veranstaltungSuchen.enable(true);
+            _veranstaltungSuchen.setEnabled(true);
+            _veranstaltungSuchen.checkMessages();
+            _veranstaltungSuchen.toFront();
         }
         _messageViewer.Quit();
         _messageViewer = null;
@@ -181,5 +200,12 @@ public class MainGuiCtrl {
             _messsageViewerCtrl = new MessageViewerCtrl(_client);
         }
         return _messsageViewerCtrl;
+    }
+
+    private static MessageSchreibenCtrl getMessageSchreibenCtrl() {
+        if (_messageSchreibenCtrl == null) {
+            _messageSchreibenCtrl = new MessageSchreibenCtrl(_client);
+        }
+        return _messageSchreibenCtrl;
     }
 }

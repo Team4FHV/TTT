@@ -98,6 +98,11 @@ public class Selection extends javax.swing.JFrame {
         jPanelSelection.add(jButtonKuVerwalten);
 
         jButtonMessages.setText("Messages schreiben");
+        jButtonMessages.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonMessagesActionPerformed(evt);
+            }
+        });
         jPanelSelection.add(jButtonMessages);
 
         jPanelScreen.add(jPanelSelection);
@@ -129,6 +134,10 @@ public class Selection extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         CloseWindow();
     }//GEN-LAST:event_formWindowClosing
+
+    private void jButtonMessagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMessagesActionPerformed
+       MessageSchreibenClicked();
+    }//GEN-LAST:event_jButtonMessagesActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonKreservieren;
@@ -183,5 +192,9 @@ public class Selection extends javax.swing.JFrame {
                 jButtonVsuchen.setEnabled(true);
             }
         }
+    }
+
+    private void MessageSchreibenClicked() {
+        _ctrl.MessageSchreiben();
     }
 }

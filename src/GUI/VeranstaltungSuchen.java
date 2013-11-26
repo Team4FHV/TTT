@@ -422,6 +422,7 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
     private void loadComponents() {
         setTableModel();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        checkMessages();
     }
 
     public void btnSearchStartClicked() {
@@ -482,18 +483,21 @@ public class VeranstaltungSuchen extends javax.swing.JFrame {
 
     private void btnMessageClicked() {
         ctrl.MessageClicked();
-        if(ctrl.getMessage() == null)
-        {
+    }
+
+    private void newMessage() {
+        _btnMessage.setEnabled(true);
+        _btnMessage.setForeground(Color.RED);
+        _btnMessage.setFont(new Font(Font.DIALOG, Font.BOLD, Font.BOLD));
+    }
+
+    public void checkMessages() {
+        if (ctrl.getMessage() != null) {
+            newMessage();
+        } else {
             _btnMessage.setEnabled(false);
             _btnMessage.setForeground(Color.GRAY);
             _btnMessage.setFont(null);
         }
-    }
-    
-    public void newMessage()
-    {
-        _btnMessage.setEnabled(true);
-        _btnMessage.setForeground(Color.RED);
-        _btnMessage.setFont(new Font(Font.DIALOG, Font.BOLD, Font.BOLD));
     }
 }

@@ -13,11 +13,12 @@ import java.util.List;
  * @author Monika
  */
 public class SelectionCtrl {
+
     private DTORollenList _rollen;
     private Client _client;
 
     SelectionCtrl(Client client) {
-       _client = client;
+        _client = client;
     }
 
     void setRollen(DTORollenList rolList) {
@@ -33,7 +34,7 @@ public class SelectionCtrl {
     }
 
     public void KundenVerwalten() {
-       MainGuiCtrl.KundenVerwalten();
+        MainGuiCtrl.KundenVerwalten();
     }
 
     public void KarteKaufen() {
@@ -48,5 +49,8 @@ public class SelectionCtrl {
         _client.clearRoles();
         MainGuiCtrl.SelectionClose();
     }
-    
+
+    public void MessageSchreiben() {
+        MainGuiCtrl.MessageSchreiben();
+    }
 }

@@ -55,8 +55,8 @@ public class MessageViewer extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
             }
         });
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -90,7 +90,6 @@ public class MessageViewer extends javax.swing.JFrame {
         jScrollPane2.setMinimumSize(new java.awt.Dimension(300, 50));
         jScrollPane2.setPreferredSize(new java.awt.Dimension(300, 50));
 
-        _tpanHeader.setBackground(new java.awt.Color(255, 255, 255));
         _tpanHeader.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         _tpanHeader.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         _tpanHeader.setEnabled(false);
@@ -122,11 +121,10 @@ public class MessageViewer extends javax.swing.JFrame {
 
         jPanel2.setMinimumSize(new java.awt.Dimension(400, 200));
         jPanel2.setPreferredSize(new java.awt.Dimension(400, 200));
-        jPanel2.setLayout(new java.awt.GridLayout());
+        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
         jScrollPane1.setEnabled(false);
 
-        _tpanText.setBackground(new java.awt.Color(255, 255, 255));
         _tpanText.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         _tpanText.setEnabled(false);
         jScrollPane1.setViewportView(_tpanText);
@@ -201,9 +199,10 @@ public class MessageViewer extends javax.swing.JFrame {
         btnOkClicked();
     }//GEN-LAST:event__btnOKActionPerformed
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        btnOkClicked();
-    }//GEN-LAST:event_formWindowClosed
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+      btnOkClicked();
+    }//GEN-LAST:event_formWindowClosing
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton _btnOK;
     private javax.swing.JTextPane _tpanHeader;

@@ -14,6 +14,7 @@ import DTO.objecte.DTOKundenDaten;
 import DTO.objecte.DTOLoginDaten;
 import DTO.objecte.DTOMessage;
 import DTO.objecte.DTORollenList;
+import DTO.objecte.DTOTopicData;
 import DTO.objecte.DTOVeranstaltung;
 import DTO.objecte.DTOVeranstaltungAnzeigen;
 import DTO.objecte.DTOVeranstaltungInformation;
@@ -157,5 +158,17 @@ public class Client {
         if (messages.size() > 0) {
             messages.remove(0);
         }
+    }
+
+    public ArrayList<DTOTopicData> getTopics() {
+       ArrayList<DTOTopicData> rv = new ArrayList<>();
+       DTOTopicData test = new DTOTopicData("test");
+       rv.add(test);
+       return rv;
+    }
+
+    public void publishMessage(DTOMessage message) {
+        //Test:
+        messages.add(message);//Muss wieder entfernt werden
     }
 }

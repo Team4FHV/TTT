@@ -24,7 +24,7 @@ public class MessageSchreibenCtrl {
 
     public MessageSchreibenCtrl(Client client) {
         this._client = client;
-        //todo in client: _topics = _client.getTopics();
+        _topics = _client.getTopics();
     }
 
     public ListModel getTopicModel() {
@@ -42,6 +42,11 @@ public class MessageSchreibenCtrl {
     public void createMessage(String title, String text, String topic) {
         Date date = new Date();
         DTOMessage message = new DTOMessage(title, text, date, topic);
-        //todo: _client.sendMessage(message);
+        _client.publishMessage(message);
+        CancelButtonClicked();
+    }
+
+    public void CancelButtonClicked() {
+        MainGuiCtrl.MessageSchreibenCancel();
     }
 }

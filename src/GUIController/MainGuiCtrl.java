@@ -262,4 +262,8 @@ public class MainGuiCtrl {
         }
         return _messagesBearbeitenCtrl;
     }
+
+    public static VeranstaltungSuchen getVeranstaltungSuchenView() {
+        return _veranstaltungSuchen;
+    }
 }

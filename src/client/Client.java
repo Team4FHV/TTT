@@ -22,6 +22,7 @@ import Exceptions.BenutzerNichtInDBException;
 import Exceptions.FalschesPasswordExeption;
 import Exceptions.KarteNichtVerfuegbarException;
 import Exceptions.SaveFailedException;
+import GUIController.MainGuiCtrl;
 import controller.RMIControllerFactoryInterface;
 import controller.RMIControllerInterface;
 import java.io.BufferedReader;
@@ -149,8 +150,12 @@ public class Client {
         return null;
     }
 
-    public void addToClientMessage(DTOMessage m) {
+    public void addMessageToClient(DTOMessage m) {
         messages.add(m);
+        if(MainGuiCtrl.getVeranstaltungSuchenView() != null)
+        {
+            MainGuiCtrl.getVeranstaltungSuchenView().checkMessages();
+        }
     }
 
     public void removeFirstMessage() {

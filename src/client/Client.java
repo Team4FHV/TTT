@@ -12,6 +12,7 @@ import DTO.objecte.DTOKategorienAuswaehlen;
 import DTO.objecte.DTOKundeNeuSpeichern;
 import DTO.objecte.DTOKundenDaten;
 import DTO.objecte.DTOLoginDaten;
+import DTO.objecte.DTOMessage;
 import DTO.objecte.DTORollenList;
 import DTO.objecte.DTOVeranstaltung;
 import DTO.objecte.DTOVeranstaltungAnzeigen;
@@ -27,8 +28,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Client {
@@ -37,6 +40,7 @@ public class Client {
     RMIControllerInterface rmi;
     String host;
     DTORollenList _userRollen;
+    List<DTOMessage> messages = new LinkedList<>();
 
     public Client() {
         startClient();
@@ -93,7 +97,6 @@ public class Client {
         return x;
     }
 
-   
     public void reservierungSpeichern(List<DTOKarteReservieren> karten) throws RemoteException, SaveFailedException, Exception, KarteNichtVerfuegbarException {
         rmi.reservierungSpeichern(karten);
     }
@@ -130,13 +133,29 @@ public class Client {
         _userRollen = rmi.login(l);
         return _userRollen;
     }
-    
-    public DTORollenList getUserRollen()
-    {
+
+    public DTORollenList getUserRollen() {
         return _userRollen;
     }
 
     public void clearRoles() {
         _userRollen = null;
+    }
+
+    public DTOMessage getFirstMessage() {
+        if (messages.size() > 0) {
+            return messages.get(0);
+        }
+        return null;
+    }
+
+    public void addMessage(DTOMessage m) {
+        messages.add(m);
+    }
+
+    public void removeFirstMessage() {
+        if (messages.size() > 0) {
+            messages.remove(0);
+        }
     }
 }

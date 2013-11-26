@@ -1,5 +1,3 @@
-
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -25,12 +23,14 @@ public class MainGuiCtrl {
     private static KundeAnlegen _kundeAnlegen;
     private static Login _login;
     private static Selection _selection;
+    private static MessageViewer _messageViewer;
     private static KartenInfoCtrl _kartenInfoCtrl;
     private static VeranstaltungKategorieCtrl _veranstaltungKategorieCtrl;
     private static VeranstaltungsSuchenCtrl _veranstaltungSuchenCtrl;
     private static KundeAnlegenCtrl _kundeAnlegenCtrl;
     private static LoginCtrl _loginCtrl;
     private static SelectionCtrl _selectionCtrl;
+    private static MessageViewerCtrl _messsageViewerCtrl;
     private static Client _client;
 
     public static void VeranstaltungAusgewaehlt(int veranstaltungID) {
@@ -101,11 +101,27 @@ public class MainGuiCtrl {
         _kundeAnlegen.Quit();
         _kundeAnlegen = null;
     }
-     static void SelectionClose() {
+
+    static void SelectionClose() {
         _selection.setVisible(false);
         _login = new Login(getLoginCtrl());
         _selection.Quit();
         _selection = null;
+    }
+
+    public static void showMessages() {
+        _veranstaltungSuchen.enable(false);
+        _messageViewer = new MessageViewer(getMessageViewerCtrl());
+    }
+
+    public static void enableVeranstaltungSuchen() {
+        _messageViewer.setVisible(false);
+        if (_veranstaltungSuchen != null) {
+
+            _veranstaltungSuchen.enable(true);
+        }
+        _messageViewer.Quit();
+        _messageViewer = null;
     }
 
     public static void main(String[] args) {
@@ -113,14 +129,14 @@ public class MainGuiCtrl {
         _login = new Login(getLoginCtrl());
     }
 
-    public static VeranstaltungsSuchenCtrl getVeranstaltungSuchenCtrl() {
+    private static VeranstaltungsSuchenCtrl getVeranstaltungSuchenCtrl() {
         if (_veranstaltungSuchenCtrl == null) {
             _veranstaltungSuchenCtrl = new VeranstaltungsSuchenCtrl(_client);
         }
         return _veranstaltungSuchenCtrl;
     }
 
-    public static VeranstaltungKategorieCtrl getVeranstaltungKategorieCtrl(int id) {
+    private static VeranstaltungKategorieCtrl getVeranstaltungKategorieCtrl(int id) {
         if (_veranstaltungKategorieCtrl == null) {
             _veranstaltungKategorieCtrl = new VeranstaltungKategorieCtrl(id, _client);
         } else {
@@ -129,7 +145,7 @@ public class MainGuiCtrl {
         return _veranstaltungKategorieCtrl;
     }
 
-    public static KartenInfoCtrl getKartenInfoCtrl(int veranstaltungID, int kategorieID) {
+    private static KartenInfoCtrl getKartenInfoCtrl(int veranstaltungID, int kategorieID) {
         if (_kartenInfoCtrl == null) {
             _kartenInfoCtrl = new KartenInfoCtrl(veranstaltungID, kategorieID, _client);
         } else {
@@ -139,7 +155,7 @@ public class MainGuiCtrl {
         return _kartenInfoCtrl;
     }
 
-    public static KundeAnlegenCtrl getKundeAnlegenCtrl() {
+    private static KundeAnlegenCtrl getKundeAnlegenCtrl() {
         if (_kundeAnlegenCtrl == null) {
             _kundeAnlegenCtrl = new KundeAnlegenCtrl(_client);
         }
@@ -160,5 +176,10 @@ public class MainGuiCtrl {
         return _loginCtrl;
     }
 
-   
+    private static MessageViewerCtrl getMessageViewerCtrl() {
+        if (_messsageViewerCtrl == null) {
+            _messsageViewerCtrl = new MessageViewerCtrl(_client);
+        }
+        return _messsageViewerCtrl;
+    }
 }

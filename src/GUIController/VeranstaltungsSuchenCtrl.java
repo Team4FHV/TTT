@@ -97,4 +97,12 @@ public class VeranstaltungsSuchenCtrl {
     public void CancelClicked() {
         MainGuiCtrl.VeranstaltungCancel();
     }
+
+    public void MessageClicked() {
+        MainGuiCtrl.showMessages();
+    }
+
+    public DTOMessage getMessage() {
+        return _client.getFirstMessage();
+    }
 }

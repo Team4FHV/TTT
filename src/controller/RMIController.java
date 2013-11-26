@@ -296,4 +296,6 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
         boolean ermaessigt = (v.getErmaessigung() == 0);
         return new DTOVeranstaltung(veranstaltungID, Vname, VOrt, date, ermaessigt);
     }
+    
+   
 }

@@ -53,4 +53,8 @@ public class SelectionCtrl {
     public void MessageSchreiben() {
         MainGuiCtrl.MessageSchreiben();
     }
+
+    public void MessageZuordnen() {
+       MainGuiCtrl.MessageBearbeiten();
+    }
 }

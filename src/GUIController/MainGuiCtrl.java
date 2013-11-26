@@ -4,6 +4,7 @@
  */
 package GUIController;
 
+import DTO.objecte.DTOMessage;
 import DTO.objecte.DTORollenList;
 
 import GUI.*;
@@ -25,6 +26,8 @@ public class MainGuiCtrl {
     private static Selection _selection;
     private static MessageViewer _messageViewer;
     private static MessageSchreiben _messageSchreiben;
+    private static MessagesBearbeiten _messagesBearbeiten;
+    private static MessageZuordnen _messageZuordnen;
     private static KartenInfoCtrl _kartenInfoCtrl;
     private static VeranstaltungKategorieCtrl _veranstaltungKategorieCtrl;
     private static VeranstaltungsSuchenCtrl _veranstaltungSuchenCtrl;
@@ -33,6 +36,8 @@ public class MainGuiCtrl {
     private static SelectionCtrl _selectionCtrl;
     private static MessageViewerCtrl _messsageViewerCtrl;
     private static MessageSchreibenCtrl _messageSchreibenCtrl;
+    private static MessagesBearbeitenCtrl _messagesBearbeitenCtrl;
+    private static MessageZuordnenCtrl _messageZuordnenCtrl;
     private static Client _client;
 
     public static void VeranstaltungAusgewaehlt(int veranstaltungID) {
@@ -143,6 +148,39 @@ public class MainGuiCtrl {
         _messageViewer = null;
     }
 
+    static void MessageZuordnenCancel() {
+        _messageZuordnen.setVisible(false);
+        if (_messagesBearbeiten != null) {
+            _messagesBearbeiten.setEnabled(true);
+            _messagesBearbeiten.reloadMessages();
+            _messagesBearbeiten.toFront();
+        }
+        _messageZuordnen.Quit();
+        _messageZuordnen = null;
+    }
+
+    static void MessageBearbeitenCancel() {
+        _messagesBearbeiten.setVisible(false);
+        _selectionCtrl = getSelectionCtrl();
+        _selectionCtrl.setRollen(_client.getUserRollen());
+        _selection = new Selection(_selectionCtrl);
+        _messagesBearbeiten.Quit();
+        _messagesBearbeiten = null;
+    }
+
+    static void MessageZuordnen(DTOMessage dtoMessage) {
+        _messagesBearbeiten.setEnabled(false);
+        _messageZuordnenCtrl = getMessageZuordnenCtrl(dtoMessage);
+        _messageZuordnen = new MessageZuordnen(_messageZuordnenCtrl);
+    }
+
+    static void MessageBearbeiten() {
+        _selection.setVisible(false);
+        _messagesBearbeiten = new MessagesBearbeiten(getMessagesBearbeitenCtrl());
+        _selection.Quit();
+        _selection = null;
+    }
+
     public static void main(String[] args) {
         _client = new Client();
         _login = new Login(getLoginCtrl());
@@ -207,5 +245,21 @@ public class MainGuiCtrl {
             _messageSchreibenCtrl = new MessageSchreibenCtrl(_client);
         }
         return _messageSchreibenCtrl;
+    }
+
+    private static MessageZuordnenCtrl getMessageZuordnenCtrl(DTOMessage m) {
+        if (_messageZuordnenCtrl == null) {
+            _messageZuordnenCtrl = new MessageZuordnenCtrl(_client, m);
+        } else {
+            _messageZuordnenCtrl.setMessage(m);
+        }
+        return _messageZuordnenCtrl;
+    }
+
+    private static MessagesBearbeitenCtrl getMessagesBearbeitenCtrl() {
+        if (_messagesBearbeitenCtrl == null) {
+            _messagesBearbeitenCtrl = new MessagesBearbeitenCtrl(_client);
+        }
+        return _messagesBearbeitenCtrl;
     }
 }

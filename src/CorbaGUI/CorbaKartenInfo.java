@@ -607,7 +607,7 @@ public class CorbaKartenInfo extends javax.swing.JFrame {
                     changedRow[i] = model.getValueAt(row, i);
                 }
                 if (column == 0) {
-                    if (changedRow[0] == true) {
+                    if ((boolean) changedRow[0] == true) {
                         karteAuswaehlen(changedRow);
                     } else {
                         karteEntfernen(changedRow);

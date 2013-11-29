@@ -356,11 +356,13 @@ public class KartenInfo extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(_tblKarten);
-        _tblKarten.getColumnModel().getColumn(0).setResizable(false);
-        _tblKarten.getColumnModel().getColumn(1).setResizable(false);
-        _tblKarten.getColumnModel().getColumn(2).setResizable(false);
-        _tblKarten.getColumnModel().getColumn(3).setResizable(false);
-        _tblKarten.getColumnModel().getColumn(4).setResizable(false);
+        if (_tblKarten.getColumnModel().getColumnCount() > 0) {
+            _tblKarten.getColumnModel().getColumn(0).setResizable(false);
+            _tblKarten.getColumnModel().getColumn(1).setResizable(false);
+            _tblKarten.getColumnModel().getColumn(2).setResizable(false);
+            _tblKarten.getColumnModel().getColumn(3).setResizable(false);
+            _tblKarten.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         jPanel2.add(jScrollPane1);
 
@@ -664,7 +666,7 @@ public class KartenInfo extends javax.swing.JFrame {
                     changedRow[i] = model.getValueAt(row, i);
                 }
                 if (column == 0) {
-                    if (changedRow[0] == true) {
+                    if ((boolean)changedRow[0] == true) {
                         karteAuswaehlen(changedRow);
                     } else {
                         karteEntfernen(changedRow);

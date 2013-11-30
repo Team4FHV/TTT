@@ -51,4 +51,8 @@ private String[] topicNames = {"topic1", "topic2"};
      public void addMessageToClient(DTOMessage m) {
          
      }
+     
+     public void getTopicsVonBenutzer(int BenutzerId){
+         
+     }
 }

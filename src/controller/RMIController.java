@@ -46,6 +46,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.naming.NamingException;
 
 /**
  *
@@ -247,7 +248,7 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
             for (DTOKarteBestellen b : karten) {
                 Karte k = ucb.getKarteByID(b.getKartenID());
                 DAOFabrik.getInstance().getKarteDAO().saveORupdate(k);
-                System.out.println("UHRA ");
+              
                      System.out.println(dm.getKartenStatusId(k.getKartenId()));
                      System.out.println(statusFREI);
                 if (dm.getKartenStatusId(k.getKartenId())== statusFREI) {
@@ -319,7 +320,11 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
     }
     @Override
     public void publishMessage(DTOMessage message) throws RemoteException{
-        
+        try {
+            mess.publishMessage(message);
+        } catch (NamingException ex) {
+            Logger.getLogger(RMIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @Override

@@ -32,6 +32,7 @@ public class Subscriber implements MessageListener {
     TopicConnection topicConnection = null;
     TopicSession topicSession = null;
     Topic topic = null;
+    String host = "localhost";
 
     public Subscriber() {
     }
@@ -47,7 +48,7 @@ public class Subscriber implements MessageListener {
 
         Properties props = new Properties();
         props.setProperty("java.naming.factory.initial", "com.sun.enterprise.naming.SerialInitContextFactory");
-        props.setProperty("org.omg.CORBA.ORBInitialHost", "localhost");//ur server ip  
+        props.setProperty("org.omg.CORBA.ORBInitialHost", host);//ur server ip  
         props.setProperty("org.omg.CORBA.ORBInitialPort", "3700"); //default is 3700  
 
         try {
@@ -68,8 +69,6 @@ public class Subscriber implements MessageListener {
             Topic topic = (Topic) jndiContext.lookup("jms/"+topicname);
 
             topicConnection = topicConnectionFactory.createTopicConnection();
-
-            topicConnection.setClientID(clientId);
             
             topicSession = topicConnection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
            
@@ -88,13 +87,11 @@ public class Subscriber implements MessageListener {
                 System.out.println("Message empfangen :" + msg.toString());
             }
 
-          // TopicSubscriber topicSubscriber = topicSession.createSubscriber(topic);
-
             // wait for messages
             System.out.print("waiting for messages\n");
 
             // set an asynchronous message listener
-          //  topicSubscriber.setMessageListener(new Subscriber());
+            topicSubscriber.setMessageListener(new Subscriber());
 
         } catch (JMSException e) {
             System.out.println("Exception occurred: " + e.toString());
@@ -113,4 +110,10 @@ public class Subscriber implements MessageListener {
         topicConnection.close();
 
     }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+    
+    
 }

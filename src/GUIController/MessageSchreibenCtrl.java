@@ -8,8 +8,11 @@ import DTO.objecte.DTOMessage;
 import DTO.objecte.DTOTopicData;
 import DTO.objecte.DTOTopicList;
 import client.Client;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ListModel;
 
@@ -24,7 +27,11 @@ public class MessageSchreibenCtrl {
 
     public MessageSchreibenCtrl(Client client) {
         this._client = client;
-        _topics = _client.getTopics();
+        try {
+            _topics = _client.getTopics();
+        } catch (RemoteException ex) {
+            Logger.getLogger(MessageSchreibenCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public ListModel getTopicModel() {
@@ -42,7 +49,11 @@ public class MessageSchreibenCtrl {
     public void createMessage(String title, String text, String topic) {
         Date date = new Date();
         DTOMessage message = new DTOMessage(title, text, date, topic);
-        _client.publishMessage(message);
+        try {
+            _client.publishMessage(message);
+        } catch (RemoteException ex) {
+            Logger.getLogger(MessageSchreibenCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        }
         CancelButtonClicked();
     }
 

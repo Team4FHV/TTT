@@ -166,34 +166,19 @@ public class Client {
         }
     }
 
-    public ArrayList<DTOTopicData> getTopics() {
-        //return rmi.getTopics();
-
-        //Test
-        ArrayList<DTOTopicData> rv = new ArrayList<>();
-        DTOTopicData test = new DTOTopicData("test");
-        rv.add(test);
-        return rv;
+    public ArrayList<DTOTopicData> getTopics() throws RemoteException {
+        return rmi.getTopics();
     }
 
-    public void publishMessage(DTOMessage message) {
-        //rmi.publishMessage(message);
-
-        //Test
-        messages.add(message);//Muss wieder entfernt werden
+    public void publishMessage(DTOMessage message) throws RemoteException {
+        rmi.publishMessage(message);  
     }
 
     public List<DTOMessage> loadUnpublishedMessages(){
         try {
             return rmi.loadUnpublishedMessages();
 
-    //        //Test
-    //        List<DTOMessage> rv = new LinkedList<>();
-    //        DTOMessage m1 = new DTOMessage("Testmessage", "testtext", null, "");
-    //        DTOMessage m2 = new DTOMessage("Test2", "test", null, "");
-    //        rv.add(m1);
-    //        rv.add(m2);
-    //        return rv;
+    
         } catch (RemoteException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }

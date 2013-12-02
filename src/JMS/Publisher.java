@@ -42,10 +42,7 @@ public class Publisher{
         
 
         Properties props = new Properties();
-        System.setProperty("java.naming.factory.initial", "com.sun.enterprise.naming.SerialInitContextFactory");
-System.setProperty("java.naming.factory.url.pkgs", "com.sun.enterprise.naming");
-System.setProperty("java.naming.factory.state", "com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl");
-
+      
         props.setProperty("java.naming.factory.initial", "com.sun.enterprise.naming.SerialInitContextFactory");
         props.setProperty("org.omg.CORBA.ORBInitialHost", "localhost");// server ip  
         props.setProperty("org.omg.CORBA.ORBInitialPort", "3700"); //default is 3700  

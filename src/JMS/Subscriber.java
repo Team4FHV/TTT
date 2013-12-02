@@ -26,7 +26,7 @@ import javax.naming.NamingException;
 public class Subscriber implements MessageListener {
     String clientId;
     String topicname;
-    String topicConnectionFactoryName = "topicConnectionFactory";
+    String topicConnectionFactoryName = "jms/topicConnectionFactory";
     Context jndiContext = null;
     TopicConnectionFactory topicConnectionFactory = null;
     TopicConnection topicConnection = null;
@@ -65,16 +65,17 @@ public class Subscriber implements MessageListener {
     public void subscribe() throws NamingException {
        
         try {
-            Topic topic = (Topic) jndiContext.lookup(topicname);
+            Topic topic = (Topic) jndiContext.lookup("jms/"+topicname);
 
             topicConnection = topicConnectionFactory.createTopicConnection();
 
             topicConnection.setClientID(clientId);
-
+            
             topicSession = topicConnection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
-
+           
+          
             // create a topic subscriber
-            TopicSubscriber topicSubscriber = topicSession.createDurableSubscriber(topic, topicConnection.getClientID());
+            TopicSubscriber topicSubscriber = topicSession.createSubscriber(topic);
 
             // start the connection
             topicConnection.start();
@@ -87,12 +88,13 @@ public class Subscriber implements MessageListener {
                 System.out.println("Message empfangen :" + msg.toString());
             }
 
+          // TopicSubscriber topicSubscriber = topicSession.createSubscriber(topic);
 
             // wait for messages
             System.out.print("waiting for messages\n");
 
             // set an asynchronous message listener
-            topicSubscriber.setMessageListener(new Subscriber());
+          //  topicSubscriber.setMessageListener(new Subscriber());
 
         } catch (JMSException e) {
             System.out.println("Exception occurred: " + e.toString());

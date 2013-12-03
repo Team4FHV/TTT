@@ -26,12 +26,13 @@ import javax.naming.NamingException;
 public class Subscriber implements MessageListener {
     String clientId;
     String topicname;
-    String topicConnectionFactoryName = "topicConnectionFactory";
+    String topicConnectionFactoryName = "jms/topicConnectionFactory";
     Context jndiContext = null;
     TopicConnectionFactory topicConnectionFactory = null;
     TopicConnection topicConnection = null;
     TopicSession topicSession = null;
     Topic topic = null;
+    String host = "localhost";
 
     public Subscriber() {
     }
@@ -47,7 +48,7 @@ public class Subscriber implements MessageListener {
 
         Properties props = new Properties();
         props.setProperty("java.naming.factory.initial", "com.sun.enterprise.naming.SerialInitContextFactory");
-        props.setProperty("org.omg.CORBA.ORBInitialHost", "localhost");//ur server ip  
+        props.setProperty("org.omg.CORBA.ORBInitialHost", host);//ur server ip  
         props.setProperty("org.omg.CORBA.ORBInitialPort", "3700"); //default is 3700  
 
         try {
@@ -65,16 +66,15 @@ public class Subscriber implements MessageListener {
     public void subscribe() throws NamingException {
        
         try {
-            Topic topic = (Topic) jndiContext.lookup(topicname);
+            Topic topic = (Topic) jndiContext.lookup("jms/"+topicname);
 
             topicConnection = topicConnectionFactory.createTopicConnection();
-
-            topicConnection.setClientID(clientId);
-
+            
             topicSession = topicConnection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
-
+           
+          
             // create a topic subscriber
-            TopicSubscriber topicSubscriber = topicSession.createDurableSubscriber(topic, topicConnection.getClientID());
+            TopicSubscriber topicSubscriber = topicSession.createSubscriber(topic);
 
             // start the connection
             topicConnection.start();
@@ -86,7 +86,6 @@ public class Subscriber implements MessageListener {
             } else {
                 System.out.println("Message empfangen :" + msg.toString());
             }
-
 
             // wait for messages
             System.out.print("waiting for messages\n");
@@ -111,4 +110,10 @@ public class Subscriber implements MessageListener {
         topicConnection.close();
 
     }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+    
+    
 }

@@ -154,8 +154,7 @@ public class Client {
 
     public void addMessageToClient(DTOMessage m) {
         messages.add(m);
-        if(MainGuiCtrl.getVeranstaltungSuchenView() != null)
-        {
+        if (MainGuiCtrl.getVeranstaltungSuchenView() != null) {
             MainGuiCtrl.getVeranstaltungSuchenView().checkMessages();
         }
     }
@@ -171,14 +170,13 @@ public class Client {
     }
 
     public void publishMessage(DTOMessage message) throws RemoteException {
-        rmi.publishMessage(message);  
+        rmi.publishMessage(message);
     }
 
-    public List<DTOMessage> loadUnpublishedMessages(){
+    public List<DTOMessage> loadUnpublishedMessages() {
         try {
             return rmi.loadUnpublishedMessages();
 
-    
         } catch (RemoteException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }

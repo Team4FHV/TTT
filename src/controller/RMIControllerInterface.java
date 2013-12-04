@@ -29,42 +29,43 @@ import java.util.List;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-
-
 /**
  *
  * @author Iryna
  */
 public interface RMIControllerInterface extends Remote {
-    DTORollenList login( DTOLoginDaten l) throws RemoteException, BenutzerNichtInDBException, FalschesPasswordExeption;
-    
-    void neuenKundenSpeichern(DTOKundeNeuSpeichern k) throws RemoteException, SaveFailedException; 
-    
+
+    DTORollenList login(DTOLoginDaten l) throws RemoteException, BenutzerNichtInDBException, FalschesPasswordExeption;
+
+    void neuenKundenSpeichern(DTOKundeNeuSpeichern k) throws RemoteException, SaveFailedException;
+
     void kundenDatenAendern(DTOKundenDatenAendern k) throws RemoteException, SaveFailedException;
 
-    DTOKategorieKarte getAlleFreieKartenNachKategorie(DTOKategorienAuswaehlen kat)  throws RemoteException;
+    DTOKategorieKarte getAlleFreieKartenNachKategorie(DTOKategorienAuswaehlen kat) throws RemoteException;
 
-    ArrayList<DTOKategorieInformation> getKategorieInfoVonVeranstaltung(DTOVeranstaltungAnzeigen v)  throws RemoteException;
+    ArrayList<DTOKategorieInformation> getKategorieInfoVonVeranstaltung(DTOVeranstaltungAnzeigen v) throws RemoteException;
 
-    ArrayList<DTOKundenDaten> getKundenListNachNachname(String nachname)  throws RemoteException, Exception;
+    ArrayList<DTOKundenDaten> getKundenListNachNachname(String nachname) throws RemoteException, Exception;
 
-    DTOKundenDaten getKundendatenNachID(int id)  throws  Exception, RemoteException;
+    DTOKundenDaten getKundendatenNachID(int id) throws Exception, RemoteException;
 
-    void reservierungSpeichern(List<DTOKarteReservieren> karten)  throws  Exception, RemoteException, SaveFailedException, KarteNichtVerfuegbarException;
+    void reservierungSpeichern(List<DTOKarteReservieren> karten) throws Exception, RemoteException, SaveFailedException, KarteNichtVerfuegbarException;
 
-    ArrayList<DTOVeranstaltungInformation> sucheVeranstaltungenNachKrieterien(Date d, String ort, String kuenstler)  throws RemoteException;
+    ArrayList<DTOVeranstaltungInformation> sucheVeranstaltungenNachKrieterien(Date d, String ort, String kuenstler) throws RemoteException;
 
-    void verkaufSpeichern(List<DTOKarteBestellen> karten) throws  Exception, RemoteException, SaveFailedException, KarteNichtVerfuegbarException;
+    void verkaufSpeichern(List<DTOKarteBestellen> karten) throws Exception, RemoteException, SaveFailedException, KarteNichtVerfuegbarException;
 
-    public DTOKategorieInformation getKategorieInfo(int id)  throws RemoteException;
-    
+    public DTOKategorieInformation getKategorieInfo(int id) throws RemoteException;
+
     public DTOVeranstaltung getVeranstaltungById(int veranstaltungID) throws RemoteException;
-    
+
     public List<DTOMessage> loadUnpublishedMessages() throws RemoteException;
-    
-     public ArrayList<DTOTopicData> getTopics() throws RemoteException;
-     
-     public void publishMessage(DTOMessage message) throws RemoteException;
-     
-      public void addMessageToClient(DTOMessage m)  throws RemoteException;
+
+    public ArrayList<DTOTopicData> getTopics() throws RemoteException;
+
+    public void publishMessage(DTOMessage message) throws RemoteException;
+
+    public void addMessageToClient(DTOMessage m) throws RemoteException;
+
+    public ArrayList<DTOTopicData> getTopicsVonBenutzer(String name) throws RemoteException;
 }

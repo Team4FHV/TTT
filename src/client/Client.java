@@ -23,6 +23,7 @@ import Exceptions.FalschesPasswordExeption;
 import Exceptions.KarteNichtVerfuegbarException;
 import Exceptions.SaveFailedException;
 import GUIController.MainGuiCtrl;
+import JMS.Subscriber;
 import controller.RMIControllerFactoryInterface;
 import controller.RMIControllerInterface;
 import java.io.BufferedReader;
@@ -36,13 +37,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.naming.NamingException;
 
 public class Client {
 
     RMIControllerFactoryInterface stub;
     RMIControllerInterface rmi;
-    String host;
+    String host = "localhost";
     DTORollenList _userRollen;
+    String username;
     List<DTOMessage> messages = new LinkedList<>();
 
     public Client() {
@@ -134,6 +137,7 @@ public class Client {
     public DTORollenList login(DTOLoginDaten l) throws RemoteException,
             BenutzerNichtInDBException, FalschesPasswordExeption {
         _userRollen = rmi.login(l);
+        username = l.getUsername(); 
         return _userRollen;
     }
 
@@ -181,5 +185,15 @@ public class Client {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    public void startListenToMessages() throws RemoteException, NamingException{
+         ArrayList<DTOTopicData> topics = rmi.getTopicsVonBenutzer(username);
+         for (DTOTopicData topic :topics){
+            System.out.println("topic  " + topic.getName());
+            Subscriber s = new Subscriber(topic.getName(), this);
+            if (!host.equals("")) s.setHost(host);
+            s.subscribe();
+         }
     }
 }

@@ -7,6 +7,7 @@ package controller;
 import DTO.objecte.DTOMessage;
 import DTO.objecte.DTOTopicData;
 import Domain.DAOFabrik;
+import Hibernate.objecte.Benutzer;
 import JMS.Publisher;
 import RSSParser.Feed;
 import RSSParser.RSSFeedParser;
@@ -22,8 +23,8 @@ public class MessageController {
 
     private static MessageController _instance = null;
     private List<DTOMessage> messageList;
-    private String[] topicNames = {"topic1", "topic2"};
-    private Publisher pablisher = new Publisher();
+    private String[] topicNames = ConstantContent.ConstantTopics.topicList;
+    private DataManager dm = new DataManager();
 
     private MessageController() {
     }
@@ -46,14 +47,14 @@ public class MessageController {
     }
 
     public void publishMessage(DTOMessage message) throws NamingException {
-        pablisher.publish(message);
+        Publisher publisher = new Publisher();
+        publisher.publish(message);
     }
 
-    public void addMessageToClient(DTOMessage m) {
-    }
-
-    public ArrayList<DTOTopicData> getTopicsVonBenutzer(int BenutzerId) {
-        String topics = DAOFabrik.getInstance().getBenutzerDAO().findById(BenutzerId, false).getTopics();
+   
+    public ArrayList<DTOTopicData> getTopicsVonBenutzer(String userNamename) {
+        Benutzer b = dm.getBentzerNachName(userNamename);
+        String topics = DAOFabrik.getInstance().getBenutzerDAO().findById(b.getBenutzerId(), false).getTopics();
         ArrayList<DTOTopicData> result = new ArrayList<>();
         String[] x = topics.split(" ");
         for (int i = 0; i < x.length; i++){

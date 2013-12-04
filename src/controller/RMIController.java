@@ -331,4 +331,10 @@ public class RMIController extends UnicastRemoteObject implements RMIControllerI
      public void addMessageToClient(DTOMessage m)  throws RemoteException{
          
      }
+    
+     @Override
+    public ArrayList<DTOTopicData> getTopicsVonBenutzer(String name) throws RemoteException{
+        ArrayList<DTOTopicData> result = mess.getTopicsVonBenutzer(name);  
+        return result;
+     }
 }

@@ -11,6 +11,8 @@ import GUI.*;
 
 
 import client.Client;
+import java.rmi.RemoteException;
+import javax.naming.NamingException;
 
 /**
  *
@@ -181,9 +183,10 @@ public class MainGuiCtrl {
         _selection = null;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws RemoteException, NamingException {
         _client = new Client();
         _login = new Login(getLoginCtrl());
+       
     }
 
     private static VeranstaltungsSuchenCtrl getVeranstaltungSuchenCtrl() {

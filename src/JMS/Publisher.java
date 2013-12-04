@@ -77,10 +77,12 @@ public class Publisher{
             topicPublisher.publish(message);
 
             // print what we did
-            System.out.println("published in  "+ topicName +" :" + message.toString());
+            System.out.println("published in  "+ topicName +" :" + ((DTOMessage)message.getObject()).getText());
 
             // close the topic connection
+            topicSession.close();
             topicConnection.close();
+            jndiContext.close();
 
         } catch (JMSException ex) {
             Logger.getLogger(Publisher.class.getName()).log(Level.SEVERE, null, ex);

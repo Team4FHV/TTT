@@ -7,6 +7,7 @@ package controller;
 import JMS.Publisher;
 import DTO.objecte.DTOMessage;
 import JMS.Subscriber;
+import client.Client;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import javax.naming.NamingException;
@@ -20,18 +21,9 @@ public class TEST {
         
      
     Publisher p = new Publisher();
-    p.publish(new DTOMessage("hallo", null, null, "topicRock"));
+    p.publish(new DTOMessage("hallo", "text", null, "topicRock"));
     
-    
-    Subscriber s = new Subscriber("ife7261", "topicRock");
-     
-     s.start();
-    s.subscribe();
-    
-   
-    p.publish(new DTOMessage("hallo2", null, null, "topicRock"));
-    
-    
+  
     
     }
      

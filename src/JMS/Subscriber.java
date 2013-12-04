@@ -4,7 +4,11 @@
  */
 package JMS;
 
+import DTO.objecte.DTOMessage;
+import client.Client;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
@@ -24,7 +28,7 @@ import javax.naming.NamingException;
  * @author media
  */
 public class Subscriber implements MessageListener {
-    String clientId;
+
     String topicname;
     String topicConnectionFactoryName = "jms/topicConnectionFactory";
     Context jndiContext = null;
@@ -33,15 +37,17 @@ public class Subscriber implements MessageListener {
     TopicSession topicSession = null;
     Topic topic = null;
     String host = "localhost";
+    Client client;
 
-    public Subscriber() {
+    public Subscriber( Client client) {
+         this.client = client;
     }
 
-   
-    
-    public Subscriber(String clientId, String topicname) {
-         this.clientId =  clientId;
-         this.topicname = topicname;
+    public Subscriber(String topicname, Client client) {
+        this.topicname = topicname;
+        this.client = client;
+        System.out.println("Subscriber created " + topicname + "client=" + client.toString());
+        start();
     }
 
     public void start() {
@@ -54,7 +60,7 @@ public class Subscriber implements MessageListener {
         try {
             jndiContext = new InitialContext(props);
             topicConnectionFactory = (TopicConnectionFactory) jndiContext.lookup(topicConnectionFactoryName);
-
+            System.out.println("TopicConnectionFactory created");
 
         } catch (NamingException e) {
             System.out.println("JNDI lookup failed: "
@@ -64,15 +70,16 @@ public class Subscriber implements MessageListener {
     }
 
     public void subscribe() throws NamingException {
-       
+
         try {
-            Topic topic = (Topic) jndiContext.lookup("jms/"+topicname);
+            Topic topic = (Topic) jndiContext.lookup("jms/" + topicname);
+            jndiContext.close();
 
             topicConnection = topicConnectionFactory.createTopicConnection();
-            
+
             topicSession = topicConnection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
-           
-          
+
+
             // create a topic subscriber
             TopicSubscriber topicSubscriber = topicSession.createSubscriber(topic);
 
@@ -80,18 +87,13 @@ public class Subscriber implements MessageListener {
             topicConnection.start();
 
 
-            ObjectMessage msg = (ObjectMessage) topicSubscriber.receive(15000);
-            if (msg == null) {
-                System.out.println("Timed out waiting for msg");
-            } else {
-                System.out.println("Message empfangen :" + msg.toString());
-            }
-
+//            ObjectMessage msg = (ObjectMessage) topicSubscriber.receive();
+           
             // wait for messages
             System.out.print("waiting for messages\n");
 
             // set an asynchronous message listener
-            topicSubscriber.setMessageListener(new Subscriber());
+            topicSubscriber.setMessageListener(new Subscriber(client));
 
         } catch (JMSException e) {
             System.out.println("Exception occurred: " + e.toString());
@@ -101,9 +103,19 @@ public class Subscriber implements MessageListener {
 
     @Override
     public void onMessage(Message message) {
-       
-            System.out.println("received: " + message.toString());
-       
+        DTOMessage m = null;
+        if (message instanceof ObjectMessage) {
+            try {
+                ObjectMessage msg = (ObjectMessage) message;
+                m = (DTOMessage) msg.getObject();
+                System.out.println("received: "+ m.getTitle()+ "   "+ m.getText());
+                this.client.addMessageToClient(m);
+
+            } catch (JMSException ex) {
+                Logger.getLogger(Subscriber.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
 
     public void stop() throws JMSException {
@@ -114,6 +126,4 @@ public class Subscriber implements MessageListener {
     public void setHost(String host) {
         this.host = host;
     }
-    
-    
 }
